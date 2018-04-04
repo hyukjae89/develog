@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<classPathEntry location="C:\Users\hyukj\.m2\repository\mysql\mysql-connector-java\5.1.31\mysql-connector-java-5.1.31.jar" />
+
+	<context id="context">
+		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/develog" driverClass="org.gjt.mm.mysql.Driver" password="" userId="" />
+		<javaModelGenerator targetPackage="pe.oh29oh29.myweb.model" targetProject="develog/src/main/java" />
+		<sqlMapGenerator targetPackage="pe.oh29oh29.myweb.xml" targetProject="develog/src/main/java" />
+		<javaClientGenerator targetPackage="pe.oh29oh29.myweb.mapper" targetProject="develog/src/main/java" type="XMLMAPPER" />
+		
+		<table schema="develog" tableName="MEMBERS"/>
+		<table schema="develog" tableName="CATEGORIES"/>
+		<table schema="develog" tableName="POSTS"/>
+		<table schema="develog" tableName="POST_COMMENTS"/>
+		
+	</context>
+</generatorConfiguration>
