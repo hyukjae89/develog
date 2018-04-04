@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-	<classPathEntry location="C:\Users\hyukj\.m2\repository\mysql\mysql-connector-java\5.1.31\mysql-connector-java-5.1.31.jar" />
+	<!-- <classPathEntry location="C:\Users\hyukj\.m2\repository\mysql\mysql-connector-java\5.1.31\mysql-connector-java-5.1.31.jar" /> -->
+	<classPathEntry location="/Users/kwonhyukjae/.m2/repository/mysql/mysql-connector-java/5.1.31/mysql-connector-java-5.1.31.jar" />
 
 	<context id="context">
 		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/develog" driverClass="org.gjt.mm.mysql.Driver" password="" userId="" />
