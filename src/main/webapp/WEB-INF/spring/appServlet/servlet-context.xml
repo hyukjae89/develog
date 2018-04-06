@@ -23,6 +23,37 @@
 	
 	<context:component-scan base-package="pe.oh29oh29.myweb" />
 	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<beans:property name="maxUploadSize" value="100000000"/>
+	</beans:bean>
 	
+	<beans:bean id="databaseProp" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="location" value="classpath:database.properties" />
+	</beans:bean>
+	
+	<beans:bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<beans:property name="driverClassName"><beans:value>${my.driver}</beans:value></beans:property>
+		<beans:property name="url"><beans:value>${my.url}</beans:value></beans:property>
+		<beans:property name="username"><beans:value>${my.username}</beans:value></beans:property>
+		<beans:property name="password"><beans:value>${my.password}</beans:value></beans:property>
+		<beans:property name="validationQuery"><beans:value>SELECT 1</beans:value></beans:property>
+		<beans:property name="testWhileIdle"><beans:value>true</beans:value>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- mybatis 연동 -->
+	<!-- mapper scanner -->
+	<beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<beans:property name="basePackage" value="pe.oh29oh29.myweb.mapper" />
+	</beans:bean>
+
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+		<beans:property name="mapperLocations" value="classpath*:pe/oh29oh29/myweb/xml/*.xml"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg ref="sqlSessionFactory"></beans:constructor-arg>
+	</beans:bean>
 	
 </beans:beans>
