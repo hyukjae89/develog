@@ -1,4 +1,4 @@
-package pe.oh29oh29.myweb;
+package pe.oh29oh29.myweb.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

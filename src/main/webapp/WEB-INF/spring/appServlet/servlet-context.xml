@@ -31,7 +31,7 @@
 		<beans:property name="location" value="classpath:database.properties" />
 	</beans:bean>
 	
-	<beans:bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<beans:property name="driverClassName"><beans:value>${my.driver}</beans:value></beans:property>
 		<beans:property name="url"><beans:value>${my.url}</beans:value></beans:property>
 		<beans:property name="username"><beans:value>${my.username}</beans:value></beans:property>
@@ -41,10 +41,12 @@
 		</beans:property>
 	</beans:bean>
 	
+	
 	<!-- mybatis 연동 -->
 	<!-- mapper scanner -->
 	<beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<beans:property name="basePackage" value="pe.oh29oh29.myweb.mapper" />
+		<beans:property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</beans:bean>
 
 	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
