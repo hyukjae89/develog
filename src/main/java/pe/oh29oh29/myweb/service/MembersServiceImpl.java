@@ -23,12 +23,15 @@ public class MembersServiceImpl implements MembersService{
 	}
 
 	@Override
-	public Members readMember(String id) {
-		return null;
+	public Members readMemberById(String id) {
+		MembersExample example = new MembersExample();
+		example.createCriteria().andIdEqualTo(id);
+		List<Members> members = membersDao.selectMembers(example);
+		return members.size() > 0 ? members.get(0) : null;
 	}
 
 	@Override
-	public List<Members> readMembers() {
+	public List<Members> readAllMembers() {
 		return membersDao.selectMembers(null);
 	}
 
@@ -38,16 +41,16 @@ public class MembersServiceImpl implements MembersService{
 	}
 
 	@Override
-	public void removeMember(String id) {
+	public void removeMemberById(String id) {
 		MembersExample example = new MembersExample();
 		example.createCriteria().andIdEqualTo(id);
 		membersDao.deleteMember(example);
 	}
 
 	@Override
-	public void withdrawMember(String id) {
+	public void withdrawMemberById(String idx) {
 		Members member = new Members();
-		member.setId(id);
+		member.setIdx(idx);
 		member.setIsExit(1);
 		membersDao.updateMember(member);
 	}

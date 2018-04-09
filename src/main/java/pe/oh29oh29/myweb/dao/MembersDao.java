@@ -9,8 +9,6 @@ public interface MembersDao {
 	
 	public int insertMember(Members member);
 	
-	public Members selectMember(MembersExample example);
-	
 	public List<Members> selectMembers(MembersExample example);
 	
 	public int updateMember(Members member);

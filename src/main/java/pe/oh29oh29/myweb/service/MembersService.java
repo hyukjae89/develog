@@ -14,15 +14,15 @@ public interface MembersService {
 	
 	/**
 	 * @date	: 2018. 4. 8.
-	 * @TODO	: 회원 조회 (단일)
+	 * @TODO	: 회원 조회 by ID
 	 */
-	public Members readMember(String id);
+	public Members readMemberById(String id);
 	
 	/**
 	 * @date	: 2018. 4. 8.
-	 * @TODO	: 회원 조회 (다수)
+	 * @TODO	: 회원 조회 (ALL)
 	 */
-	public List<Members> readMembers();
+	public List<Members> readAllMembers();
 	
 	/**
 	 * @date	: 2018. 4. 8.
@@ -34,11 +34,11 @@ public interface MembersService {
 	 * @date	: 2018. 4. 8.
 	 * @TODO	: 회원 삭제
 	 */
-	public void removeMember(String id);
+	public void removeMemberById(String id);
 	
 	/**
 	 * @date	: 2018. 4. 8.
 	 * @TODO	: 회원 탈퇴
 	 */
-	public void withdrawMember(String id);
+	public void withdrawMemberById(String id);
 }

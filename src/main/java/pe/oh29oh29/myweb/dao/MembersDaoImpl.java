@@ -20,11 +20,6 @@ public class MembersDaoImpl implements MembersDao{
 	}
 
 	@Override
-	public Members selectMember(MembersExample example) {
-		return null;
-	}
-
-	@Override
 	public List<Members> selectMembers(MembersExample example) {
 		return membersMapper.selectByExample(example);
 	}
