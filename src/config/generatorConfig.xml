@@ -13,8 +13,8 @@
 		<table schema="develog" tableName="MEMBERS" domainObjectName="Member"/>
 		<table schema="develog" tableName="CATEGORIES" domainObjectName="Category"/>
 		<table schema="develog" tableName="POSTS" domainObjectName="Post"/>
-		<table schema="develog" tableName="POST_COMMENTS" domainObjectName="PostComment"/>
-		<table schema="develog" tableName="POST_RELATION" domainObjectName="PostRelation"/>
+		<table schema="develog" tableName="COMMENTS" domainObjectName="Comment"/>
+		<table schema="develog" tableName="RELATION" domainObjectName="Relation"/>
 		
 	</context>
 </generatorConfiguration>
