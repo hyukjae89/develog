@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pe.oh29oh29.myweb.common.Utils;
 import pe.oh29oh29.myweb.mapper.CategoryMapper;
 import pe.oh29oh29.myweb.model.Category;
 import pe.oh29oh29.myweb.model.CategoryExample;
@@ -36,6 +37,14 @@ public class CategoryDaoImpl implements CategoryDao {
 
 	@Override
 	public int deleteAllCategories() {
+		Category category = new Category();
+		category.setIdx(Utils.generateIdx());
+		category.setParentIdx(null);
+		category.setName("deleted DATA");
+		category.setOrd(0);
+		CategoryExample example = new CategoryExample();
+		example.createCriteria().andParentIdxIsNotNull();
+		categoryMapper.updateByExample(category, example);
 		return categoryMapper.deleteByExample(null);
 	}
 
