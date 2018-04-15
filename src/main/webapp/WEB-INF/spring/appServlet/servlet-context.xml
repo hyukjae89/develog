@@ -41,7 +41,6 @@
 		</beans:property>
 	</beans:bean>
 	
-	
 	<!-- mybatis 연동 -->
 	<!-- mapper scanner -->
 	<beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

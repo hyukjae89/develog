@@ -52,6 +52,7 @@ public class MemberServiceImpl implements MemberService{
 		Member member = new Member();
 		member.setIdx(idx);
 		member.setIsExit(1);
+		member.setExitDate(Utils.generateNowGMTDate());
 		memberDao.updateMember(member);
 	}
 }

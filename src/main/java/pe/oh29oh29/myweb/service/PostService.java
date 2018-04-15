@@ -8,6 +8,8 @@ public interface PostService {
 
 	public void writePost(Post post);
 	
+	public void writePost(Post post, List<String> relatedPostIdxList);
+	
 	public Post readPost(String idx);
 	
 	public List<Post> readPosts(String categoryIdx);

@@ -16,8 +16,12 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import pe.oh29oh29.myweb.common.Utils;
 import pe.oh29oh29.myweb.dao.CategoryDao;
+import pe.oh29oh29.myweb.dao.CommentDao;
+import pe.oh29oh29.myweb.dao.MemberDao;
 import pe.oh29oh29.myweb.dao.PostDao;
 import pe.oh29oh29.myweb.model.Category;
+import pe.oh29oh29.myweb.model.Member;
+import pe.oh29oh29.myweb.model.Post;
 
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,11 +31,22 @@ public class CategoryServiceTest {
 	@Autowired CategoryDao categoryDao;
 	@Autowired CategoryService categoryService;
 	@Autowired PostDao postDao;
-
+	@Autowired PostService postService;
+	@Autowired MemberDao memberDao;
+	@Autowired MemberService memberService;
+	@Autowired CommentDao commentDao;
+	@Autowired CommentService commentService;
+	
+	private TestHelper testHelper;
+	
 	@Before
 	public void setUp() throws Exception {
+		commentDao.deleteAllComments();
 		postDao.deleteAllPosts();
 		categoryDao.deleteAllCategories();
+		memberDao.deleteAllMembers();
+		
+		testHelper = new TestHelper(memberService, categoryService, postService, commentService);
 	}
 
 	/**
@@ -67,19 +82,19 @@ public class CategoryServiceTest {
 		List<Category> parentCategories = categoryService.findCategoriesByParentIdx(null);
 		assertEquals(1, parentCategories.size());
 		Category parentCategory2 = parentCategories.get(0);
-		assertEquals("카테고리최상위이름", parentCategory2.getName());
+		assertEquals(parentCategory.getName(), parentCategory2.getName());
 		
 		// 하위 카테고리 추가
-		Category childCategory = new Category();
-		childCategory.setParentIdx(parentCategory2.getIdx());
-		childCategory.setName("카테고리하위이름");
-		categoryService.addCategory(childCategory);
+		Category subCategory = new Category();
+		subCategory.setParentIdx(parentCategory2.getIdx());
+		subCategory.setName("카테고리하위이름");
+		categoryService.addCategory(subCategory);
 		
 		// 검증
-		List<Category> childCategories = categoryService.findCategoriesByParentIdx(parentCategory2.getIdx());
-		assertEquals(1, childCategories.size());
-		Category childCategory2 = childCategories.get(0);
-		assertEquals("카테고리하위이름", childCategory2.getName());
+		List<Category> subCategories = categoryService.findCategoriesByParentIdx(parentCategory2.getIdx());
+		assertEquals(1, subCategories.size());
+		Category childCategory2 = subCategories.get(0);
+		assertEquals(subCategory.getName(), childCategory2.getName());
 	}
 	
 	/**
@@ -89,10 +104,10 @@ public class CategoryServiceTest {
 	@Test(expected=DataIntegrityViolationException.class)
 	public void addCategoryByInvalidParentCategory() {
 		// 하위 카테고리 추가
-		Category childCategory = new Category();
-		childCategory.setParentIdx(Utils.generateIdx());
-		childCategory.setName("카테고리하위이름");
-		categoryService.addCategory(childCategory);
+		Category subCategory = new Category();
+		subCategory.setParentIdx(Utils.generateIdx());
+		subCategory.setName("카테고리하위이름");
+		categoryService.addCategory(subCategory);
 	}
 	
 	/**
@@ -117,12 +132,12 @@ public class CategoryServiceTest {
 		List<Category> categories2 = categoryService.findCategoriesByParentIdx(null);
 		assertEquals(1, categories2.size());
 		Category category2 = categories2.get(0);
-		assertEquals("카테고리이름수정", category2.getName());
+		assertEquals(category.getName(), category2.getName());
 	}
 	
 	/**
 	 * @date	: 2018. 4. 11.
-	 * @TODO	: 카테고리 삭제
+	 * @TODO	: 카테고리 삭제 (해당 카테고리에 포스트 없는 경우)
 	 */
 	@Test
 	public void removeCategoryByIdx() {
@@ -137,9 +152,69 @@ public class CategoryServiceTest {
 		categoryService.removeCategoryByIdx(category.getIdx());
 		
 		// 검증
-		List<Category> categories2 = categoryService.findCategoriesByParentIdx(null);;
+		List<Category> categories2 = categoryService.findCategoriesByParentIdx(null);
 		assertEquals(0, categories2.size());
-		
 	}
-
+	
+	/**
+	 * @date	: 2018. 4. 11.
+	 * @TODO	: 카테고리 삭제 (해당 카테고리에 포스트 있는 경우) 
+	 */
+	@Test
+	public void removeCategoryByIdx2() {
+		// 회원 생성
+		Member member = testHelper.signUpMember();
+		
+		// 카테고리 추가
+		addCategory();
+		
+		List<Category> categories = categoryService.findCategoriesByParentIdx(null);
+		assertEquals(1, categories.size());
+		Category category = categories.get(0);
+		
+		// 포스트 작성
+		testHelper.writePost(member.getIdx(), category.getIdx());
+		
+		// 카테고리 삭제
+		categoryService.removeCategoryByIdx(category.getIdx());
+		
+		// 검증
+		List<Category> categories2 = categoryService.findCategoriesByParentIdx(null);
+		assertEquals(0, categories2.size());
+	}
+	
+	/**
+	 * @date	: 2018. 4. 11.
+	 * @TODO	: 카테고리 삭제 (해당 카테고리 및 하위 카테고리에 포스트 있는 경우) 
+	 */
+	@Test
+	public void removeCategoryByIdx3() {
+		// 회원 생성
+		Member member = testHelper.signUpMember();
+		
+		// 상위, 하위 카테고리 추가
+		addCategory2();
+		
+		List<Category> categories = categoryService.findCategoriesByParentIdx(null);
+		assertEquals(1, categories.size());
+		Category category = categories.get(0);
+		List<Category> subCategories = categoryService.findCategoriesByParentIdx(category.getIdx());
+		assertEquals(1, subCategories.size());
+		Category subCategory = subCategories.get(0);
+		
+		// 포스트 작성
+		Post post = testHelper.writePost(member.getIdx(), category.getIdx());
+		Post post2 = testHelper.writePost(member.getIdx(), subCategory.getIdx());
+		
+		// 코멘트 작성
+		testHelper.writeComment(member.getIdx(), post.getIdx());
+		testHelper.writeComment(member.getIdx(), post2.getIdx());
+		
+		// 카테고리 삭제
+		categoryService.removeCategoryByIdx(category.getIdx());
+		
+		// 검증
+		List<Category> categories2 = categoryService.findCategoriesByParentIdx(null);
+		assertEquals(0, categories2.size());
+	}
 }
