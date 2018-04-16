@@ -46,7 +46,6 @@ public class TestHelper {
 	public Member signUpMember() {
 		Member member = new Member();
 		member.setId("Member아이디");
-		member.setPasswd("1234");
 		member.setName("Member이름");
 		member.setEmail("Member이메일");
 		memberService.signUpMember(member);
@@ -56,7 +55,6 @@ public class TestHelper {
 		assertEquals(1, members.size());
 		Member member2 = members.get(0);
 		assertEquals(member.getId(), member2.getId());
-		assertEquals(member.getPasswd(), member2.getPasswd());
 		assertEquals(member.getName(), member2.getName());
 		assertEquals(member.getEmail(), member2.getEmail());
 		

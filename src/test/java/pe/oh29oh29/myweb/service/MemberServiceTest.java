@@ -41,7 +41,6 @@ public class MemberServiceTest {
 	public void signUpMember() {
 		Member member = new Member();
 		member.setId("Member아이디");
-		member.setPasswd("Member비밀번호1234");
 		member.setName("Member이름");
 		member.setEmail("hyukjae89@gmail.com");
 		memberService.signUpMember(member);
@@ -51,7 +50,6 @@ public class MemberServiceTest {
 		assertEquals(1, members.size());
 		Member member2 = members.get(0);
 		assertEquals("Member아이디", member2.getId());
-		assertEquals("Member비밀번호1234", member2.getPasswd());
 		assertEquals("Member이름", member2.getName());
 		assertEquals("hyukjae89@gmail.com", member2.getEmail());
 	}
@@ -71,7 +69,6 @@ public class MemberServiceTest {
 		// 회원 수정
 		Member member = members.get(0);
 		member.setName("Member이름수정");
-		member.setPasswd("Member비밀번호1234수정");
 		member.setEmail("hyukjae89@gmail.com수정");
 		memberService.modifyMember(member);
 		
@@ -81,7 +78,6 @@ public class MemberServiceTest {
 		Member member2 = members2.get(0);
 		assertEquals("Member아이디", member2.getId());
 		assertEquals("Member이름수정", member2.getName());
-		assertEquals("Member비밀번호1234수정", member2.getPasswd());
 		assertEquals("hyukjae89@gmail.com수정", member2.getEmail());
 	}
 	
