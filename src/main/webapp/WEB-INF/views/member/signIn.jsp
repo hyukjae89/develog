@@ -9,12 +9,20 @@
 </head>
 <body>
 	<button id="naverLoginBtn" class="login_btn naver_login_btn"></button>
-	
+
+<script src="./import/jQuery/jquery-3.2.1.min.js"></script>
 <script>
 	window.onload = function() {
-		document.getElementById('')
+		
+		$.ajax({
+			url : "getLoginAPIWithNaver",
+			success : function(response) {
+				document.getElementById('naverLoginBtn').addEventListener('click', function() {
+					location.href = response;
+				});
+			}
+		});
 	};
 </script>
 </body>
 </html>
-
