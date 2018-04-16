@@ -1,14 +1,21 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>Home</title>
+	<title>기술블로그 - oh29oh29</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+	<button id="signInViewBtn">SingInView</button>
+	<button id="postWriteViewBtn">PostWriteView</button>
 </body>
+<script>
+window.onload = function() {
+	document.getElementById('signInViewBtn').addEventListener('click', function() {
+		location.href = "signInView";
+	});
+	
+	document.getElementById('postWriteViewBtn').addEventListener('click', function() {
+		location.href = "postWriteView";
+	});
+};
+</script>
 </html>
