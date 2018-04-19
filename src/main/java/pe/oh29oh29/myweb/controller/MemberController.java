@@ -120,14 +120,18 @@ public class MemberController {
 			String id = (String) response.get("id");
 			String email = (String) response.get("email");
 			String name = (String) response.get("name");
-
-			Member member = new Member();
-			member.setId(id);
-			member.setName(name);
-			member.setEmail(email);
-			member.setProvider(Constants.NAVER);
-			memberService.signUpMember(member);
 			
+			Member member = memberService.readMemberById(id);
+			
+			if (member == null) {
+				member = new Member();
+				member.setId(id);
+				member.setName(name);
+				member.setEmail(email);
+				member.setProvider(Constants.NAVER);
+				memberService.signUpMember(member);
+			}
+						
 			httpRequest.getSession().setAttribute("member", member);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -159,13 +163,17 @@ public class MemberController {
 				// Get profile information from payload
 				String email = payload.getEmail();
 				String name = (String) payload.get("name");
-
-				Member member = new Member();
-				member.setId(id);
-				member.setName(name);
-				member.setEmail(email);
-				member.setProvider(Constants.GOOGLE);
-				memberService.signUpMember(member);
+				
+				Member member = memberService.readMemberById(id);
+				
+				if (member == null) {
+					member = new Member();
+					member.setId(id);
+					member.setName(name);
+					member.setEmail(email);
+					member.setProvider(Constants.GOOGLE);
+					memberService.signUpMember(member);
+				} 
 				
 				httpRequest.getSession().setAttribute("member", member);
 			} else {
@@ -214,5 +222,18 @@ public class MemberController {
 		}
 		
 		return null;
+	}
+	
+	@RequestMapping(value = "signOutView", method = RequestMethod.GET)
+	public String signOutView() {
+		return "./member/signOut";
+	}
+	
+	@RequestMapping(value = "signOut", method = RequestMethod.GET)
+	public String signOut(HttpServletRequest httpRequest) {
+		
+		httpRequest.getSession().removeAttribute("member");
+		
+		return "redirect:/";
 	}
 }

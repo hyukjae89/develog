@@ -21,7 +21,7 @@ public class MemberServiceImpl implements MemberService{
 		member.setRegDate(Utils.generateNowGMTDate());
 		memberDao.insertMember(member);
 	}
-
+	
 	@Override
 	public Member readMemberById(String id) {
 		MemberExample example = new MemberExample();
@@ -55,4 +55,6 @@ public class MemberServiceImpl implements MemberService{
 		member.setExitDate(Utils.generateNowGMTDate());
 		memberDao.updateMember(member);
 	}
+
+	
 }

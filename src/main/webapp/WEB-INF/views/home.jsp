@@ -1,22 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 	<title>기술블로그 - oh29oh29</title>
-	<style>
-		.member_wrap{
-			position: absolute;
-			top: 0;
-			right: 0;
-			width: 250px;
-		}
-		.member_wrap span {
-			display: block;
-		}
-	</style>
+	<link href="./css/home.css" rel="stylesheet">
 </head>
-<body>
-	<button id="signInViewBtn">SingInView</button>
-	<button id="postWriteViewBtn">PostWriteView</button>
+<body onload="init('${not empty sessionScope.member}')">
+	<c:choose>
+		<c:when test="${empty sessionScope.member}">
+			<button id="signInBtn">SignInView</button>	
+		</c:when>
+		<c:otherwise>
+			<button id="signOutBtn">SignOut</button>
+		</c:otherwise>
+	</c:choose>
+	<button id="postWriteBtn">PostWriteView</button>
 	<div class="member_wrap">
 		<span>ID : ${sessionScope.member.id}</span>
 		<span>이름 : ${sessionScope.member.name}</span>
@@ -24,14 +22,21 @@
 	</div>
 </body>
 <script>
-window.onload = function() {
-	document.getElementById('signInViewBtn').addEventListener('click', function() {
-		location.href = "signInView";
-	});
+function init(isSignedIn) {
+	isSignedIn = isSignedIn == 'true' ? true : false;
+	if (isSignedIn) {
+		document.getElementById('signOutBtn').addEventListener('click', function() {
+			location.href = "signOutView";
+		});
+	} else {
+		document.getElementById('signInBtn').addEventListener('click', function() {
+			location.href = "signInView";
+		});
+	}
 	
-	document.getElementById('postWriteViewBtn').addEventListener('click', function() {
+	document.getElementById('postWriteBtn').addEventListener('click', function() {
 		location.href = "postWriteView";
 	});
-};
+}
 </script>
 </html>
