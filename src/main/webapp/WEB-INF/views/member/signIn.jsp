@@ -29,7 +29,7 @@
  			auth2.signIn({
 				scope : 'profile email',
 				prompt : 'consent'
-			}).then(onSignIn);
+			}).then(googleSignInSuccess);
 		});
 	};
 	
@@ -41,8 +41,7 @@
 		});
 	}
 	
-	function onSignIn(googleUser) {
-		var id_token = googleUser.getAuthResponse().id_token;
+	function googleSignInSuccess(googleUser) {
 		$.ajax({
 			type : 'POST',
 			url : 'http://dev.oh29oh29.pe.kr/verifyIdTokenWithGoogle',
@@ -55,7 +54,7 @@
 				console.log(request.responseText);
 			},
 			processData : false,
-			data : id_token
+			data : googleUser.getAuthResponse().id_token
 		});
 	}
 	
