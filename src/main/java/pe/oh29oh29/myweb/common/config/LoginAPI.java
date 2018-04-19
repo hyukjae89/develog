@@ -18,6 +18,10 @@ public class LoginAPI {
 	private String naverTokenURL;
 	@Value("#{config['loginAPI.naver.url.profile']}")
 	private String naverProfileURL;
+	@Value("#{config['loginAPI.google.clientId']}")
+	private String googleClientId;
+	@Value("#{config['loginAPI.google.clientSecret']}")
+	private String googleClientSecret;
 	
 	public String getNaverClientId() {
 		return naverClientId;
@@ -36,5 +40,11 @@ public class LoginAPI {
 	}
 	public String getNaverProfileURL() {
 		return naverProfileURL;
+	}
+	public String getGoogleClientId() {
+		return googleClientId;
+	}
+	public String getGoogleClientSecret() {
+		return googleClientSecret;
 	}
 }

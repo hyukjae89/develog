@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -9,8 +9,10 @@
 </head>
 <body>
 	<button id="naverLoginBtn" class="login_btn naver_login_btn"></button>
+	<button id="googleLoginBtn" class="login_btn google_login_btn"></button>
 
 <script src="./import/jQuery/jquery-3.2.1.min.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=googleSignInAPIInit" defer></script>
 <script>
 	window.onload = function() {
 		
@@ -22,7 +24,42 @@
 				});
 			}
 		});
+		
+		document.getElementById('googleLoginBtn').addEventListener('click', function(){
+ 			auth2.signIn({
+				scope : 'profile email',
+				prompt : 'consent'
+			}).then(onSignIn);
+		});
 	};
+	
+	function googleSignInAPIInit() {
+		gapi.load('auth2', function() {
+			auth2 = gapi.auth2.init({
+				client_id : '577924299060-o34csmounb2nbmuqgdvibb4dknbgt97v.apps.googleusercontent.com'
+			});
+		});
+	}
+	
+	function onSignIn(googleUser) {
+		var id_token = googleUser.getAuthResponse().id_token;
+		$.ajax({
+			type : 'POST',
+			url : 'http://dev.oh29oh29.pe.kr/verifyIdTokenWithGoogle',
+			contentType : 'application/x-www-form-urlencoded',
+			success : function(result) {
+				if (result == 'success')
+					location.href = "/";
+			},
+			error : function(request) {
+				console.log(request.responseText);
+			},
+			processData : false,
+			data : id_token
+		});
+	}
+	
+
 </script>
 </body>
 </html>
