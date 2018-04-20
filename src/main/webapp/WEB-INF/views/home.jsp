@@ -15,6 +15,7 @@
 		</c:otherwise>
 	</c:choose>
 	<button id="postWriteBtn">PostWriteView</button>
+	<button id="adminBtn">Administrator</button>
 	<div class="member_wrap">
 		<span>ID : ${sessionScope.member.id}</span>
 		<span>이름 : ${sessionScope.member.name}</span>
@@ -36,6 +37,10 @@ function init(isSignedIn) {
 	
 	document.getElementById('postWriteBtn').addEventListener('click', function() {
 		location.href = "postWriteView";
+	});
+	
+	document.getElementById('adminBtn').addEventListener('click', function() {
+		location.href = "adminView";
 	});
 }
 </script>
