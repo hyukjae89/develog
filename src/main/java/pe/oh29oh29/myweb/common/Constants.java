@@ -2,6 +2,8 @@ package pe.oh29oh29.myweb.common;
 
 public class Constants {
 
+	public static final String SESSION_MEMBER = "member";
+	
 	public static final String NAVER = "NAVER";
 	public static final String GOOGLE = "GOOGLE";
 	

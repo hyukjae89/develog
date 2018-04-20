@@ -6,33 +6,29 @@
 <title>기술블로그 - oh29oh29</title>
 </head>
 <body onload="init('${sessionScope.member.provider}')">
-	<button id="totalSignOut">TotalSignOut</button>
-	<button id="onlyBlogSignOut">OnlyBlogSignOut</button>
+	<button id="signOutBtn">SignOut</button>
 <script src="./import/jQuery/jquery-3.2.1.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" defer></script>
 <script>
 function init(provider) {
-	
-	document.getElementById('totalSignOut').addEventListener('click', function(){
+
+	 if (provider == 'GOOGLE') {
+		gapi.load('auth2', function() {
+			auth2 = gapi.auth2.init({
+				client_id : '577924299060-o34csmounb2nbmuqgdvibb4dknbgt97v.apps.googleusercontent.com'
+			});
+	 	});
+	 }
+		
+	 
+	document.getElementById('signOutBtn').addEventListener('click', function(){
 		if (provider == 'NAVER') {
-			$.ajax({
-	            type : "POST",
-	            dataType : 'text',
-	            url : "http://nid.naver.com/nidlogin.logout",
-	            crossDomain : true,
-	            xhrFields : {
-	               withCredentials : true
-	            }
-	         }).done(function(data) {
-	 			location.href = "signOut";
-	         }).fail(function(xhr, textStatus, errorThrown) {
-	        	 alert(textStatus);
-	         });
+			location.href = "deleteNaverAccessToken";
 		} else if (provider == 'GOOGLE') {
- 			location.href = "https://www.google.com/accounts/Logout?continue=https%3A%2F%2Fappengine.google.com%2F_ah%2Flogout?continue=http%3A%2F%2Fdev.oh29oh29.pe.kr%3A5050%2FsignOut";
+			auth2.signOut().then(function(){
+	 			location.href = "signOut";
+			});
 		}
-	});
-	document.getElementById('onlyBlogSignOut').addEventListener('click', function(){
-		location.href = "signOut";
 	});
 }
 </script>

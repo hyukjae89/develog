@@ -11,7 +11,7 @@
 			<button id="signInBtn">SignInView</button>	
 		</c:when>
 		<c:otherwise>
-			<button id="signOutBtn">SignOut</button>
+			<button id="signOutBtn">SignOutView</button>
 		</c:otherwise>
 	</c:choose>
 	<button id="postWriteBtn">PostWriteView</button>

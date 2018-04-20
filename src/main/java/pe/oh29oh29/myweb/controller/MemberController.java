@@ -132,7 +132,8 @@ public class MemberController {
 				memberService.signUpMember(member);
 			}
 						
-			httpRequest.getSession().setAttribute("member", member);
+			httpRequest.getSession().setAttribute("naverAccessToken", accessToken);
+			httpRequest.getSession().setAttribute(Constants.SESSION_MEMBER, member);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -175,7 +176,7 @@ public class MemberController {
 					memberService.signUpMember(member);
 				} 
 				
-				httpRequest.getSession().setAttribute("member", member);
+				httpRequest.getSession().setAttribute(Constants.SESSION_MEMBER, member);
 			} else {
 				System.out.println("Invalid ID token.");
 			}	
@@ -224,6 +225,22 @@ public class MemberController {
 		return null;
 	}
 	
+	@RequestMapping(value = "deleteNaverAccessToken", method = RequestMethod.GET)
+	public String deleteNaverAccessToken(HttpServletRequest httpRequest) {
+		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
+		
+		if (member.getProvider().equals(Constants.NAVER)) {
+			String apiURL = "https://nid.naver.com/oauth2.0/token";
+			apiURL += "?client_id=" + loginAPI.getNaverClientId();
+			apiURL += "&client_secret=" + loginAPI.getNaverClientSecret();
+			apiURL += "&grant_type=delete";
+			apiURL += "&access_token=" + httpRequest.getSession().getAttribute("naverAccessToken");
+			apiURL += "&service_provider=" + Constants.NAVER;
+			invokeAPI(apiURL, Constants.GET);
+		}
+		return "redirect:/signOut";
+	}
+	
 	@RequestMapping(value = "signOutView", method = RequestMethod.GET)
 	public String signOutView() {
 		return "./member/signOut";
@@ -232,7 +249,7 @@ public class MemberController {
 	@RequestMapping(value = "signOut", method = RequestMethod.GET)
 	public String signOut(HttpServletRequest httpRequest) {
 		
-		httpRequest.getSession().removeAttribute("member");
+		httpRequest.getSession().removeAttribute(Constants.SESSION_MEMBER);
 		
 		return "redirect:/";
 	}
