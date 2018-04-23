@@ -17,5 +17,8 @@ public interface CategoryDao {
 
 	public Category selectCategory(String idx);
 	
-	public List<Category> selectCategory(CategoryExample example);
+	public List<Category> selectCategories();
+	
+	public List<Category> selectCategories(CategoryExample example);
+	
 }

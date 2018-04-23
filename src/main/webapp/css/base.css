@@ -23,5 +23,13 @@ button {
 	line-height: 10px;
 }
 
+input {
+	outline: none;
+}
+
+input[type="text"] {
+	padding: 0px 10px;
+}
+
 h1 {
 }

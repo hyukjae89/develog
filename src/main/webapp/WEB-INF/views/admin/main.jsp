@@ -18,7 +18,7 @@
 	</aside>
 	<section id="mainContentWrap" class="main_content_wrap"></section>
 
-<script src="./import/jQuery/jquery-3.2.1.min.js"></script>
+<script src="./import/jquery/jquery-3.2.1.min.js"></script>
 <script>
 function init() {
 	

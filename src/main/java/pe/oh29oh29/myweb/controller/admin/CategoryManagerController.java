@@ -1,7 +1,12 @@
 package pe.oh29oh29.myweb.controller.admin;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +27,41 @@ public class CategoryManagerController {
 	@RequestMapping(value = "categoryManager", method = RequestMethod.GET)
 	public String categoryManagerView(Model model) {
 		
-		List<Category> categories = categoryService.findCategories(AccessSpecifier.TOTAL);
-		
-		model.addAttribute("categories", categories);
+//		model.addAttribute("categories", categories);
 		
 		return "./admin/contents/category";
+	}
+	
+	@RequestMapping(value = "findCategories", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Category> findCategories() {
+		List<Category> categories = categoryService.findCategories(AccessSpecifier.TOTAL);
+		return categories;
+	}
+	
+	@RequestMapping(value = "saveCategory", method = RequestMethod.POST)
+	@ResponseBody
+	public void saveCategory(@RequestBody String categories) {
+		List<Category> updatedCategories = new ArrayList<Category>();
+		JSONParser jsonParser = new JSONParser();
+		try {
+			JSONObject categoryPack = (JSONObject) jsonParser.parse(categories);
+			Iterator<String> keys = categoryPack.keySet().iterator();
+			while (keys.hasNext()) {
+				String key = keys.next();
+				JSONObject category = (JSONObject) categoryPack.get(key);
+				Category updatedCategory = new Category();
+				updatedCategory.setIdx(category.get("idx").toString());
+				updatedCategory.setName(category.get("name").toString());
+				updatedCategory.setIsPrivate(Integer.parseInt(category.get("isPrivate").toString()));
+				updatedCategory.setOrd(Integer.parseInt(category.get("ord").toString()));
+				updatedCategories.add(updatedCategory);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		categoryService.saveCategories(updatedCategories);
 	}
 	
 	@RequestMapping(value = "addCategory", method = RequestMethod.POST)

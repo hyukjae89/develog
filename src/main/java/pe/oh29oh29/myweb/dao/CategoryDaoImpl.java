@@ -49,8 +49,14 @@ public class CategoryDaoImpl implements CategoryDao {
 	}
 	
 	@Override
-	public List<Category> selectCategory(CategoryExample example) {
+	public List<Category> selectCategories() {
+		return categoryMapper.selectByExample(null);
+	}
+	
+	@Override
+	public List<Category> selectCategories(CategoryExample example) {
 		return categoryMapper.selectByExample(example);
 	}
+
 
 }

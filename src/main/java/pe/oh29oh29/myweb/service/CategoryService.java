@@ -20,6 +20,8 @@ public interface CategoryService {
 		}
 	}
 	
+	public void saveCategories(List<Category> categories);
+	
 	public String addCategory(Category category);
 	
 	public void modifyCategory(Category category);

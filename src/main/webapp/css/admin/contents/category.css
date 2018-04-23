@@ -1,23 +1,24 @@
 @charset "UTF-8";
 
-.ct_list_wrap {
+.ct_wrap {
 	border: 1px solid black;
 	box-sizing: border-box;
 	padding: 10px;
 }
 
-.ct_item:FIRST-CHILD {
-	border: 1px solid black;
-	box-sizing: border-box;
+.ct_list_wrap {
 }
 
 .ct_item {
-	border-left: 1px solid black;
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
-	box-sizing: border-box;
 	background-color: #eaeaea;
 	line-height: 50px;
+	margin: 10px 0px;
+	padding: 0px 10px;
+	cursor: move;
+}
+
+.ct_item:hover {
+	background-color: #D4F4FA;
 }
 
 .ct_depth_0 {

@@ -10,7 +10,7 @@
 	<button id="naverLoginBtn" class="login_btn naver_login_btn"></button>
 	<button id="googleLoginBtn" class="login_btn google_login_btn"></button>
 
-<script src="./import/jQuery/jquery-3.2.1.min.js"></script>
+<script src="./import/jquery/jquery-3.2.1.min.js"></script>
 <script src="https://apis.google.com/js/platform.js?onload=googleSignInAPIInit" defer></script>
 <script>
 	window.onload = function() {
@@ -42,9 +42,10 @@
 	
 	function googleSignInSuccess(googleUser) {
 		$.ajax({
+//			url : 'http://dev.oh29oh29.pe.kr/verifyIdTokenWithGoogle',
+  			url : 'http://dev.oh29oh29.pe.kr:5050/verifyIdTokenWithGoogle',
 			type : 'POST',
-			url : 'http://dev.oh29oh29.pe.kr/verifyIdTokenWithGoogle',
-//  			url : 'http://dev.oh29oh29.pe.kr:5050/verifyIdTokenWithGoogle',
+			data : googleUser.getAuthResponse().id_token,
 			contentType : 'application/x-www-form-urlencoded',
 			success : function(result) {
 				if (result == 'success')
@@ -53,8 +54,7 @@
 			error : function(request) {
 				console.log(request.responseText);
 			},
-			processData : false,
-			data : googleUser.getAuthResponse().id_token
+			processData : false
 		});
 	}
 	

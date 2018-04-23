@@ -1,7 +1,9 @@
 package pe.oh29oh29.myweb.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +63,28 @@ public class CategoryServiceImpl implements CategoryService{
 		example.createCriteria().andIdxEqualTo(idx);
 		categoryDao.deleteCategory(example);
 	}
+	
+	@Override
+	public void saveCategories(List<Category> updatedCategories) {
+		List<Category> originalCategories = categoryDao.selectCategories();
+		Map<String, Category> originalCategoryPack = new HashMap<String, Category>();
+		for (Category category : originalCategories) {
+			originalCategoryPack.put(category.getIdx(), category);
+		}
+		
+		for (Category updatedCategory : updatedCategories) {
+			if (updatedCategory.getIdx().isEmpty()) {
+				updatedCategory.setIdx(Utils.generateIdx());
+				categoryDao.insertCategory(updatedCategory);
+			} else if (originalCategoryPack.containsKey(updatedCategory.getIdx())){
+				Category originalCategory = originalCategoryPack.get(updatedCategory.getIdx());
+				
+				if (originalCategory.getName().equals(categ))
+				categoryDao.updateCategory(updatedCategory);
+			}
+			
+		}
+	}
 
 	@Override
 	public Category findCategory(String idx) {
@@ -87,7 +111,7 @@ public class CategoryServiceImpl implements CategoryService{
 		
 		example.setOrderByClause("DEPTH ASC, ORD ASC");
 		
-		List<Category> categories = categoryDao.selectCategory(example);
+		List<Category> categories = categoryDao.selectCategories(example);
 		
 		for (int i = 0; i < categories.size(); ) {
 			List<Category> subCategories = findCategories(categories.get(i).getIdx(), accessSpecifier);
@@ -97,4 +121,5 @@ public class CategoryServiceImpl implements CategoryService{
 		
 		return categories;
 	}
+
 }
