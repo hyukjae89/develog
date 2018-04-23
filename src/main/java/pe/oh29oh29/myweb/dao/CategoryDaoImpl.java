@@ -21,11 +21,6 @@ public class CategoryDaoImpl implements CategoryDao {
 	}
 
 	@Override
-	public List<Category> selectCategory(CategoryExample example) {
-		return categoryMapper.selectByExample(example);
-	}
-
-	@Override
 	public int updateCategory(Category category) {
 		return categoryMapper.updateByPrimaryKeySelective(category);
 	}
@@ -46,6 +41,16 @@ public class CategoryDaoImpl implements CategoryDao {
 		example.createCriteria().andParentIdxIsNotNull();
 		categoryMapper.updateByExample(category, example);
 		return categoryMapper.deleteByExample(null);
+	}
+
+	@Override
+	public Category selectCategory(String idx) {
+		return categoryMapper.selectByPrimaryKey(idx);
+	}
+	
+	@Override
+	public List<Category> selectCategory(CategoryExample example) {
+		return categoryMapper.selectByExample(example);
 	}
 
 }

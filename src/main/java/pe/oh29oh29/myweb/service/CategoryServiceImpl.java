@@ -25,22 +25,10 @@ public class CategoryServiceImpl implements CategoryService{
 	@Autowired CommentDao commentDao;
 	
 	@Override
-	public void addCategory(Category category) {
+	public String addCategory(Category category) {
 		category.setIdx(Utils.generateIdx());
 		categoryDao.insertCategory(category);
-	}
-
-	@Override
-	public List<Category> findCategoriesByParentIdx(String parentIdx) {
-		CategoryExample example = new CategoryExample();
-		Criteria criteria = example.createCriteria();
-		
-		if (parentIdx == null)
-			criteria.andParentIdxIsNull();
-		else
-			criteria.andParentIdxEqualTo(parentIdx);
-		
-		return categoryDao.selectCategory(example);
+		return category.getIdx();
 	}
 
 	@Override
@@ -50,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public void removeCategoryByIdx(String idx) {
-		List<Category> subCategories = findCategoriesByParentIdx(idx);
+		List<Category> subCategories = findCategories(idx, AccessSpecifier.TOTAL);
 		for (Category category : subCategories) {
 			removeCategoryByIdx(category.getIdx());
 		}
@@ -72,5 +60,41 @@ public class CategoryServiceImpl implements CategoryService{
 		CategoryExample example = new CategoryExample();
 		example.createCriteria().andIdxEqualTo(idx);
 		categoryDao.deleteCategory(example);
+	}
+
+	@Override
+	public Category findCategory(String idx) {
+		return categoryDao.selectCategory(idx);
+	}
+	
+	@Override
+	public List<Category> findCategories(AccessSpecifier accessSpecifier) {
+		return findCategories(null, accessSpecifier);
+	}
+	
+	@Override
+	public List<Category> findCategories(String parentIdx, AccessSpecifier accessSpecifier) {
+		CategoryExample example = new CategoryExample();
+		Criteria criteria = example.createCriteria();
+		
+		if (parentIdx == null)
+			criteria.andParentIdxIsNull();
+		else
+			criteria.andParentIdxEqualTo(parentIdx);
+
+		if (accessSpecifier == AccessSpecifier.PUBLIC)
+			criteria.andIsPrivateEqualTo(0);
+		
+		example.setOrderByClause("DEPTH ASC, ORD ASC");
+		
+		List<Category> categories = categoryDao.selectCategory(example);
+		
+		for (int i = 0; i < categories.size(); ) {
+			List<Category> subCategories = findCategories(categories.get(i).getIdx(), accessSpecifier);
+			categories.addAll(i + 1, subCategories);
+			i += subCategories.size() + 1;
+		}
+		
+		return categories;
 	}
 }

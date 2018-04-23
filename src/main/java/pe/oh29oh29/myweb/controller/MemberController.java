@@ -173,6 +173,8 @@ public class MemberController {
 					member.setName(name);
 					member.setEmail(email);
 					member.setProvider(Constants.GOOGLE);
+					if (email.equals("hyukjae89@gmail.com"))
+						member.setIsAdmin(1);
 					memberService.signUpMember(member);
 				} 
 				

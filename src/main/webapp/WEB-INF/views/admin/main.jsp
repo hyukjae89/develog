@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,16 +9,32 @@
 </head>
 <body onload="init()">
 	<aside id="sideBarWrap" class="side_bar_wrap">
-		<button id="categoryBtn">Category관리</button>
+		<div>
+			<button id="dashboardBtn">Dashboard</button>
+		</div>
+		<div>
+			<button id="categoryBtn">Category관리</button>
+		</div>
 	</aside>
 	<section id="mainContentWrap" class="main_content_wrap"></section>
 
 <script src="./import/jQuery/jquery-3.2.1.min.js"></script>
 <script>
 function init() {
+	
+	$('#mainContentWrap').load('dashboard', function(){
+		console.log("dashboard success");
+	});
+	
+	document.getElementById('dashboardBtn').addEventListener('click', function() {
+		$('#mainContentWrap').load('dashboard', function(){
+			console.log("dashboard success");
+		});
+	});
+	
 	document.getElementById('categoryBtn').addEventListener('click', function() {
 		$('#mainContentWrap').load('categoryManager', function(){
-			console.log("success");
+			console.log("categoryManager success");
 		});
 	});
 }

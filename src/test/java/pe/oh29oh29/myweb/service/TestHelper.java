@@ -71,7 +71,7 @@ public class TestHelper {
 		categoryService.addCategory(category);
 		
 		// 검증
-		List<Category> categories = categoryService.findCategoriesByParentIdx(null);
+		List<Category> categories = categoryService.findCategories(null);
 		assertEquals(1, categories.size());
 		Category category2 = categories.get(0);
 		assertEquals(category.getName(), category2.getName());

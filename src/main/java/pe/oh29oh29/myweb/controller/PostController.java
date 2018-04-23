@@ -12,8 +12,8 @@ public class PostController {
 
 	@Autowired PostService postService;
 	
-	@RequestMapping(value = "/postWriteView", method = RequestMethod.GET)
-	public String goBlogWriteForm() {
+	@RequestMapping(value = "/postWrite", method = RequestMethod.GET)
+	public String postWriteView() {
 		return "./post/write";
 	}
 }

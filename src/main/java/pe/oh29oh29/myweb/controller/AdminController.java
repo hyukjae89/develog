@@ -1,24 +1,32 @@
 package pe.oh29oh29.myweb.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pe.oh29oh29.myweb.service.CategoryService;
+import pe.oh29oh29.myweb.common.Constants;
+import pe.oh29oh29.myweb.model.Member;
 
 @Controller
 public class AdminController {
 	
-	@Autowired CategoryService categoryService;
-	
-	@RequestMapping(value = "adminView", method = RequestMethod.GET)
-	public String adminView() {
+	@RequestMapping(value = "admin", method = RequestMethod.GET)
+	public String adminMainView(HttpServletRequest httpRequest) throws Exception {
+		
+		Object sessionAttr = httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
+		
+		if (sessionAttr == null) {
+			throw new Exception();
+		} 
+		
+		Member member = (Member) sessionAttr;
+		
+		if (member.getIsAdmin() == Constants.FALSE) {
+			throw new Exception();
+		}
+		
 		return "./admin/main";
-	}
-	
-	@RequestMapping(value = "categoryManager", method = RequestMethod.GET)
-	public String categoryManager() {
-		return "./admin/contents/category";
 	}
 }

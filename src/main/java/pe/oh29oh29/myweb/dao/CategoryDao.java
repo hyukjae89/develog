@@ -9,12 +9,13 @@ public interface CategoryDao {
 
 	public int insertCategory(Category category);
 	
-	public List<Category> selectCategory(CategoryExample example);
-	
 	public int updateCategory(Category category);
 	
 	public int deleteCategory(CategoryExample example);
 	
 	public int deleteAllCategories();
 
+	public Category selectCategory(String idx);
+	
+	public List<Category> selectCategory(CategoryExample example);
 }

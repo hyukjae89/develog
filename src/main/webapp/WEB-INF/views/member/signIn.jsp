@@ -43,8 +43,8 @@
 	function googleSignInSuccess(googleUser) {
 		$.ajax({
 			type : 'POST',
-//			url : 'http://dev.oh29oh29.pe.kr/verifyIdTokenWithGoogle',
- 			url : 'http://dev.oh29oh29.pe.kr:5050/verifyIdTokenWithGoogle',
+			url : 'http://dev.oh29oh29.pe.kr/verifyIdTokenWithGoogle',
+//  			url : 'http://dev.oh29oh29.pe.kr:5050/verifyIdTokenWithGoogle',
 			contentType : 'application/x-www-form-urlencoded',
 			success : function(result) {
 				if (result == 'success')

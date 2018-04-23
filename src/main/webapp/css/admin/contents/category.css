@@ -1,1 +1,42 @@
 @charset "UTF-8";
+
+.ct_list_wrap {
+	border: 1px solid black;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.ct_item:FIRST-CHILD {
+	border: 1px solid black;
+	box-sizing: border-box;
+}
+
+.ct_item {
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	box-sizing: border-box;
+	background-color: #eaeaea;
+	line-height: 50px;
+}
+
+.ct_depth_0 {
+	
+}
+
+.ct_depth_1 {
+	margin-left: 30px;
+}
+
+.ct_depth_2 {
+	margin-left: 60px;
+}
+
+.ct_control_wrap {
+	float: right;
+	font-size: 0px;
+}
+
+.ct_name_input {
+    line-height: 30px;
+}

@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 .side_bar_wrap {
-	display: inline-block;
-	width: 300px;
+	float: left;
+	width: 200px;
 	height: 100%;
 	border: 10px solid red;
     box-sizing: border-box;
@@ -10,7 +10,7 @@
 
 .main_content_wrap {
 	display: inline-block;
-	width: calc(100% - 300px);
+	width: calc(100% - 200px);
 	height: 100%;
 	border: 10px solid blue;
     box-sizing: border-box;

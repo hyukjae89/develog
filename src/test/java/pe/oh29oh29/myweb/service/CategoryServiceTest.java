@@ -22,6 +22,7 @@ import pe.oh29oh29.myweb.dao.PostDao;
 import pe.oh29oh29.myweb.model.Category;
 import pe.oh29oh29.myweb.model.Member;
 import pe.oh29oh29.myweb.model.Post;
+import pe.oh29oh29.myweb.service.CategoryService.AccessSpecifier;
 
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -61,7 +62,7 @@ public class CategoryServiceTest {
 		categoryService.addCategory(category);
 		
 		// 검증
-		List<Category> categories = categoryService.findCategoriesByParentIdx(null);
+		List<Category> categories = categoryService.findCategories(null);
 		assertEquals(1, categories.size());
 		Category category2 = categories.get(0);
 		assertEquals("카테고리이름", category2.getName());
@@ -79,7 +80,7 @@ public class CategoryServiceTest {
 		categoryService.addCategory(parentCategory);
 		
 		// 검증
-		List<Category> parentCategories = categoryService.findCategoriesByParentIdx(null);
+		List<Category> parentCategories = categoryService.findCategories(null);
 		assertEquals(1, parentCategories.size());
 		Category parentCategory2 = parentCategories.get(0);
 		assertEquals(parentCategory.getName(), parentCategory2.getName());
@@ -91,7 +92,7 @@ public class CategoryServiceTest {
 		categoryService.addCategory(subCategory);
 		
 		// 검증
-		List<Category> subCategories = categoryService.findCategoriesByParentIdx(parentCategory2.getIdx());
+		List<Category> subCategories = categoryService.findCategories(parentCategory2.getIdx(), AccessSpecifier.TOTAL);
 		assertEquals(1, subCategories.size());
 		Category childCategory2 = subCategories.get(0);
 		assertEquals(subCategory.getName(), childCategory2.getName());
@@ -119,7 +120,7 @@ public class CategoryServiceTest {
 		// 카테고리 추가
 		addCategory();
 		
-		List<Category> categories = categoryService.findCategoriesByParentIdx(null);
+		List<Category> categories = categoryService.findCategories(null);
 		assertEquals(1, categories.size());
 		
 		// 카테고리 수정
@@ -129,7 +130,7 @@ public class CategoryServiceTest {
 		categoryService.modifyCategory(category);
 		
 		// 검증
-		List<Category> categories2 = categoryService.findCategoriesByParentIdx(null);
+		List<Category> categories2 = categoryService.findCategories(null);
 		assertEquals(1, categories2.size());
 		Category category2 = categories2.get(0);
 		assertEquals(category.getName(), category2.getName());
@@ -144,7 +145,7 @@ public class CategoryServiceTest {
 		// 카테고리 추가
 		addCategory();
 		
-		List<Category> categories = categoryService.findCategoriesByParentIdx(null);
+		List<Category> categories = categoryService.findCategories(null);
 		assertEquals(1, categories.size());
 		
 		// 카테고리 삭제
@@ -152,7 +153,7 @@ public class CategoryServiceTest {
 		categoryService.removeCategoryByIdx(category.getIdx());
 		
 		// 검증
-		List<Category> categories2 = categoryService.findCategoriesByParentIdx(null);
+		List<Category> categories2 = categoryService.findCategories(null);
 		assertEquals(0, categories2.size());
 	}
 	
@@ -168,7 +169,7 @@ public class CategoryServiceTest {
 		// 카테고리 추가
 		addCategory();
 		
-		List<Category> categories = categoryService.findCategoriesByParentIdx(null);
+		List<Category> categories = categoryService.findCategories(null);
 		assertEquals(1, categories.size());
 		Category category = categories.get(0);
 		
@@ -179,7 +180,7 @@ public class CategoryServiceTest {
 		categoryService.removeCategoryByIdx(category.getIdx());
 		
 		// 검증
-		List<Category> categories2 = categoryService.findCategoriesByParentIdx(null);
+		List<Category> categories2 = categoryService.findCategories(null);
 		assertEquals(0, categories2.size());
 	}
 	
@@ -195,10 +196,10 @@ public class CategoryServiceTest {
 		// 상위, 하위 카테고리 추가
 		addCategory2();
 		
-		List<Category> categories = categoryService.findCategoriesByParentIdx(null);
+		List<Category> categories = categoryService.findCategories(null);
 		assertEquals(1, categories.size());
 		Category category = categories.get(0);
-		List<Category> subCategories = categoryService.findCategoriesByParentIdx(category.getIdx());
+		List<Category> subCategories = categoryService.findCategories(category.getIdx(), AccessSpecifier.TOTAL);
 		assertEquals(1, subCategories.size());
 		Category subCategory = subCategories.get(0);
 		
@@ -214,7 +215,7 @@ public class CategoryServiceTest {
 		categoryService.removeCategoryByIdx(category.getIdx());
 		
 		// 검증
-		List<Category> categories2 = categoryService.findCategoriesByParentIdx(null);
+		List<Category> categories2 = categoryService.findCategories(null);
 		assertEquals(0, categories2.size());
 	}
 }

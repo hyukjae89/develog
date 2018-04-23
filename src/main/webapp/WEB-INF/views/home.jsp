@@ -36,11 +36,11 @@ function init(isSignedIn) {
 	}
 	
 	document.getElementById('postWriteBtn').addEventListener('click', function() {
-		location.href = "postWriteView";
+		location.href = "postWrite";
 	});
 	
 	document.getElementById('adminBtn').addEventListener('click', function() {
-		location.href = "adminView";
+		location.href = "admin";
 	});
 }
 </script>
