@@ -11,6 +11,8 @@ public interface CategoryDao {
 	
 	public int updateCategory(Category category);
 	
+	public int deleteCategory(String idx);
+	
 	public int deleteCategory(CategoryExample example);
 	
 	public int deleteAllCategories();

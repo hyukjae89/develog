@@ -26,6 +26,11 @@ public class CategoryDaoImpl implements CategoryDao {
 	}
 
 	@Override
+	public int deleteCategory(String idx) {
+		return categoryMapper.deleteByPrimaryKey(idx);
+	}
+	
+	@Override
 	public int deleteCategory(CategoryExample example) {
 		return categoryMapper.deleteByExample(example);
 	}
@@ -57,6 +62,5 @@ public class CategoryDaoImpl implements CategoryDao {
 	public List<Category> selectCategories(CategoryExample example) {
 		return categoryMapper.selectByExample(example);
 	}
-
 
 }

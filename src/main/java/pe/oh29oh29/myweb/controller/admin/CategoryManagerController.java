@@ -26,17 +26,13 @@ public class CategoryManagerController {
 	
 	@RequestMapping(value = "categoryManager", method = RequestMethod.GET)
 	public String categoryManagerView(Model model) {
-		
-//		model.addAttribute("categories", categories);
-		
 		return "./admin/contents/category";
 	}
 	
 	@RequestMapping(value = "findCategories", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Category> findCategories() {
-		List<Category> categories = categoryService.findCategories(AccessSpecifier.TOTAL);
-		return categories;
+		return categoryService.findCategories(AccessSpecifier.TOTAL);
 	}
 	
 	@RequestMapping(value = "saveCategory", method = RequestMethod.POST)
@@ -51,7 +47,8 @@ public class CategoryManagerController {
 				String key = keys.next();
 				JSONObject category = (JSONObject) categoryPack.get(key);
 				Category updatedCategory = new Category();
-				updatedCategory.setIdx(category.get("idx").toString());
+				if (category.containsKey("idx"))
+					updatedCategory.setIdx(category.get("idx").toString());
 				updatedCategory.setName(category.get("name").toString());
 				updatedCategory.setIsPrivate(Integer.parseInt(category.get("isPrivate").toString()));
 				updatedCategory.setOrd(Integer.parseInt(category.get("ord").toString()));
@@ -62,12 +59,5 @@ public class CategoryManagerController {
 		}
 		
 		categoryService.saveCategories(updatedCategories);
-	}
-	
-	@RequestMapping(value = "addCategory", method = RequestMethod.POST)
-	@ResponseBody
-	public Category addCategory(@RequestBody Category category) {
-		String categoryIdx = categoryService.addCategory(category);
-		return categoryService.findCategory(categoryIdx);
 	}
 }

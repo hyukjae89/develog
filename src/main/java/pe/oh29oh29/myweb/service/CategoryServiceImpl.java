@@ -65,24 +65,25 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 	
 	@Override
-	public void saveCategories(List<Category> updatedCategories) {
+	public void saveCategories(List<Category> categories) {
 		List<Category> originalCategories = categoryDao.selectCategories();
 		Map<String, Category> originalCategoryPack = new HashMap<String, Category>();
 		for (Category category : originalCategories) {
 			originalCategoryPack.put(category.getIdx(), category);
 		}
 		
-		for (Category updatedCategory : updatedCategories) {
-			if (updatedCategory.getIdx().isEmpty()) {
-				updatedCategory.setIdx(Utils.generateIdx());
-				categoryDao.insertCategory(updatedCategory);
-			} else if (originalCategoryPack.containsKey(updatedCategory.getIdx())){
-				Category originalCategory = originalCategoryPack.get(updatedCategory.getIdx());
-				
-				if (originalCategory.getName().equals(categ))
-				categoryDao.updateCategory(updatedCategory);
+		for (Category category : categories) {
+			if (category.getIdx() == null) {
+				category.setIdx(Utils.generateIdx());
+				categoryDao.insertCategory(category);
+			} else if (originalCategoryPack.containsKey(category.getIdx())){
+				categoryDao.updateCategory(category);
+				originalCategoryPack.remove(category.getIdx());
 			}
-			
+		}
+		
+		for (Category category : originalCategoryPack.values()) {
+			categoryDao.deleteCategory(category.getIdx());
 		}
 	}
 
