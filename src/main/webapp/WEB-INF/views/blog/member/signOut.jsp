@@ -7,7 +7,7 @@
 </head>
 <body onload="init('${sessionScope.member.provider}')">
 	<button id="signOutBtn">SignOut</button>
-<script src="./import/jQuery/jquery-3.2.1.min.js"></script>
+<script src="./import/jquery/jquery-3.2.1.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" defer></script>
 <script>
 function init(provider) {

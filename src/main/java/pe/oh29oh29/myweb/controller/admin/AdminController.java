@@ -1,4 +1,4 @@
-package pe.oh29oh29.myweb.controller;
+package pe.oh29oh29.myweb.controller.admin;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +27,6 @@ public class AdminController {
 			throw new Exception();
 		}
 		
-		return "./admin/main";
+		return "admin/admin";
 	}
 }

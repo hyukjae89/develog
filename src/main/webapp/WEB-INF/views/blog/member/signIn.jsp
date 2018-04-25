@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>기술블로그 - oh29oh29</title>
-<link href="./css/member/signIn.css" rel="stylesheet">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>oh29oh29 기술블로그</title>
+	<link href="css/member/signIn.css" rel="stylesheet">
 </head>
 <body>
 	<button id="naverLoginBtn" class="login_btn naver_login_btn"></button>
@@ -42,8 +42,8 @@
 	
 	function googleSignInSuccess(googleUser) {
 		$.ajax({
-//			url : 'http://dev.oh29oh29.pe.kr/verifyIdTokenWithGoogle',
-  			url : 'http://dev.oh29oh29.pe.kr:5050/verifyIdTokenWithGoogle',
+			url : 'http://dev.oh29oh29.pe.kr/verifyIdTokenWithGoogle',
+//   			url : 'http://dev.oh29oh29.pe.kr:5050/verifyIdTokenWithGoogle',
 			type : 'POST',
 			data : googleUser.getAuthResponse().id_token,
 			contentType : 'application/x-www-form-urlencoded',

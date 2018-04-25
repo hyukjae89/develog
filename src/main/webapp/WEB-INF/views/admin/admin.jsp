@@ -3,9 +3,9 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>기술블로그 - oh29oh29</title>
-	<link href="./css/base.css" rel="stylesheet">
-	<link href="./css/admin/main.css" rel="stylesheet">
+	<title>oh29oh29 기술블로그</title>
+	<link href="css/base.css" rel="stylesheet">
+	<link href="css/admin/main.css" rel="stylesheet">
 </head>
 <body onload="init()">
 	<aside id="sideBarWrap" class="side_bar_wrap">

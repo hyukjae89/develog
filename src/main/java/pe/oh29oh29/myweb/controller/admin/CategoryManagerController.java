@@ -26,7 +26,7 @@ public class CategoryManagerController {
 	
 	@RequestMapping(value = "categoryManager", method = RequestMethod.GET)
 	public String categoryManagerView(Model model) {
-		return "./admin/contents/category";
+		return "admin/contents/category";
 	}
 	
 	@RequestMapping(value = "findCategories", method = RequestMethod.GET)

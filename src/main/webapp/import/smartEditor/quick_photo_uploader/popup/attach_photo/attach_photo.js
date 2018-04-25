@@ -480,11 +480,10 @@
  	function callFileUploader (){
  		oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
  			sUrl  : '../../../../../uploadImage',	//샘플 URL입니다.
-// 			sUrl  : location.href.replace(/\/[^\/]*$/, '') + '/uploadImage',	//샘플 URL입니다.
- 	        sCallback : location.href.replace(/\/[^\/]*$/, '') + '/callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
+ 	        sCallback : '/import/smartEditor/quick_photo_uploader/popup/attach_photo/callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
  	    	sFiletype : "*.jpg;*.png;*.bmp;*.gif",						//허용할 파일의 형식. ex) "*", "*.*", "*.jpg", 구분자(;)	
  	    	sMsgNotAllowedExt : 'JPG, GIF, PNG, BMP 확장자만 가능합니다',	//허용할 파일의 형식이 아닌경우에 띄워주는 경고창의 문구
- 	    	bAutoUpload : false,									 	//파일이 선택됨과 동시에 자동으로 업로드를 수행할지 여부 (upload 메소드 수행)
+ 	    	bAutoUpload : true,									 	//파일이 선택됨과 동시에 자동으로 업로드를 수행할지 여부 (upload 메소드 수행)
  	    	bAutoReset : true 											// 업로드한 직후에 파일폼을 리셋 시킬지 여부 (reset 메소드 수행)
  	    }).attach({
  	    	select : function(oCustomEvent) {
@@ -494,7 +493,7 @@
 // 	    			bAllowed (Boolean) 선택된 파일의 형식이 허용되는 형식인지 여부
 // 	    			sMsgNotAllowedExt (String) 허용되지 않는 파일 형식인 경우 띄워줄 경고메세지
 // 	    		}
-//  				선택된 파일의 형식이 허용되는 경우만 처리 
+//  				선택된 파일의 형식이 허용되는 경우만 처리
  	    		if(oCustomEvent.bAllowed === true){
  		    		goStartMode();
  		    	}else{
@@ -505,7 +504,6 @@
 // 	    		oCustomEvent.stop(); 수행시 bAllowed 가 false이더라도 alert이 수행되지 않음
  	    	},
  	    	success : function(oCustomEvent) {
- 	    		// alert("success");
  	    		// 업로드가 성공적으로 완료되었을 때 발생
  	    		// oCustomEvent(이벤트 객체) = {
  	    		//	htResult (Object) 서버에서 전달해주는 결과 객체 (서버 설정에 따라 유동적으로 선택가능)

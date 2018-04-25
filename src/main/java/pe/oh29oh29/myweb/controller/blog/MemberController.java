@@ -1,4 +1,4 @@
-package pe.oh29oh29.myweb.controller;
+package pe.oh29oh29.myweb.controller.blog;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -43,7 +43,7 @@ public class MemberController {
 
 	@RequestMapping(value = "signInView", method = RequestMethod.GET)
 	public String signInView() {
-		return "./member/signIn";
+		return "blog/member/signIn";
 	}
 	
 	@RequestMapping(value ="getLoginAPIWithNaver", method = RequestMethod.GET)
@@ -245,7 +245,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "signOutView", method = RequestMethod.GET)
 	public String signOutView() {
-		return "./member/signOut";
+		return "blog/member/signOut";
 	}
 	
 	@RequestMapping(value = "signOut", method = RequestMethod.GET)

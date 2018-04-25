@@ -9,7 +9,7 @@ public class DashboardController {
 
 	@RequestMapping(value = "dashboard", method = RequestMethod.GET)
 	public String dashboardView() {
-		return "./admin/contents/dashboard";
+		return "admin/contents/dashboard";
 	}
 	
 }

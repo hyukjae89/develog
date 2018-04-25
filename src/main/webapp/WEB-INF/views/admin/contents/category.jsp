@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link href="./css/admin/contents/category.css" rel="stylesheet">
-<link href="./import/jquery/jquery-ui.theme.min.css" rel="stylesheet">
+<link href="css/admin/contents/category.css" rel="stylesheet">
+<link href="import/jquery/jquery-ui.theme.min.css" rel="stylesheet">
 <article id='ctWrap' class='ct_wrap'>
 	<div id='ctListWrap' class='ct_list_wrap'></div>
 	<div id='ctAddWrap' class='ct_item'>
@@ -14,7 +14,7 @@
 		<button id='ctSaveBtn'>변경사항적용</button>
 	</div>
 </article>
-<script src="./import/jquery/jquery-ui.min.js"></script>
+<script src="import/jquery/jquery-ui.min.js"></script>
 <script>
 var categoryStore = {};
 

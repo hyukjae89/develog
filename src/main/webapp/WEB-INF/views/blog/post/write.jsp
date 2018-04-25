@@ -6,7 +6,7 @@
 <title>기술블로그 - oh29oh29</title>
 </head>
 <body onload="init()">
-
+	<input type="text" id="pwTitle" name="title" class="pw_title">
 	<textarea name="contents" id="ir1" rows="10" cols="100"></textarea>
 	<button id="pwCompleteBtn">작성완료</button>
 
