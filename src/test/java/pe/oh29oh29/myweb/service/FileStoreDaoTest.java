@@ -36,7 +36,7 @@ public class FileStoreDaoTest {
 		FileStore fileStore = new FileStore();
 		fileStore.setIdx(Utils.generateIdx());
 		fileStore.setContextPath("imageInContents");
-		fileStore.setRealPath("E:" + File.separator + "FileStore");
+		fileStore.setRealPath(File.separator + "Users" + File.separator + "kwonhyukjae" + File.separator + "Programming" + File.separator + "FileStore");
 		fileStore.setType(FileType.IMAGE_IN_CONTENTS.intValue());
 		fileStoreDao.insertFileStore(fileStore);
 		

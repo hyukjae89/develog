@@ -97,7 +97,6 @@ public class PostController {
 			.append("&sFileName=").append(file.getOriginalFilename())
 			.append("&sFileURL=").append(fileURL);
 
-         System.out.println(sb.toString());
          return "redirect:" + callback + "?callback_func=" + callbackFunc + sb.toString(); 
 	}
 }

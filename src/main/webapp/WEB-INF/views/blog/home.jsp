@@ -33,8 +33,8 @@
 			<div id='plPostListWrap' class='pl_post_list_wrap'>
 				<c:forEach var="post" items="${posts}">
 					<div class="pl_post_list_item">
-						<h2>${post.title}</h2>
-						<p>${post.description}</p>
+						<h2 class="pl_post_title">${post.title}</h2>
+						<p class="pl_post_description">${post.description}</p>
 					</div>
 				</c:forEach>
 			</div>
