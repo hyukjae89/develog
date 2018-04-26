@@ -88,8 +88,14 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public Category findCategory(String idx) {
-		return categoryDao.selectCategory(idx);
+	public Category findCategory(String name) {
+		CategoryExample example = new CategoryExample();
+		example.createCriteria().andNameEqualTo(name);
+		List<Category> categories = categoryDao.selectCategories(example);
+		if (categories.isEmpty())
+			return null;
+		else
+			return categories.get(0);
 	}
 	
 	@Override

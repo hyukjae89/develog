@@ -10,10 +10,10 @@
 
 .naver_login_btn 
 {
-	background: url("../../import/loginAPI/naver/images/login_btn.png");
+	background: url("../../../import/loginAPI/naver/images/login_btn.png");
 }
 
 .google_login_btn
 {
-	background: url("../../import/loginAPI/google/images/login_btn2.png");
+	background: url("../../../import/loginAPI/google/images/login_btn2.png");
 }

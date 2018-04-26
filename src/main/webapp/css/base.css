@@ -31,5 +31,10 @@ input[type="text"] {
 	padding: 0px 10px;
 }
 
+ul {
+	list-style: none;
+}
+
 h1 {
+	
 }

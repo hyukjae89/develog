@@ -49,11 +49,6 @@ public class CategoryDaoImpl implements CategoryDao {
 	}
 
 	@Override
-	public Category selectCategory(String idx) {
-		return categoryMapper.selectByPrimaryKey(idx);
-	}
-	
-	@Override
 	public List<Category> selectCategories() {
 		return categoryMapper.selectByExample(null);
 	}

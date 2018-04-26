@@ -17,8 +17,6 @@ public interface CategoryDao {
 	
 	public int deleteAllCategories();
 
-	public Category selectCategory(String idx);
-	
 	public List<Category> selectCategories();
 	
 	public List<Category> selectCategories(CategoryExample example);

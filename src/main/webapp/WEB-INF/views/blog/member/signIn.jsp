@@ -4,13 +4,13 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>oh29oh29 기술블로그</title>
-	<link href="css/member/signIn.css" rel="stylesheet">
+	<link href="/css/blog/member/signIn.css" rel="stylesheet">
 </head>
 <body>
 	<button id="naverLoginBtn" class="login_btn naver_login_btn"></button>
 	<button id="googleLoginBtn" class="login_btn google_login_btn"></button>
 
-<script src="./import/jquery/jquery-3.2.1.min.js"></script>
+<script src="../import/jquery/jquery-3.2.1.min.js"></script>
 <script src="https://apis.google.com/js/platform.js?onload=googleSignInAPIInit" defer></script>
 <script>
 	window.onload = function() {

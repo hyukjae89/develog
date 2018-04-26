@@ -28,7 +28,7 @@ public interface CategoryService {
 	
 	public void removeCategoryByIdx(String idx);
 	
-	public Category findCategory(String idx);
+	public Category findCategory(String name);
 	
 	public List<Category> findCategories(AccessSpecifier accessSpecifier);
 	

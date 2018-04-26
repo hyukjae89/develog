@@ -10,11 +10,14 @@
 		<sqlMapGenerator targetPackage="pe.oh29oh29.myweb.xml" targetProject="develog/src/main/java" />
 		<javaClientGenerator targetPackage="pe.oh29oh29.myweb.mapper" targetProject="develog/src/main/java" type="XMLMAPPER" />
 		
-		<table schema="develog" tableName="MEMBERS" domainObjectName="Member"/>
-		<table schema="develog" tableName="CATEGORIES" domainObjectName="Category"/>
-		<table schema="develog" tableName="POSTS" domainObjectName="Post"/>
-		<table schema="develog" tableName="COMMENTS" domainObjectName="Comment"/>
-		<table schema="develog" tableName="RELATION" domainObjectName="Relation"/>
+<!-- 		<table schema="develog" tableName="MEMBERS" domainObjectName="Member"/> -->
+<!-- 		<table schema="develog" tableName="CATEGORIES" domainObjectName="Category"/> -->
+<!-- 		<table schema="develog" tableName="POSTS" domainObjectName="Post"/> -->
+		<table schema="develog" tableName="POSTS_VIEW" domainObjectName="PostView" enableInsert="false" enableUpdateByPrimaryKey="false" enableUpdateByExample="false" enableDeleteByPrimaryKey="false" enableDeleteByExample="false"/>
+<!-- 		<table schema="develog" tableName="COMMENTS" domainObjectName="Comment"/> -->
+<!-- 		<table schema="develog" tableName="RELATION" domainObjectName="Relation"/> -->
+<!-- 		<table schema="develog" tableName="FILE_STORE" domainObjectName="FileStore"/> -->
+<!-- 		<table schema="develog" tableName="ATTACHED_FILES" domainObjectName="AttachedFile"/> -->
 		
 	</context>
 </generatorConfiguration>

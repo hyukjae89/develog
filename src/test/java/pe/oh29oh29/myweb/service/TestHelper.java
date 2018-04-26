@@ -10,6 +10,7 @@ import pe.oh29oh29.myweb.model.Category;
 import pe.oh29oh29.myweb.model.Comment;
 import pe.oh29oh29.myweb.model.Member;
 import pe.oh29oh29.myweb.model.Post;
+import pe.oh29oh29.myweb.model.PostView;
 
 public class TestHelper {
 	
@@ -92,15 +93,16 @@ public class TestHelper {
 		postService.writePost(post);
 		
 		// 검증
-		List<Post> posts = postService.readPosts(categoryIdx);
-		assertEquals(1, posts.size());
-		Post post2 = posts.get(0);
-		assertNotNull(post2.getIdx());
-		assertEquals(post.getMemberIdx(), post2.getMemberIdx());
-		assertEquals(post.getCategoryIdx(), post2.getCategoryIdx());
-		assertEquals(post.getTitle(), post2.getTitle());
-		assertEquals(post.getContents(), post2.getContents());
-		assertNotNull(post2.getRegDate());
+		List<PostView> postsView = postService.readPosts(categoryIdx);
+		assertEquals(1, postsView.size());
+		PostView postView = postsView.get(0);
+		assertEquals(post.getTitle(), postView.getTitle());
+		assertEquals(post.getContents(), postView.getContents());
+		assertNotNull(postView.getRegDate());
+		
+		Post post2 = post;
+		post2.setIdx(postView.getPostIdx());
+		post2.setRegDate(postView.getRegDate());
 		
 		return post2;
 	}
@@ -118,15 +120,16 @@ public class TestHelper {
 		postService.writePost(post, relatedPostIdxList);
 		
 		// 검증
-		List<Post> posts = postService.readPosts(categoryIdx);
-		assertTrue(posts.size() > 0);
-		Post post2 = posts.get(0);
-		assertNotNull(post2.getIdx());
-		assertEquals(post.getMemberIdx(), post2.getMemberIdx());
-		assertEquals(post.getCategoryIdx(), post2.getCategoryIdx());
-		assertEquals(post.getTitle(), post2.getTitle());
-		assertEquals(post.getContents(), post2.getContents());
-		assertNotNull(post2.getRegDate());
+		List<PostView> postsView = postService.readPosts(categoryIdx);
+		assertTrue(postsView.size() > 0);
+		PostView postView = postsView.get(0);
+		assertEquals(post.getTitle(), postView.getTitle());
+		assertEquals(post.getContents(), postView.getContents());
+		assertNotNull(postView.getRegDate());
+		
+		Post post2 = post;
+		post2.setIdx(postView.getPostIdx());
+		post2.setRegDate(postView.getRegDate());
 		
 		return post2;
 	}

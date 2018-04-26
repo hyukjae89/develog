@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 import pe.oh29oh29.myweb.common.Utils;
 import pe.oh29oh29.myweb.dao.CommentDao;
 import pe.oh29oh29.myweb.dao.PostDao;
+import pe.oh29oh29.myweb.dao.PostViewDao;
 import pe.oh29oh29.myweb.dao.RelationDao;
 import pe.oh29oh29.myweb.model.CommentExample;
 import pe.oh29oh29.myweb.model.Post;
 import pe.oh29oh29.myweb.model.PostExample;
+import pe.oh29oh29.myweb.model.PostView;
+import pe.oh29oh29.myweb.model.PostViewExample;
 import pe.oh29oh29.myweb.model.RelationExample;
 import pe.oh29oh29.myweb.model.RelationKey;
 
@@ -20,6 +23,7 @@ import pe.oh29oh29.myweb.model.RelationKey;
 public class PostServiceImpl implements PostService{
 	
 	@Autowired PostDao postDao;
+	@Autowired PostViewDao postViewDao;
 	@Autowired CommentDao commentDao;
 	@Autowired RelationDao relationDao;
 
@@ -48,22 +52,6 @@ public class PostServiceImpl implements PostService{
 			relationDao.insertRelation(reverseRelation);
 		}
 	}
-
-	@Override
-	public Post readPost(String idx) {
-		PostExample example = new PostExample();
-		example.createCriteria().andIdxEqualTo(idx);
-		List<Post> post = postDao.selectPost(example);
-		return post.size() > 0 ? post.get(0) : null;
-	}
-
-	@Override
-	public List<Post> readPosts(String categoryIdx) {
-		PostExample example = new PostExample();
-		example.createCriteria().andCategoryIdxEqualTo(categoryIdx);
-		example.setOrderByClause("REG_DATE DESC");
-		return postDao.selectPost(example);
-	}
 	
 	@Override
 	public void modifyPost(Post post) {
@@ -86,5 +74,22 @@ public class PostServiceImpl implements PostService{
 		PostExample example = new PostExample();
 		example.createCriteria().andIdxEqualTo(idx);
 		postDao.deletePost(example);
+	}
+	
+	@Override
+	public PostView readPost(String idx) {
+		PostViewExample example = new PostViewExample();
+		example.createCriteria().andPostIdxEqualTo(idx);
+		List<PostView> post = postViewDao.selectPosts(example);
+		return post.size() > 0 ? post.get(0) : null;
+	}
+
+	@Override
+	public List<PostView> readPosts(String categoryName) {
+		PostViewExample example = new PostViewExample();
+		if (categoryName != null)
+			example.createCriteria().andCategoryEqualTo(categoryName);
+		example.setOrderByClause("REG_DATE DESC");
+		return postViewDao.selectPosts(example);
 	}
 }
