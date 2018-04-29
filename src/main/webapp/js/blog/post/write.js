@@ -13,7 +13,7 @@ var write = write || (function(){
 		
 		console.log(document.getElementById("ir1").value);
 		
-		$('#pwWriteForm').prop("action", "/post/write").prop("method", "post").prop("acceptCharset", "utf-8").submit();
+		$('#pwWriteForm').prop("action", "/post").prop("method", "post").prop("acceptCharset", "utf-8").submit();
 		
 	});
 })();

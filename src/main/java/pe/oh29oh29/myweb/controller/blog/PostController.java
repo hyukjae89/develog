@@ -49,7 +49,7 @@ public class PostController {
 	 * @date	: 2018. 4. 26.
 	 * @TODO	: 포스트 작성 뷰
 	 */
-	@RequestMapping(value = "post/write", method = RequestMethod.GET)
+	@RequestMapping(value = "post", method = RequestMethod.GET)
 	public String postWriteView(Model model) {
 		List<Category> categories = categoryService.findCategories(AccessSpecifier.TOTAL);
 		model.addAttribute("categories", categories);
@@ -60,7 +60,7 @@ public class PostController {
 	 * @date	: 2018. 4. 26.
 	 * @TODO	: 포스트 작성 완료
 	 */
-	@RequestMapping(value = "post/write", method = RequestMethod.POST)
+	@RequestMapping(value = "post", method = RequestMethod.POST)
 	public String wrtiePost(HttpServletRequest httpRequest, Post post, String categoryName) throws Exception {
 		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
 		Category category = categoryService.findCategory(categoryName);
@@ -74,6 +74,12 @@ public class PostController {
 		postService.writePost(post);
 		
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "post/*", method = RequestMethod.GET)
+	public String readPost() {
+		System.out.println("read");
+		return "blog/post/read";
 	}
 	
 	/**
