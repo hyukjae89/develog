@@ -35,8 +35,6 @@ public class CommentServiceTest {
 	@Autowired CommentService commentService;
 	@Autowired PostDao postDao;
 	@Autowired PostService postService;
-	@Autowired CategoryDao categoryDao;
-	@Autowired CategoryService categoryService;
 	@Autowired MemberDao memberDao;
 	@Autowired MemberService memberService;
 	
@@ -46,10 +44,9 @@ public class CommentServiceTest {
 	public void setUp() throws Exception {
 		commentDao.deleteAllComments();
 		postDao.deleteAllPosts();
-		categoryDao.deleteAllCategories();
 		memberDao.deleteAllMembers();
 		
-		testHelper = new TestHelper(memberService, categoryService, postService);
+		testHelper = new TestHelper(memberService, postService);
 	}
 
 	/**
@@ -205,11 +202,8 @@ public class CommentServiceTest {
 		// 회원 가입
 		Member member = testHelper.signUpMember();
 	
-		// 카테고리 생성
-		Category category = testHelper.addCategory();
-	
 		// 포스트 작성
-		Post post = testHelper.writePost(member.getIdx(), category.getIdx());
+		Post post = testHelper.writePost(member.getIdx());
 		
 		// 코멘트 작성
 		Comment comment = new Comment();

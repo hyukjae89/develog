@@ -19,6 +19,7 @@ var home = home || (function(){
 		var $this = $(this);
 	});
 	
+	/*
 	$('#bgSearch').on('keyup', function() {
 		var $this = $(this);
 		var $hidden = $('#bgSearchHidden'); 
@@ -38,11 +39,12 @@ var home = home || (function(){
 		
 		$this.css('width', inputWidth + 'px');
 	});
+	*/
 	(function init() {
 		$.ajax({
 			url : "/posts",
 			type : "GET",
-			data : JSON.stringify({"test":"test"}),
+			data : "id=" + encodeURIComponent("test"),
 			success : function(posts) {
 				posts.forEach(function(post, ord){
 					_posts[ord] = post;
@@ -54,8 +56,8 @@ var home = home || (function(){
 					_$plPostListWrap.append(postItem);
 				});
 			},
-			error : function() {
-				
+			error : function(e) {
+				console.log(e);
 			}
 		});
 	})();

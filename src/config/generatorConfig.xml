@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-	<classPathEntry location="C:\Users\hyukj\.m2\repository\mysql\mysql-connector-java\5.1.31\mysql-connector-java-5.1.31.jar" />
-<!-- 	<classPathEntry location="/Users/kwonhyukjae/.m2/repository/mysql/mysql-connector-java/5.1.31/mysql-connector-java-5.1.31.jar" /> -->
+	<!-- <classPathEntry location="C:\Users\hyukj\.m2\repository\mysql\mysql-connector-java\5.1.31\mysql-connector-java-5.1.31.jar" /> -->
+	<classPathEntry location="/Users/kwonhyukjae/.m2/repository/mysql/mysql-connector-java/5.1.31/mysql-connector-java-5.1.31.jar" />
 
 	<context id="context">
 		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/develog" driverClass="org.gjt.mm.mysql.Driver" password="" userId="" />
@@ -11,11 +11,11 @@
 		<javaClientGenerator targetPackage="pe.oh29oh29.myweb.mapper" targetProject="develog/src/main/java" type="XMLMAPPER" />
 		
 <!-- 		<table schema="develog" tableName="MEMBERS" domainObjectName="Member"/> -->
-<!-- 		<table schema="develog" tableName="CATEGORIES" domainObjectName="Category"/> -->
-<!-- 		<table schema="develog" tableName="POSTS" domainObjectName="Post"/> -->
+		<table schema="develog" tableName="POSTS" domainObjectName="Post"/>
 		<table schema="develog" tableName="POSTS_VIEW" domainObjectName="PostView" enableInsert="false" enableUpdateByPrimaryKey="false" enableUpdateByExample="false" enableDeleteByPrimaryKey="false" enableDeleteByExample="false"/>
 <!-- 		<table schema="develog" tableName="COMMENTS" domainObjectName="Comment"/> -->
-<!-- 		<table schema="develog" tableName="RELATION" domainObjectName="Relation"/> -->
+		<table schema="develog" tableName="TAGS" domainObjectName="Tag"/>
+		<table schema="develog" tableName="POST_TAG_RELATIONS" domainObjectName="PostTagRelation"/>
 <!-- 		<table schema="develog" tableName="FILE_STORE" domainObjectName="FileStore"/> -->
 <!-- 		<table schema="develog" tableName="ATTACHED_FILES" domainObjectName="AttachedFile"/> -->
 		

@@ -84,27 +84,16 @@ public class TestHelper {
 	 * @date	: 2018. 4. 12.
 	 * @TODO	: 포스트 작성
 	 */
-	public Post writePost(String memberIdx, String categoryIdx) {
+	public Post writePost(String memberIdx) {
 		Post post = new Post();
 		post.setMemberIdx(memberIdx);
-		post.setCategoryIdx(categoryIdx);
 		post.setTitle("Post타이틀");
 		post.setContents("Post내용");
 		postService.writePost(post);
 		
 		// 검증
-		List<PostView> postsView = postService.getPosts(categoryIdx);
-		assertEquals(1, postsView.size());
-		PostView postView = postsView.get(0);
-		assertEquals(post.getTitle(), postView.getTitle());
-		assertEquals(post.getContents(), postView.getContents());
-		assertNotNull(postView.getRegDate());
 		
-		Post post2 = post;
-		post2.setIdx(postView.getPostIdx());
-		post2.setRegDate(postView.getRegDate());
-		
-		return post2;
+		return ;
 	}
 	
 	/**

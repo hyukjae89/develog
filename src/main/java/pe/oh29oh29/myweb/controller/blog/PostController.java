@@ -16,20 +16,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import pe.oh29oh29.myweb.common.Constants;
-import pe.oh29oh29.myweb.model.Category;
 import pe.oh29oh29.myweb.model.Member;
 import pe.oh29oh29.myweb.model.Post;
 import pe.oh29oh29.myweb.model.PostView;
 import pe.oh29oh29.myweb.service.AttachedFileService;
 import pe.oh29oh29.myweb.service.AttachedFileService.FileType;
-import pe.oh29oh29.myweb.service.CategoryService;
 import pe.oh29oh29.myweb.service.PostService;
 
 @Controller
 public class PostController {
 
 	@Autowired PostService postService;
-	@Autowired CategoryService categoryService;
 	@Autowired AttachedFileService attachedFileService;
 	
 	/*@RequestMapping(value = "categories/*", method = RequestMethod.GET)
@@ -52,7 +49,7 @@ public class PostController {
 	public List<PostView> getPosts(@RequestParam("id") String parameter) {
 		
 		List<PostView> posts = new ArrayList<PostView>();
-		
+		System.out.println(parameter);
 		posts = postService.getPosts();
 		
 		return posts;
@@ -76,13 +73,8 @@ public class PostController {
 	@RequestMapping(value = "posts", method = RequestMethod.POST)
 	public String wrtiePost(HttpServletRequest httpRequest, Post post, String categoryName) throws Exception {
 		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
-		Category category = categoryService.findCategory(categoryName);
-		
-		if (category == null)
-			throw new Exception();
 		
 		post.setMemberIdx(member.getIdx());
-		post.setCategoryIdx(category.getIdx());
 		
 		postService.writePost(post);
 		
