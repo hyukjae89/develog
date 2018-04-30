@@ -2,13 +2,12 @@
 
 .header {
     width: 100%;
-    height: 50px;
-    box-shadow: 0px 2px 5px;
+    height: 54px;
     background-color: #ffffff;
 }
 
 .header_inner_wrap {
-	max-width: 1080px;
+	height: 100%;
     line-height: 50px;
     margin: 0 auto;
 }
@@ -16,11 +15,19 @@
 .header_logo_wrap {
 	display: inline-block;
     text-align: center;
+    margin-left: 20px;
 }
 
 .header_logo {
-	font-size: 25px;
 	cursor: pointer;
+}
+
+.header_logo:FIRST-CHILD {
+	font-size: 25px;
+}
+
+.header_logo:LAST-CHILD {
+	font-size: 15px;
 }
 
 .header_member_wrap {

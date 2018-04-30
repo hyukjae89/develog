@@ -78,7 +78,7 @@ public class PostServiceTest {
 		postService.writePost(post);
 		
 		// 검증
-		List<PostView> posts = postService.readPosts(post.getCategoryIdx());
+		List<PostView> posts = postService.getPosts(post.getCategoryIdx());
 		assertEquals(1, posts.size());
 	}
 	
@@ -116,7 +116,7 @@ public class PostServiceTest {
 		// 연관 포스트 추가
 		List<String> relatedPostIdxList = new ArrayList<String>();
 		
-		List<PostView> posts = postService.readPosts(post.getCategoryIdx());
+		List<PostView> posts = postService.getPosts(post.getCategoryIdx());
 		assertEquals(1, posts.size());
 		PostView post3 = posts.get(0);
 		
@@ -124,7 +124,7 @@ public class PostServiceTest {
 		postService.writePost(post2, relatedPostIdxList);
 		
 		// 검증
-		List<PostView> posts2 = postService.readPosts(post.getCategoryIdx());
+		List<PostView> posts2 = postService.getPosts(post.getCategoryIdx());
 		assertEquals(2, posts2.size());
 	}
 	
@@ -231,7 +231,7 @@ public class PostServiceTest {
 		post2.setContents("PostTest내용2");
 		postService.writePost(post2);
 		
-		List<PostView> posts = postService.readPosts(category.getIdx());
+		List<PostView> posts = postService.getPosts(category.getIdx());
 		assertEquals(2, posts.size());
 		PostView post3 = posts.get(0);
 		assertEquals(post2.getTitle(), post3.getTitle());
@@ -253,7 +253,7 @@ public class PostServiceTest {
 		post4.setContents("PostTest내용3");
 		postService.writePost(post4, relatedPostIdxList);
 				
-		List<PostView> postsView = postService.readPosts(category.getIdx());
+		List<PostView> postsView = postService.getPosts(category.getIdx());
 		assertEquals(3, postsView.size());
 		
 		// 포스트 수정
@@ -305,7 +305,7 @@ public class PostServiceTest {
 		postService.removePost(post.getIdx());
 		
 		// 검증
-		List<PostView> posts2 = postService.readPosts(post.getCategoryIdx());
+		List<PostView> posts2 = postService.getPosts(post.getCategoryIdx());
 		assertEquals(1, posts2.size());
 	}
 }

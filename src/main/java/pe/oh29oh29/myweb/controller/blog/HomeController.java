@@ -27,11 +27,11 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, String categoryName) {
 		
-		List<Category> categories = categoryService.findCategories(AccessSpecifier.PUBLIC);
+		/*List<Category> categories = categoryService.findCategories(AccessSpecifier.PUBLIC);
 		List<PostView> posts = postService.readPosts(categoryName);
 		
 		model.addAttribute("categories", categories);
-		model.addAttribute("posts", posts);
+		model.addAttribute("posts", posts);*/
 		
 		return "blog/home";
 	}

@@ -85,11 +85,16 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public List<PostView> readPosts(String categoryName) {
+	public List<PostView> getPosts(String categoryName) {
 		PostViewExample example = new PostViewExample();
 		if (categoryName != null)
 			example.createCriteria().andCategoryEqualTo(categoryName);
 		example.setOrderByClause("REG_DATE DESC");
 		return postViewDao.selectPosts(example);
+	}
+
+	@Override
+	public List<PostView> getPosts() {
+		return postViewDao.selectPosts(null);
 	}
 }

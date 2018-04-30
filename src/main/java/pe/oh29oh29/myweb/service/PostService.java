@@ -17,5 +17,7 @@ public interface PostService {
 	
 	public PostView readPost(String idx);
 	
-	public List<PostView> readPosts(String categoryName);
+	public List<PostView> getPosts(String categoryName);
+	
+	public List<PostView> getPosts();
 }

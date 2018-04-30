@@ -3,9 +3,10 @@
 <header id="header" class="header">
 	<div class="header_inner_wrap">
 		<div class="header_logo_wrap">
-			<span id="headerLogo" class="header_logo">oh29oh29</span>
+			<span class="headerLogo header_logo">oh29oh29</span>
+			<span class="headerLogo header_logo">기술 블로그</span>
 		</div>
-		<div class="header_member_wrap">
+		<%-- <div class="header_member_wrap">
 			<c:choose>
 				<c:when test="${empty sessionScope.member}">
 					<span id="headerSignInBtn" class="header_btn">Sign in</span>	
@@ -18,6 +19,6 @@
 					<span id="headerSignOutBtn" class="header_btn">Sign out</span>
 				</c:otherwise>
 			</c:choose>
-		</div>
+		</div> --%>
 	</div>
 </header>

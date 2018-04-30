@@ -11,7 +11,7 @@
 </head>
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
-	<section id="mainContentWrap" class="main_content_wrap">
+	<section id="mainContentsWrap" class="main_content_wrap">
 		<article id="pwWrap" class="pw_wrap">
 			<form id="pwWriteForm" accept-charset="UTF-8">
 				<select name="categoryName">

@@ -93,7 +93,7 @@ public class TestHelper {
 		postService.writePost(post);
 		
 		// 검증
-		List<PostView> postsView = postService.readPosts(categoryIdx);
+		List<PostView> postsView = postService.getPosts(categoryIdx);
 		assertEquals(1, postsView.size());
 		PostView postView = postsView.get(0);
 		assertEquals(post.getTitle(), postView.getTitle());
@@ -120,7 +120,7 @@ public class TestHelper {
 		postService.writePost(post, relatedPostIdxList);
 		
 		// 검증
-		List<PostView> postsView = postService.readPosts(categoryIdx);
+		List<PostView> postsView = postService.getPosts(categoryIdx);
 		assertTrue(postsView.size() > 0);
 		PostView postView = postsView.get(0);
 		assertEquals(post.getTitle(), postView.getTitle());

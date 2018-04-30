@@ -1,5 +1,6 @@
 package pe.oh29oh29.myweb.controller.blog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -20,7 +23,6 @@ import pe.oh29oh29.myweb.model.PostView;
 import pe.oh29oh29.myweb.service.AttachedFileService;
 import pe.oh29oh29.myweb.service.AttachedFileService.FileType;
 import pe.oh29oh29.myweb.service.CategoryService;
-import pe.oh29oh29.myweb.service.CategoryService.AccessSpecifier;
 import pe.oh29oh29.myweb.service.PostService;
 
 @Controller
@@ -30,7 +32,7 @@ public class PostController {
 	@Autowired CategoryService categoryService;
 	@Autowired AttachedFileService attachedFileService;
 	
-	@RequestMapping(value = "category/*", method = RequestMethod.GET)
+	/*@RequestMapping(value = "categories/*", method = RequestMethod.GET)
 	public String postListView(HttpServletRequest httpRequest, Model model) {
 		String servletPath = httpRequest.getServletPath();
 		String categoryName = servletPath.substring(servletPath.lastIndexOf("/") + 1);
@@ -43,24 +45,35 @@ public class PostController {
 		model.addAttribute("posts", posts);
 		
 		return "blog/home";
+	}*/
+	
+	@RequestMapping(value = "posts", method = RequestMethod.GET)
+	@ResponseBody
+	public List<PostView> getPosts(@RequestParam("id") String parameter) {
+		
+		List<PostView> posts = new ArrayList<PostView>();
+		
+		posts = postService.getPosts();
+		
+		return posts;
 	}
 	
 	/**
 	 * @date	: 2018. 4. 26.
 	 * @TODO	: 포스트 작성 뷰
 	 */
-	@RequestMapping(value = "post", method = RequestMethod.GET)
+	/*@RequestMapping(value = "posts", method = RequestMethod.GET)
 	public String postWriteView(Model model) {
 		List<Category> categories = categoryService.findCategories(AccessSpecifier.TOTAL);
 		model.addAttribute("categories", categories);
 		return "blog/post/write";
-	}
+	}*/
 	
 	/**
 	 * @date	: 2018. 4. 26.
 	 * @TODO	: 포스트 작성 완료
 	 */
-	@RequestMapping(value = "post", method = RequestMethod.POST)
+	@RequestMapping(value = "posts", method = RequestMethod.POST)
 	public String wrtiePost(HttpServletRequest httpRequest, Post post, String categoryName) throws Exception {
 		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
 		Category category = categoryService.findCategory(categoryName);
@@ -76,9 +89,15 @@ public class PostController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value = "post/*", method = RequestMethod.GET)
-	public String readPost() {
-		System.out.println("read");
+	@RequestMapping(value = "posts/*", method = RequestMethod.GET)
+	public String readPost(HttpServletRequest httpRequest, Model model) {
+		String servletPath = httpRequest.getServletPath();
+		String postIdx = servletPath.substring(servletPath.lastIndexOf("/") + 1);
+		
+		PostView post = postService.readPost(postIdx);
+		
+		model.addAttribute("post", post);
+		
 		return "blog/post/read";
 	}
 	

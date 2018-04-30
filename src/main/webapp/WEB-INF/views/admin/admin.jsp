@@ -16,24 +16,24 @@
 			<button id="categoryBtn">Category관리</button>
 		</div>
 	</aside>
-	<section id="mainContentWrap" class="main_content_wrap"></section>
+	<section id="mainContentsWrap" class="main_content_wrap"></section>
 
 <script src="./import/jquery/jquery-3.2.1.min.js"></script>
 <script>
 function init() {
 	
-	$('#mainContentWrap').load('dashboard', function(){
+	$('#mainContentsWrap').load('dashboard', function(){
 		console.log("dashboard success");
 	});
 	
 	document.getElementById('dashboardBtn').addEventListener('click', function() {
-		$('#mainContentWrap').load('dashboard', function(){
+		$('#mainContentsWrap').load('dashboard', function(){
 			console.log("dashboard success");
 		});
 	});
 	
 	document.getElementById('categoryBtn').addEventListener('click', function() {
-		$('#mainContentWrap').load('categoryManager', function(){
+		$('#mainContentsWrap').load('categoryManager', function(){
 			console.log("categoryManager success");
 		});
 	});

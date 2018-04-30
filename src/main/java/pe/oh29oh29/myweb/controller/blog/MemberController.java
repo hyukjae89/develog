@@ -41,7 +41,7 @@ public class MemberController {
 	@Autowired MemberService memberService;
 	@Autowired LoginAPI loginAPI;
 
-	@RequestMapping(value = "signInView", method = RequestMethod.GET)
+	@RequestMapping(value = "sign-in", method = RequestMethod.GET)
 	public String signInView() {
 		return "blog/member/signIn";
 	}
@@ -243,7 +243,7 @@ public class MemberController {
 		return "redirect:/signOut";
 	}
 	
-	@RequestMapping(value = "signOutView", method = RequestMethod.GET)
+	@RequestMapping(value = "sign-out", method = RequestMethod.GET)
 	public String signOutView() {
 		return "blog/member/signOut";
 	}

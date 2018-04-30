@@ -1,4 +1,6 @@
 var write = write || (function(){
+	'use strict';
+	
 	var oEditors = [];
 	nhn.husky.EZCreator.createInIFrame({
 	    oAppRef: oEditors,

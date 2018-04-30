@@ -13,8 +13,19 @@
 .pl_category_wrap {
     margin: 0px 0px 10px 0px;
     padding: 10px;
-    box-shadow: 2px 2px 5px;
     background-color: #ffffff;
+}
+
+.pl_category_label {
+    display: inline-block;
+	margin: 0px 0px 20px 0px;
+	color: #003399;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.pl_category_list_item {
+    padding: 5px 0px;
 }
 
 .pl_post_write_btn_wrap {
@@ -23,16 +34,16 @@
 
 .pl_post_list_wrap {
     display: inline-block;
-    width: calc(100% - 200px);
+    width: 100%;
     margin: 10px 0px;
 }
 
 .pl_post_list_item {
-    margin: 0px 10px;
-	margin-bottom: 15px;
-    padding: 10px;
-    box-shadow: 2px 2px 5px;
     background-color: #ffffff;
+	border-bottom: 1px solid #eaeaea;
+}
+
+.pl_post_list_item:FIRST-CHILD {
 }
 
 .pl_post_title {

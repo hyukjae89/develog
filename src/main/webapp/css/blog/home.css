@@ -1,7 +1,31 @@
 @charset "UTF-8";
 
 .main_content_wrap {
-	width: 1080px;
+	width: 860px;
 	height: 100%;
 	margin: 0 auto;
+}
+
+.bg_wrap {
+    text-align: center;
+    line-height: 200px;
+}
+
+.bg_sharp {
+    font-size: 70px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.bg_search {
+    font-size: 70px;
+    border: 0;
+    padding: 0 !important;
+	width: 1px;
+	max-width: 840px;
+}
+
+.bg_search_hidden {
+	display: none;
+	font-size: 70px;
 }

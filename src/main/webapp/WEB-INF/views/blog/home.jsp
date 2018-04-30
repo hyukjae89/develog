@@ -12,14 +12,20 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<section id="mainContentWrap" class="main_content_wrap">
+	<section class="bg_wrap">
+		<span id="bgSharp" class="bg_sharp">#</span>
+		<input type="text" id="bgSearch" class="bg_search">
+		<div id="bgSearchHidden" class="bg_search_hidden"></div>
+	</section>
+	<section id="mainContentsWrap" class="main_content_wrap">
 		<article id="plWrap" class="pl_wrap">
-			<div id="plLeftMenuWrap" class="pl_left_menu_wrap">
+			<%-- <div id="plLeftMenuWrap" class="pl_left_menu_wrap">
 				<div id="plCategoryWrap" class="pl_category_wrap">
+					<span class="pl_category_label">Categories</span>
 					<ul class="pl_category_list">
 					<c:forEach var="category" items="${categories}">
-						<li class="pl_cattegory_list_item">
-							<a href="/category/${category.name}" class="pl_category_link">${category.name}</a>
+						<li class="pl_category_list_item">
+							<a href="/categories/${category.name}" class="pl_category_link">${category.name}</a>
 						</li>
 					</c:forEach>
 					</ul>
@@ -29,10 +35,10 @@
 					<button id="plPostWriteBtn">PostWriteView</button>
 				</div>
 				</c:if>
-			</div>
+			</div> --%>
 			<div id='plPostListWrap' class='pl_post_list_wrap'>
 				<c:forEach var="post" items="${posts}">
-					<div class="pl_post_list_item">
+					<div class="pl_post_list_item" data-id="${post.postIdx}">
 						<h2 class="pl_post_title">${post.title}</h2>
 						<p class="pl_post_description">${post.description}</p>
 					</div>
@@ -42,5 +48,6 @@
 	</section>
 <script src="/js/blog/header.js"></script>
 <script src="/js/blog/home.js"></script>
+<script src="/js/blog/post/list.js"></script>
 </body>
 </html>
