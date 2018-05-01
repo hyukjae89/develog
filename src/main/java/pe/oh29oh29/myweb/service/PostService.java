@@ -4,7 +4,6 @@ import java.util.List;
 
 import pe.oh29oh29.myweb.model.Post;
 import pe.oh29oh29.myweb.model.PostView;
-import pe.oh29oh29.myweb.model.PostViewWithBLOBs;
 
 public interface PostService {
 
@@ -14,8 +13,10 @@ public interface PostService {
 	
 	public void removePost(String idx);
 	
-	public PostViewWithBLOBs readPost(String idx);
+	public PostView getPost(String idx);
 	
-	public List<PostViewWithBLOBs> getPosts(String tag);
+	public List<PostView> getPosts();
+	
+	public List<PostView> getPosts(String tag);
 	
 }

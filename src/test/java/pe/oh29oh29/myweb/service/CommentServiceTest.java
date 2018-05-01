@@ -17,11 +17,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import pe.oh29oh29.myweb.common.Utils;
-import pe.oh29oh29.myweb.dao.CategoryDao;
 import pe.oh29oh29.myweb.dao.CommentDao;
 import pe.oh29oh29.myweb.dao.MemberDao;
 import pe.oh29oh29.myweb.dao.PostDao;
-import pe.oh29oh29.myweb.model.Category;
 import pe.oh29oh29.myweb.model.Comment;
 import pe.oh29oh29.myweb.model.Member;
 import pe.oh29oh29.myweb.model.Post;
@@ -57,10 +55,8 @@ public class CommentServiceTest {
 	public void writeComment() {
 		// 회원 생성
 		Member member = testHelper.signUpMember();
-		// 카테고리 추가
-		Category category = testHelper.addCategory();
 		// 포스트 작성
-		Post post = testHelper.writePost(member.getIdx(), category.getIdx());
+		Post post = testHelper.writePost(member.getIdx());
 		
 		// 코멘트 작성
 		Comment comment = new Comment();
@@ -89,10 +85,8 @@ public class CommentServiceTest {
 	public void writeCommentByInvalidMember() {
 		// 회원 생성
 		Member member = testHelper.signUpMember();
-		// 카테고리 추가
-		Category category = testHelper.addCategory();
 		// 포스트 작성
-		Post post = testHelper.writePost(member.getIdx(), category.getIdx());
+		Post post = testHelper.writePost(member.getIdx());
 		
 		// 코멘트 작성
 		Comment comment = new Comment();
@@ -109,10 +103,8 @@ public class CommentServiceTest {
 	public void writeCommentByInvalidMember2() {
 		// 회원 생성
 		Member member = testHelper.signUpMember();
-		// 카테고리 추가
-		Category category = testHelper.addCategory();
 		// 포스트 작성
-		Post post = testHelper.writePost(member.getIdx(), category.getIdx());
+		Post post = testHelper.writePost(member.getIdx());
 		
 		// 코멘트 작성
 		Comment comment = new Comment();
@@ -163,12 +155,8 @@ public class CommentServiceTest {
 	public void modifyComment() {
 		// 회원 가입
 		Member member = testHelper.signUpMember();
-
-		// 카테고리 생성
-		Category category = testHelper.addCategory();
-
 		// 포스트 작성
-		Post post = testHelper.writePost(member.getIdx(), category.getIdx());
+		Post post = testHelper.writePost(member.getIdx());
 		
 		// 코멘트 작성
 		Comment comment = new Comment();

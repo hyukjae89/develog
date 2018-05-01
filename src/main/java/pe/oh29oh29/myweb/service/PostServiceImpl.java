@@ -12,8 +12,8 @@ import pe.oh29oh29.myweb.dao.PostViewDao;
 import pe.oh29oh29.myweb.model.CommentExample;
 import pe.oh29oh29.myweb.model.Post;
 import pe.oh29oh29.myweb.model.PostExample;
+import pe.oh29oh29.myweb.model.PostView;
 import pe.oh29oh29.myweb.model.PostViewExample;
-import pe.oh29oh29.myweb.model.PostViewWithBLOBs;
 
 @Service
 public class PostServiceImpl implements PostService{
@@ -48,18 +48,24 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public PostViewWithBLOBs readPost(String idx) {
+	public PostView getPost(String idx) {
 		PostViewExample example = new PostViewExample();
 		example.createCriteria().andIdxEqualTo(idx);
-		List<PostViewWithBLOBs> posts = postViewDao.selectPosts(example); 
+		List<PostView> posts = postViewDao.selectPosts(example); 
 		return posts.size() > 0 ? posts.get(0) : null;
 	}
 
 	@Override
-	public List<PostViewWithBLOBs> getPosts(String tag) {
-		PostViewExample example = new PostViewExample();
-		example.createCriteria().andconte
-		return null;
+	public List<PostView> getPosts(String tag) {
+		if (tag == null)
+			tag = "";
+		tag = "%" + tag + "%";
+		return postViewDao.selectPosts(tag);
+	}
+
+	@Override
+	public List<PostView> getPosts() {
+		return getPosts();
 	}
 	
 	

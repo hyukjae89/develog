@@ -1,9 +1,7 @@
 package pe.oh29oh29.myweb.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -18,12 +16,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import pe.oh29oh29.myweb.common.Utils;
-import pe.oh29oh29.myweb.dao.CategoryDao;
 import pe.oh29oh29.myweb.dao.CommentDao;
 import pe.oh29oh29.myweb.dao.MemberDao;
 import pe.oh29oh29.myweb.dao.PostDao;
-import pe.oh29oh29.myweb.dao.RelationDao;
-import pe.oh29oh29.myweb.model.Category;
 import pe.oh29oh29.myweb.model.Member;
 import pe.oh29oh29.myweb.model.Post;
 import pe.oh29oh29.myweb.model.PostView;
@@ -35,25 +30,42 @@ public class PostServiceTest {
 
 	@Autowired PostDao postDao;
 	@Autowired PostService postService;
-	@Autowired CategoryDao categoryDao;
-	@Autowired CategoryService categoryService;
 	@Autowired MemberDao memberDao;
 	@Autowired MemberService memberService;
 	@Autowired CommentDao commentDao;
 	@Autowired CommentService commentService;
-	@Autowired RelationDao relationDao;
 	
-	private TestHelper testHelper;
+	private Member member;
+	
+	/**
+	 * @date	: 2018. 4. 10.
+	 * @TODO	: 회원 생성
+	 */
+	private Member signUpMember() {
+		Member member = new Member();
+		member.setId("Member아이디");
+		member.setName("Member이름");
+		member.setEmail("Member이메일");
+		memberService.signUpMember(member);
+		
+		// 검증
+		List<Member> members = memberService.readAllMembers();
+		assertEquals(1, members.size());
+		Member member2 = members.get(0);
+		assertEquals(member.getId(), member2.getId());
+		assertEquals(member.getName(), member2.getName());
+		assertEquals(member.getEmail(), member2.getEmail());
+		
+		return member2;
+	}
 	
 	@Before
 	public void setUp() throws Exception {
 		commentDao.deleteAllComments();
-		relationDao.deleteAllRelations();
 		postDao.deleteAllPosts();
-		categoryDao.deleteAllCategories();
 		memberDao.deleteAllMembers();
-		
-		testHelper = new TestHelper(memberService, categoryService, postService, commentService);
+
+		member = signUpMember();
 	}
 
 	/**
@@ -62,70 +74,17 @@ public class PostServiceTest {
 	 */
 	@Test
 	public void writePost() {
-		// 회원 생성
-		Member member = testHelper.signUpMember();
-		
-		// 카테고리 생성
-		Category category = testHelper.addCategory();
-		
 		// 포스트 작성
 		Post post = new Post();
 		post.setMemberIdx(member.getIdx());
-		post.setCategoryIdx(category.getIdx());
 		post.setTitle("PostTest타이틀");
 		post.setContents("PostTest내용");
 		
 		postService.writePost(post);
 		
 		// 검증
-		List<PostView> posts = postService.getPosts(post.getCategoryIdx());
+		List<PostView> posts = postService.getPosts();
 		assertEquals(1, posts.size());
-	}
-	
-	/**
-	 * @date	: 2018. 4. 11.
-	 * @TODO	: 포스트 작성 2개
-	 */
-	@Test
-	public void writePost2() {
-		// 회원 생성
-		Member member = testHelper.signUpMember();
-		
-		// 카테고리 생성
-		Category category = testHelper.addCategory();
-		
-		// 포스트 작성
-		Post post = new Post();
-		post.setMemberIdx(member.getIdx());
-		post.setCategoryIdx(category.getIdx());
-		post.setTitle("PostTest타이틀");
-		post.setContents("PostTest내용");
-		postService.writePost(post);
-		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		Post post2 = new Post();
-		post2.setMemberIdx(member.getIdx());
-		post2.setCategoryIdx(category.getIdx());
-		post2.setTitle("secondPostTest타이틀");
-		post2.setContents("secondPostTest내용");
-		// 연관 포스트 추가
-		List<String> relatedPostIdxList = new ArrayList<String>();
-		
-		List<PostView> posts = postService.getPosts(post.getCategoryIdx());
-		assertEquals(1, posts.size());
-		PostView post3 = posts.get(0);
-		
-		relatedPostIdxList.add(post3.getPostIdx());
-		postService.writePost(post2, relatedPostIdxList);
-		
-		// 검증
-		List<PostView> posts2 = postService.getPosts(post.getCategoryIdx());
-		assertEquals(2, posts2.size());
 	}
 	
 	/**
@@ -134,12 +93,7 @@ public class PostServiceTest {
 	 */
 	@Test(expected=UncategorizedSQLException.class)
 	public void writePostByInvalidMember() {
-		// 카테고리 생성
-		Category category = testHelper.addCategory();
-		
-		// 포스트 작성
 		Post post = new Post();
-		post.setCategoryIdx(category.getIdx());
 		post.setTitle("PostTest타이틀");
 		post.setContents("PostTest내용");
 		postService.writePost(post);
@@ -151,48 +105,8 @@ public class PostServiceTest {
 	 */
 	@Test(expected=DataIntegrityViolationException.class)
 	public void writePostByInvalidMember2() {
-		// 카테고리 생성
-		Category category = testHelper.addCategory();
-		
-		// 포스트 작성
 		Post post = new Post();
 		post.setMemberIdx(Utils.generateIdx());
-		post.setCategoryIdx(category.getIdx());
-		post.setTitle("PostTest타이틀");
-		post.setContents("PostTest내용");
-		postService.writePost(post);
-	}
-	
-	/**
-	 * @date	: 2018. 4. 11.
-	 * @TODO	: 포스트 작성 테스트 (유효하지 않는 카테고리일 경우) 
-	 */
-	@Test(expected=UncategorizedSQLException.class)
-	public void writePostByInvalidCategory() {
-		// 회원 생성
-		Member member = testHelper.signUpMember();
-				
-		// 포스트 작성
-		Post post = new Post();
-		post.setMemberIdx(member.getIdx());
-		post.setTitle("PostTest타이틀");
-		post.setContents("PostTest내용");
-		postService.writePost(post);
-	}
-	
-	/**
-	 * @date	: 2018. 4. 11.
-	 * @TODO	: 포스트 작성 테스트 (유효하지 않는 카테고리일 경우) 
-	 */
-	@Test(expected=DataIntegrityViolationException.class)
-	public void writePostByInvalidCategory2() {
-		// 회원 생성
-		Member member = testHelper.signUpMember();
-		
-		// 포스트 작성
-		Post post = new Post();
-		post.setMemberIdx(member.getIdx());
-		post.setCategoryIdx(Utils.generateIdx());
 		post.setTitle("PostTest타이틀");
 		post.setContents("PostTest내용");
 		postService.writePost(post);
@@ -204,16 +118,9 @@ public class PostServiceTest {
 	 */
 	@Test
 	public void modifyPost() {
-		// 회원 생성
-		Member member = testHelper.signUpMember();
-		
-		// 카테고리 생성
-		Category category = testHelper.addCategory();
-		
 		// 포스트 작성
 		Post post = new Post();
 		post.setMemberIdx(member.getIdx());
-		post.setCategoryIdx(category.getIdx());
 		post.setTitle("PostTest타이틀");
 		post.setContents("PostTest내용");
 		postService.writePost(post);
@@ -226,12 +133,11 @@ public class PostServiceTest {
 		
 		Post post2 = new Post();
 		post2.setMemberIdx(member.getIdx());
-		post2.setCategoryIdx(category.getIdx());
 		post2.setTitle("PostTest타이틀2");
 		post2.setContents("PostTest내용2");
 		postService.writePost(post2);
 		
-		List<PostView> posts = postService.getPosts(category.getIdx());
+		List<PostView> posts = postService.getPosts();
 		assertEquals(2, posts.size());
 		PostView post3 = posts.get(0);
 		assertEquals(post2.getTitle(), post3.getTitle());
@@ -243,39 +149,21 @@ public class PostServiceTest {
 			e.printStackTrace();
 		}
 		
-		List<String> relatedPostIdxList = new ArrayList<String>();
-		relatedPostIdxList.add(post3.getPostIdx());
-		
 		Post post4 = new Post();
 		post4.setMemberIdx(member.getIdx());
-		post4.setCategoryIdx(category.getIdx());
 		post4.setTitle("PostTest타이틀3");
 		post4.setContents("PostTest내용3");
-		postService.writePost(post4, relatedPostIdxList);
+		postService.writePost(post4);
 				
-		List<PostView> postsView = postService.getPosts(category.getIdx());
+		List<PostView> postsView = postService.getPosts();
 		assertEquals(3, postsView.size());
 		
 		// 포스트 수정
 		PostView postView = postsView.get(0);
 		Post post5 = new Post();
-		post5.setIdx(postView.getPostIdx());
+		post5.setIdx(postView.getIdx());
 		post5.setTitle("PostTest타이틀수정");
 		post5.setContents("PostTest내용수정");
-		
-		/*List<String> relatedPostIdxListForAdd = new ArrayList<String>();
-		relatedPostIdxListForAdd.add(post3.getIdx());
-		List<String> relatedPostIdxListForDelete = new ArrayList<String>();
-		relatedPostIdxListForDelete.add(post3.getIdx());
-		
-		postService.modifyPost(post5);
-		
-		// 검증
-		List<Post> posts3 = postService.readPosts(post5.getCategoryIdx());
-		assertEquals(3, posts3.size());
-		Post post6 = posts3.get(0);
-		assertEquals(post5.getTitle(), post6.getTitle());
-		assertEquals(post5.getContents(), post6.getContents());*/
 	}
 	
 	/**
@@ -284,28 +172,16 @@ public class PostServiceTest {
 	 */
 	@Test
 	public void removePost() {
-		// 회원 가입
-		Member member = testHelper.signUpMember();
-
-		// 카테고리 생성
-		Category category = testHelper.addCategory();
-
 		// 포스트 작성
-		Post post = testHelper.writePost(member.getIdx(), category.getIdx());
+		writePost();
 		
-		List<String> relatedPostIdxList = new ArrayList<String>();
-		relatedPostIdxList.add(post.getIdx());
-		
-		testHelper.writePostWithRelation(member.getIdx(), category.getIdx(), relatedPostIdxList);
-		
-		// 코멘트 작성
-		testHelper.writeComment(member.getIdx(), post.getIdx());
+		List<PostView> posts = postService.getPosts();
 		
 		// 포스트 삭제
-		postService.removePost(post.getIdx());
+		postService.removePost(posts.get(0).getIdx());
 		
 		// 검증
-		List<PostView> posts2 = postService.getPosts(post.getCategoryIdx());
-		assertEquals(1, posts2.size());
+		List<PostView> posts2 = postService.getPosts();
+		assertEquals(0, posts2.size());
 	}
 }

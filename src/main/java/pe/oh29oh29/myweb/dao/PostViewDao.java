@@ -4,9 +4,13 @@ import java.util.List;
 
 import pe.oh29oh29.myweb.model.PostView;
 import pe.oh29oh29.myweb.model.PostViewExample;
-import pe.oh29oh29.myweb.model.PostViewWithBLOBs;
 
 public interface PostViewDao {
 
-	public List<PostViewWithBLOBs> selectPosts(PostViewExample example);
+	public List<PostView> selectPosts();
+	
+	public List<PostView> selectPosts(PostViewExample example);
+	
+	public List<PostView> selectPosts(String tag);
+	
 }

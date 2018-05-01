@@ -1,6 +1,5 @@
 package pe.oh29oh29.myweb.controller.blog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,30 +28,55 @@ public class PostController {
 	@Autowired PostService postService;
 	@Autowired AttachedFileService attachedFileService;
 	
-	/*@RequestMapping(value = "categories/*", method = RequestMethod.GET)
-	public String postListView(HttpServletRequest httpRequest, Model model) {
-		String servletPath = httpRequest.getServletPath();
-		String categoryName = servletPath.substring(servletPath.lastIndexOf("/") + 1);
-		
-		List<Category> categories = categoryService.findCategories(AccessSpecifier.PUBLIC);
-		List<PostView> posts = postService.readPosts(categoryName);
-		
-		model.addAttribute("categoryName", categoryName);
-		model.addAttribute("categories", categories);
-		model.addAttribute("posts", posts);
-		
-		return "blog/home";
-	}*/
 	
-	@RequestMapping(value = "posts", method = RequestMethod.GET)
+	/**
+	 * @date	: 2018. 5. 1.
+	 * @TODO	: 포스트 리스트 가져오기 (비동기)
+	 */
+	@RequestMapping(value = "async/posts", method = RequestMethod.GET)
 	@ResponseBody
-	public List<PostView> getPosts(@RequestParam("id") String parameter) {
-		
-		List<PostView> posts = new ArrayList<PostView>();
-		System.out.println(parameter);
-		posts = postService.getPosts();
-		
+	public List<PostView> getPosts(@RequestParam(value = "tag", required = false) String tag) {
+		List<PostView> posts = postService.getPosts(tag);
 		return posts;
+	}
+	
+	/**
+	 * @date	: 2018. 5. 1.
+	 * @TODO	: 포스트 리스트 가져오기
+	 */
+	@RequestMapping(value = "posts/tags/*", method = RequestMethod.GET)
+	public String getPosts(HttpServletRequest httpRequest, Model model) {
+		String servletPath = httpRequest.getServletPath();
+		String tag = servletPath.substring(servletPath.lastIndexOf("/") + 1);
+		List<PostView> posts = postService.getPosts(tag);
+		model.addAttribute("posts", posts);
+		model.addAttribute("view", "list");
+		return "blog/home";
+	}
+	
+	/**
+	 * @date	: 2018. 5. 1.
+	 * @TODO	: 포스트 읽기 (비동기)
+	 */
+	@RequestMapping(value = "async/posts/*", method = RequestMethod.GET)
+	@ResponseBody
+	public PostView readPost(@RequestParam(value = "idx") String idx) {
+		PostView post = postService.getPost(idx);
+		return post;
+	}
+	
+	/**
+	 * @date	: 2018. 5. 1.
+	 * @TODO	: 포스트 읽기
+	 */
+	@RequestMapping(value = "posts/*", method = RequestMethod.GET)
+	public String readPost(HttpServletRequest httpRequest, Model model) {
+		String servletPath = httpRequest.getServletPath();
+		String uriId = servletPath.substring(servletPath.lastIndexOf("/") + 1);
+		PostView post = postService.getPost(uriId);
+		model.addAttribute("post", post);
+		model.addAttribute("view", "read");
+		return "blog/home";
 	}
 	
 	/**
@@ -81,17 +105,7 @@ public class PostController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value = "posts/*", method = RequestMethod.GET)
-	public String readPost(HttpServletRequest httpRequest, Model model) {
-		String servletPath = httpRequest.getServletPath();
-		String postIdx = servletPath.substring(servletPath.lastIndexOf("/") + 1);
-		
-		PostView post = postService.readPost(postIdx);
-		
-		model.addAttribute("post", post);
-		
-		return "blog/post/read";
-	}
+	
 	
 	/**
 	 * @date	: 2018. 4. 25.

@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import pe.oh29oh29.myweb.model.Category;
 import pe.oh29oh29.myweb.model.Comment;
 import pe.oh29oh29.myweb.model.Member;
 import pe.oh29oh29.myweb.model.Post;
@@ -15,27 +14,22 @@ import pe.oh29oh29.myweb.model.PostView;
 public class TestHelper {
 	
 	private MemberService memberService;
-	private CategoryService categoryService;
 	private PostService postService;
 	private CommentService commentService;
 	
-	TestHelper(MemberService memberService, CategoryService categoryService) {
+	TestHelper(MemberService memberService) {
 		this.memberService = memberService;
-		this.categoryService = categoryService;
 	}
-	TestHelper(MemberService memberService, CategoryService categoryService, PostService postService) {
+	TestHelper(MemberService memberService, PostService postService) {
 		this.memberService = memberService;
-		this.categoryService = categoryService;
 		this.postService = postService;
 	}
-	TestHelper(MemberService memberService, CategoryService categoryService, CommentService commentService) {
+	TestHelper(MemberService memberService, CommentService commentService) {
 		this.memberService = memberService;
-		this.categoryService = categoryService;
 		this.commentService = commentService;
 	}
-	TestHelper(MemberService memberService, CategoryService categoryService, PostService postService, CommentService commentService) {
+	TestHelper(MemberService memberService, PostService postService, CommentService commentService) {
 		this.memberService = memberService;
-		this.categoryService = categoryService;
 		this.postService = postService;
 		this.commentService = commentService;
 	}
@@ -62,23 +56,6 @@ public class TestHelper {
 		return member2;
 	}
 	
-	/**
-	 * @date	: 2018. 4. 11.
-	 * @TODO	: 카테고리 생성
-	 */
-	public Category addCategory() {
-		Category category = new Category();
-		category.setName("Category이름");
-		categoryService.addCategory(category);
-		
-		// 검증
-		List<Category> categories = categoryService.findCategories(null);
-		assertEquals(1, categories.size());
-		Category category2 = categories.get(0);
-		assertEquals(category.getName(), category2.getName());
-		
-		return category2;
-	}
 	
 	/**
 	 * @date	: 2018. 4. 12.
@@ -91,9 +68,7 @@ public class TestHelper {
 		post.setContents("Post내용");
 		postService.writePost(post);
 		
-		// 검증
-		
-		return ;
+		return post;
 	}
 	
 	/**
@@ -103,10 +78,9 @@ public class TestHelper {
 	public Post writePostWithRelation(String memberIdx, String categoryIdx, List<String> relatedPostIdxList) {
 		Post post = new Post();
 		post.setMemberIdx(memberIdx);
-		post.setCategoryIdx(categoryIdx);
 		post.setTitle("Post타이틀");
 		post.setContents("Post내용");
-		postService.writePost(post, relatedPostIdxList);
+		postService.writePost(post);
 		
 		// 검증
 		List<PostView> postsView = postService.getPosts(categoryIdx);
@@ -117,7 +91,7 @@ public class TestHelper {
 		assertNotNull(postView.getRegDate());
 		
 		Post post2 = post;
-		post2.setIdx(postView.getPostIdx());
+		post2.setIdx(postView.getIdx());
 		post2.setRegDate(postView.getRegDate());
 		
 		return post2;
