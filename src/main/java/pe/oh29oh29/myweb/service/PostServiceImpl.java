@@ -48,9 +48,9 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public PostView getPost(String idx) {
+	public PostView getPost(String uriId) {
 		PostViewExample example = new PostViewExample();
-		example.createCriteria().andIdxEqualTo(idx);
+		example.createCriteria().andUriIdEqualTo(uriId);
 		List<PostView> posts = postViewDao.selectPosts(example); 
 		return posts.size() > 0 ? posts.get(0) : null;
 	}

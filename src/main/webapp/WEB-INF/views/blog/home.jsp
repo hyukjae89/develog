@@ -7,26 +7,39 @@
 	<link href="/css/base.css" rel="stylesheet">
 	<link href="/css/blog/header.css" rel="stylesheet">
 	<link href="/css/blog/home.css" rel="stylesheet">
-	<script src="/import/jquery/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<section class="bg_wrap">
-		<span id="bgSharp" class="bg_sharp">#</span>
-		<input type="text" id="bgSearch" class="bg_search">
-		<div id="bgSearchHidden" class="bg_search_hidden"></div>
+	<section id="topSectionWrap" class="top_section_wrap">
+		<article class="tag_search_wrap">
+			<span id="sharp" class="sharp">#</span>
+			<input id="search" class="search" type="text">
+			<div id="searchHidden" class="search_hidden"></div>
+		</article>
 	</section>
-	<section id="mainContentsWrap" class="main_content_wrap">
-		<c:choose>
-			<c:when test="${view == 'read'}">
-				<jsp:include page="post/read.jsp"></jsp:include>
-			</c:when>
-			<c:otherwise>
-				<jsp:include page="post/list.jsp"></jsp:include>
-			</c:otherwise>
-		</c:choose>
+	<section id="mainSectionWrap" class="main_section_wrap">
+		<article id="mainArticleWrap" class="main_article_wrap"></article>
 	</section>
+<script src="/import/jquery/jquery-3.2.1.min.js"></script>
 <script src="/js/blog/header.js"></script>
+<script src="/js/blog/homeData.js"></script>
+<script src="/js/blog/homeElements.js"></script>
+<script src="/js/blog/homeView.js"></script>
 <script src="/js/blog/home.js"></script>
+<script src="/js/blog/homeEvent.js"></script>
+<c:choose>
+	<c:when test="${view == 'read'}">
+		<script>
+			var uriId = '${uriId}';
+			home.getPost(uriId);
+		</script>
+	</c:when>
+	<c:otherwise>
+		<script>
+			var tag = '${tag}';
+			home.getPosts(tag);
+		</script>
+	</c:otherwise>
+</c:choose>
 </body>
 </html>

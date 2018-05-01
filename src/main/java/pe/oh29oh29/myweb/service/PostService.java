@@ -13,7 +13,7 @@ public interface PostService {
 	
 	public void removePost(String idx);
 	
-	public PostView getPost(String idx);
+	public PostView getPost(String uriId);
 	
 	public List<PostView> getPosts();
 	

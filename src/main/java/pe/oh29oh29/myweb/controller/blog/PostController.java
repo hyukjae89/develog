@@ -48,8 +48,7 @@ public class PostController {
 	public String getPosts(HttpServletRequest httpRequest, Model model) {
 		String servletPath = httpRequest.getServletPath();
 		String tag = servletPath.substring(servletPath.lastIndexOf("/") + 1);
-		List<PostView> posts = postService.getPosts(tag);
-		model.addAttribute("posts", posts);
+		model.addAttribute("tag", tag);
 		model.addAttribute("view", "list");
 		return "blog/home";
 	}
@@ -60,8 +59,8 @@ public class PostController {
 	 */
 	@RequestMapping(value = "async/posts/*", method = RequestMethod.GET)
 	@ResponseBody
-	public PostView readPost(@RequestParam(value = "idx") String idx) {
-		PostView post = postService.getPost(idx);
+	public PostView readPost(@RequestParam(value = "uriId") String uriId) {
+		PostView post = postService.getPost(uriId);
 		return post;
 	}
 	
@@ -73,8 +72,7 @@ public class PostController {
 	public String readPost(HttpServletRequest httpRequest, Model model) {
 		String servletPath = httpRequest.getServletPath();
 		String uriId = servletPath.substring(servletPath.lastIndexOf("/") + 1);
-		PostView post = postService.getPost(uriId);
-		model.addAttribute("post", post);
+		model.addAttribute("uriId", uriId);
 		model.addAttribute("view", "read");
 		return "blog/home";
 	}
@@ -83,12 +81,10 @@ public class PostController {
 	 * @date	: 2018. 4. 26.
 	 * @TODO	: 포스트 작성 뷰
 	 */
-	/*@RequestMapping(value = "posts", method = RequestMethod.GET)
+	@RequestMapping(value = "posts", method = RequestMethod.GET)
 	public String postWriteView(Model model) {
-		List<Category> categories = categoryService.findCategories(AccessSpecifier.TOTAL);
-		model.addAttribute("categories", categories);
 		return "blog/post/write";
-	}*/
+	}
 	
 	/**
 	 * @date	: 2018. 4. 26.

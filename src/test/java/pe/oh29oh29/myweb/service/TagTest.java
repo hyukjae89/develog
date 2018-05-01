@@ -66,10 +66,10 @@ public class TagTest {
 		relation2.setTagIdx(tags.get(1).getIdx());
 		postTagRelationDao.insertPostTagRelation(relation2);
 		
-		PostTagRelation relation3 = new PostTagRelation();
-		relation3.setPostIdx(posts.get(1).getIdx());
-		relation3.setTagIdx(tags.get(2).getIdx());
-		postTagRelationDao.insertPostTagRelation(relation3);
+//		PostTagRelation relation3 = new PostTagRelation();
+//		relation3.setPostIdx(posts.get(1).getIdx());
+//		relation3.setTagIdx(tags.get(2).getIdx());
+//		postTagRelationDao.insertPostTagRelation(relation3);
 		
 		
 	}
