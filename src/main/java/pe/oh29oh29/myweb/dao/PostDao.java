@@ -14,6 +14,8 @@ public interface PostDao {
 	public int updatePost(Post post);
 	
 	public int deletePost(PostExample example);
+	
+	public int deletePost(String idx, String memberIdx);
 
 	public int deleteAllPosts();
 	

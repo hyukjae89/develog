@@ -1,5 +1,5 @@
 var header = header || (function(){
-	$('.headerLogo').on('click', function() {
+	$('.headerLogoWrap').on('click', function() {
 		location.href = "/";
 	});
 	

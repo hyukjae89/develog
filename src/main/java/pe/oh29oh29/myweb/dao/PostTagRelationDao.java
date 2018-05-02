@@ -17,4 +17,6 @@ public interface PostTagRelationDao {
 	
 	public List<PostTagRelation> selectPostTagRelation(PostTagRelationExample example);
 	
+	public long countPostTagRelation(PostTagRelationExample example);
+	
 }

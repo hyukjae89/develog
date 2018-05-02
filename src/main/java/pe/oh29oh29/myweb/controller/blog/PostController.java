@@ -33,7 +33,7 @@ public class PostController {
 	 * @date	: 2018. 5. 1.
 	 * @TODO	: 포스트 리스트 가져오기 (비동기)
 	 */
-	@RequestMapping(value = "async/posts", method = RequestMethod.GET)
+	@RequestMapping(value = "async/posts/tags/*", method = RequestMethod.GET)
 	@ResponseBody
 	public List<PostView> getPosts(@RequestParam(value = "tag", required = false) String tag) {
 		List<PostView> posts = postService.getPosts(tag);
@@ -79,29 +79,21 @@ public class PostController {
 	
 	/**
 	 * @date	: 2018. 4. 26.
-	 * @TODO	: 포스트 작성 뷰
+	 * @TODO	: 포스트 작성 완료 (비동기)
 	 */
-	@RequestMapping(value = "posts", method = RequestMethod.GET)
-	public String postWriteView(Model model) {
-		return "blog/post/write";
-	}
-	
-	/**
-	 * @date	: 2018. 4. 26.
-	 * @TODO	: 포스트 작성 완료
-	 */
-	@RequestMapping(value = "posts", method = RequestMethod.POST)
-	public String wrtiePost(HttpServletRequest httpRequest, Post post, String categoryName) throws Exception {
+	@RequestMapping(value = "async/posts", method = RequestMethod.POST)
+	@ResponseBody
+	public PostView wrtiePost(HttpServletRequest httpRequest, Post post, String tags) throws Exception {
 		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
 		
 		post.setMemberIdx(member.getIdx());
 		
-		postService.writePost(post);
+		postService.writePost(post, tags);
 		
-		return "redirect:/";
+		PostView writedPost = postService.getPost(post.getUriId());
+		
+		return writedPost;
 	}
-	
-	
 	
 	/**
 	 * @date	: 2018. 4. 25.

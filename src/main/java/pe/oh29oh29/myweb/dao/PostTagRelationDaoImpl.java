@@ -39,4 +39,9 @@ public class PostTagRelationDaoImpl implements PostTagRelationDao {
 		return postTagRelationMapper.selectByExample(example);
 	}
 
+	@Override
+	public long countPostTagRelation(PostTagRelationExample example) {
+		return postTagRelationMapper.countByExample(example);
+	}
+
 }

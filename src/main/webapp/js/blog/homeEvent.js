@@ -28,9 +28,9 @@ var homeEvent = homeEvent || (function(){
     
     homeElements.$mainArticleWrap.on('click', '#pwCompleteBtn', function(){
         // 에디터의 내용이 textarea에 적용된다.
-	    homeData.smartEditor.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+        homeData.smartEditor.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
         
-        // $('#pwWriteForm').prop("action", "/post").prop("method", "post").prop("acceptCharset", "utf-8").submit();
+        home.submitPostWrite();
     });
     
 })();

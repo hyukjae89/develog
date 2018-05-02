@@ -11,10 +11,11 @@ public interface TagDao {
 	
 	public int updateTag(Tag tag);
 	
-	public int deleteTag(TagExample example);
+	public int deleteTag(String idx);
 
 	public int deleteAllTags();
 	
 	public List<Tag> selectTag(TagExample example);
 	
+	public long countTag(TagExample example);
 }

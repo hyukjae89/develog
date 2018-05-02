@@ -7,7 +7,7 @@ var home = home || (function(){
 			tag = "";
 		
 		$.ajax({
-			url : "/async/posts",
+			url : "/async/posts/tags/" + tag,
 			type : "GET",
 			data : "tag=" + encodeURIComponent(tag),
 			success : function(posts) {
@@ -55,12 +55,29 @@ var home = home || (function(){
 			});
 		});
 	};
+
+	var _submitPostWrite = function() {
+		var formData = $('#pwWriteForm').serialize();
+		
+		$.ajax({
+			url : "/async/posts",
+			type : "POST",
+			data : formData,
+			success : function(post) {
+				console.log(post);
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	};
 	
 	return {
 		getPosts : _getPosts,
 		getPost : _getPost,
 
-		goPostWrite : _goPostWrite
+		goPostWrite : _goPostWrite,
+		submitPostWrite : _submitPostWrite
 	};
 
 })();

@@ -25,8 +25,8 @@ public class TagDaoImpl implements TagDao {
 	}
 
 	@Override
-	public int deleteTag(TagExample example) {
-		return tagMapper.deleteByExample(example);
+	public int deleteTag(String idx) {
+		return tagMapper.deleteByPrimaryKey(idx);
 	}
 
 	@Override
@@ -37,5 +37,10 @@ public class TagDaoImpl implements TagDao {
 	@Override
 	public List<Tag> selectTag(TagExample example) {
 		return tagMapper.selectByExample(example);
+	}
+
+	@Override
+	public long countTag(TagExample example) {
+		return tagMapper.countByExample(example);
 	}
 }

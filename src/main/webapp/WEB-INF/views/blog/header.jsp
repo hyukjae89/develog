@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <header id="header" class="header">
 	<div class="header_inner_wrap">
-		<div class="header_logo_wrap">
-			<span class="headerLogo header_logo">oh29oh29</span>
-			<span class="headerLogo header_logo">기술 블로그</span>
+		<div class="headerLogoWrap header_logo_wrap">
+			<span class="header_logo">oh29oh29</span>
+			<span class="header_logo">기술 블로그</span>
 		</div>
 		<%-- <div class="header_member_wrap">
 			<c:choose>

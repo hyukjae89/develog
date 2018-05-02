@@ -19,9 +19,12 @@ import pe.oh29oh29.myweb.common.Utils;
 import pe.oh29oh29.myweb.dao.CommentDao;
 import pe.oh29oh29.myweb.dao.MemberDao;
 import pe.oh29oh29.myweb.dao.PostDao;
+import pe.oh29oh29.myweb.dao.PostTagRelationDao;
+import pe.oh29oh29.myweb.dao.TagDao;
 import pe.oh29oh29.myweb.model.Member;
 import pe.oh29oh29.myweb.model.Post;
 import pe.oh29oh29.myweb.model.PostView;
+import pe.oh29oh29.myweb.model.Tag;
 
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,6 +37,8 @@ public class PostServiceTest {
 	@Autowired MemberService memberService;
 	@Autowired CommentDao commentDao;
 	@Autowired CommentService commentService;
+	@Autowired TagDao tagDao;
+	@Autowired PostTagRelationDao postTagRelationDao;
 	
 	private Member member;
 	
@@ -61,6 +66,8 @@ public class PostServiceTest {
 	
 	@Before
 	public void setUp() throws Exception {
+		postTagRelationDao.deleteAllPostTagRelations();
+		tagDao.deleteAllTags();
 		commentDao.deleteAllComments();
 		postDao.deleteAllPosts();
 		memberDao.deleteAllMembers();
@@ -79,37 +86,16 @@ public class PostServiceTest {
 		post.setMemberIdx(member.getIdx());
 		post.setTitle("PostTest타이틀");
 		post.setContents("PostTest내용");
+		post.setDescription("PostTest설명");
+		post.setUriId("post-test-uri-id");
 		
-		postService.writePost(post);
+		String tag = "post-write-tag-name";
+		
+		postService.writePost(post, tag);
 		
 		// 검증
 		List<PostView> posts = postService.getPosts();
 		assertEquals(1, posts.size());
-	}
-	
-	/**
-	 * @date	: 2018. 4. 11.
-	 * @TODO	: 포스트 작성 테스트 (유효하지 않는 회원일 경우) 
-	 */
-	@Test(expected=UncategorizedSQLException.class)
-	public void writePostByInvalidMember() {
-		Post post = new Post();
-		post.setTitle("PostTest타이틀");
-		post.setContents("PostTest내용");
-		postService.writePost(post);
-	}
-	
-	/**
-	 * @date	: 2018. 4. 11.
-	 * @TODO	: 포스트 작성 테스트 (유효하지 않는 회원일 경우) 
-	 */
-	@Test(expected=DataIntegrityViolationException.class)
-	public void writePostByInvalidMember2() {
-		Post post = new Post();
-		post.setMemberIdx(Utils.generateIdx());
-		post.setTitle("PostTest타이틀");
-		post.setContents("PostTest내용");
-		postService.writePost(post);
 	}
 	
 	/**
@@ -119,51 +105,25 @@ public class PostServiceTest {
 	@Test
 	public void modifyPost() {
 		// 포스트 작성
-		Post post = new Post();
-		post.setMemberIdx(member.getIdx());
-		post.setTitle("PostTest타이틀");
-		post.setContents("PostTest내용");
-		postService.writePost(post);
+		writePost();
 		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		Post post2 = new Post();
-		post2.setMemberIdx(member.getIdx());
-		post2.setTitle("PostTest타이틀2");
-		post2.setContents("PostTest내용2");
-		postService.writePost(post2);
-		
+		// 작성한 포스트 가져오기
 		List<PostView> posts = postService.getPosts();
-		assertEquals(2, posts.size());
-		PostView post3 = posts.get(0);
-		assertEquals(post2.getTitle(), post3.getTitle());
-		assertEquals(post2.getContents(), post3.getContents());
-		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		Post post4 = new Post();
-		post4.setMemberIdx(member.getIdx());
-		post4.setTitle("PostTest타이틀3");
-		post4.setContents("PostTest내용3");
-		postService.writePost(post4);
-				
-		List<PostView> postsView = postService.getPosts();
-		assertEquals(3, postsView.size());
+		assertEquals(1, posts.size());
 		
 		// 포스트 수정
-		PostView postView = postsView.get(0);
-		Post post5 = new Post();
-		post5.setIdx(postView.getIdx());
-		post5.setTitle("PostTest타이틀수정");
-		post5.setContents("PostTest내용수정");
+		PostView post = posts.get(0);
+		
+		Post updatePost = new Post();
+		updatePost.setIdx(post.getIdx());
+		updatePost.setTitle("PostTest타이틀수정");
+		updatePost.setContents("PostTest내용수정");
+		updatePost.setDescription("PostTest설명수정");
+		updatePost.setUriId("post-test-update");
+		
+		String tag = "post-update-tag-name";
+		
+		postService.modifyPost(updatePost, tag);
 	}
 	
 	/**
@@ -178,7 +138,7 @@ public class PostServiceTest {
 		List<PostView> posts = postService.getPosts();
 		
 		// 포스트 삭제
-		postService.removePost(posts.get(0).getIdx());
+//		postService.removePost(posts.get(0).getIdx());
 		
 		// 검증
 		List<PostView> posts2 = postService.getPosts();

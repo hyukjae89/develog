@@ -7,11 +7,11 @@ import pe.oh29oh29.myweb.model.PostView;
 
 public interface PostService {
 
-	public void writePost(Post post);
+	public void writePost(Post post, String tags);
 	
-	public void modifyPost(Post post);
+	public void modifyPost(Post post, String tags);
 	
-	public void removePost(String idx);
+	public void removePost(String idx, String memberIdx);
 	
 	public PostView getPost(String uriId);
 	

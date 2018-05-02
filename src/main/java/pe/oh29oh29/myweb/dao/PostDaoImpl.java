@@ -33,6 +33,11 @@ public class PostDaoImpl implements PostDao{
 	public int deletePost(PostExample example) {
 		return postMapper.deleteByExample(example);
 	}
+	
+	@Override
+	public int deletePost(String idx, String memberIdx) {
+		return postMapper.deleteByPrimaryKey(idx, memberIdx);
+	}
 
 	@Override
 	public int deleteAllPosts() {
