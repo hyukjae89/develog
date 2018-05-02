@@ -32,11 +32,18 @@ var homeView = homeView || (function(){
 		homeElements.$mainArticleWrap.append(html);
     };
 
-    var _appendPostDetail = function(post) {
+    var _appendPostDetail = function(post, isWriter) {
         var html 	= '<h1 id="prTitle" class="pr_title">' + post.title + '</h1>'
                     + '<p id="prDescription" class="pr_description">' + post.description + '</p>'
                     + '<div id="prContents" class="pr_contents">' + post.contents + '</div>';
-                        
+        
+        if (isWriter) {
+        	html	+= '<div class="pr_btn_wrap" data-uri-id="' + post.uriId + '">'
+        				+ '<button id="prModifyBtn">수정</button>'
+        				+ '<button id="prRemoveBtn">삭제</button>'
+        			+ '</div>';
+        }
+        
 		homeElements.$mainArticleWrap.append(html);
     };
 

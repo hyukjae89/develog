@@ -1,6 +1,8 @@
 package pe.oh29oh29.myweb.controller.blog;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -59,9 +61,18 @@ public class PostController {
 	 */
 	@RequestMapping(value = "async/posts/*", method = RequestMethod.GET)
 	@ResponseBody
-	public PostView readPost(@RequestParam(value = "uriId") String uriId) {
+	public Map<String, Object> readPost(HttpServletRequest httpRequest, String uriId) {
+		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
 		PostView post = postService.getPost(uriId);
-		return post;
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("post", post);
+		if (member == null) {
+			result.put("isWriter", false);
+		} else {
+			result.put("isWriter", member.getIdx().equals(post.getMemberIdx()));
+		}
+		return result;
 	}
 	
 	/**
@@ -117,5 +128,17 @@ public class PostController {
 			.append("&sFileURL=").append(fileURL);
 
          return "redirect:" + callback + "?callback_func=" + callbackFunc + sb.toString(); 
+	}
+	
+	/**
+	 * @date	: 2018. 5. 3.
+	 * @TODO	: 포스트 삭제하기 (비동기)
+	 */
+	@RequestMapping(value = "async/posts/*", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void removePost(HttpServletRequest httpRequest, String uriId) throws Exception {
+		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
+		
+		postService.removePost(uriId, member.getIdx());
 	}
 }

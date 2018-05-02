@@ -26,7 +26,7 @@ public class PostDaoImpl implements PostDao{
 
 	@Override
 	public int updatePost(Post post) {
-		return postMapper.updateByPrimaryKeyWithBLOBs(post);
+		return postMapper.updateByPrimaryKeySelective(post);
 	}
 
 	@Override

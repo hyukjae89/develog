@@ -16,6 +16,7 @@ import pe.oh29oh29.myweb.dao.PostViewDao;
 import pe.oh29oh29.myweb.dao.TagDao;
 import pe.oh29oh29.myweb.model.CommentExample;
 import pe.oh29oh29.myweb.model.Post;
+import pe.oh29oh29.myweb.model.PostExample;
 import pe.oh29oh29.myweb.model.PostTagRelation;
 import pe.oh29oh29.myweb.model.PostTagRelationExample;
 import pe.oh29oh29.myweb.model.PostTagRelationView;
@@ -78,25 +79,26 @@ public class PostServiceImpl implements PostService{
 		String[] nextTags = tags.split("\\s");
 		TagExample tagExample = new TagExample();
 		
-		Map<String, Integer> prevTagMap = new HashMap<String, Integer>();
+		Map<String, PostTagRelationView> prevTagMap = new HashMap<String, PostTagRelationView>();
 		Map<String, Integer> nextTagMap = new HashMap<String, Integer>();
 		
 		for (PostTagRelationView prevTag : prevTags) {
-			prevTagMap.put(prevTag.getTagName(), prevTag.getOrd());
+			prevTagMap.put(prevTag.getTagName(), prevTag);
 		}
 		
 		for (int ord = 0; ord < nextTags.length; ord++) {
 			nextTagMap.put(nextTags[ord], ord);
 		}
 		
-		for (String nextTag : nextTags) {
+		for (int ord = 0; ord < nextTags.length; ord++) {
+			String nextTag = nextTags[ord];
 			if (prevTagMap.containsKey(nextTag)) {
-				if (nextTagMap.get(nextTag) != prevTagMap.get(nextTag)) {
+				if (nextTagMap.get(nextTag) != prevTagMap.get(nextTag).getOrd()) {
 					// PostTagRelation ord 수정
 					PostTagRelation relation = new PostTagRelation();
 					relation.setOrd(nextTagMap.get(nextTag));
 					PostTagRelationExample postTagRelationExample = new PostTagRelationExample();
-					postTagRelationExample.createCriteria().andPostIdxEqualTo(post.getIdx()).andOrdEqualTo(prevTagMap.get(nextTag));
+					postTagRelationExample.createCriteria().andPostIdxEqualTo(post.getIdx()).andTagIdxEqualTo(prevTagMap.get(nextTag).getTagIdx());
 					postTagRelationDao.updatePostTagRelation(relation, postTagRelationExample);
 				}
 			} else {
@@ -116,6 +118,7 @@ public class PostServiceImpl implements PostService{
 				PostTagRelation relation = new PostTagRelation();
 				relation.setPostIdx(post.getIdx());
 				relation.setTagIdx(tag.getIdx());
+				relation.setOrd(ord);
 				postTagRelationDao.insertPostTagRelation(relation);
 			}
 		}
@@ -138,23 +141,25 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public void removePost(String idx, String memberIdx) {
+	public void removePost(String uriId, String memberIdx) {
+		// 삭제할 Post 조회 by URI_ID
+		PostExample postExample = new PostExample();
+		postExample.createCriteria().andUriIdEqualTo(uriId);
+		Post post = postDao.selectPost(postExample).get(0);
+		
 		// Comment 삭제
 		CommentExample commentExample = new CommentExample();
-		commentExample.createCriteria().andPostIdxEqualTo(idx);
+		commentExample.createCriteria().andPostIdxEqualTo(post.getIdx());
 		commentDao.deleteComment(commentExample);
 		
-		PostTagRelationExample postTagRelationExample = new PostTagRelationExample();
-		postTagRelationExample.createCriteria().andPostIdxEqualTo(idx);
-		
-		// PostTagRelation 조회
-		List<PostTagRelation> postTagRelations = postTagRelationDao.selectPostTagRelation(postTagRelationExample);
-		
 		// PostTagRelation 삭제
+		PostTagRelationExample postTagRelationExample = new PostTagRelationExample();
+		postTagRelationExample.createCriteria().andPostIdxEqualTo(post.getIdx());
+		List<PostTagRelation> postTagRelations = postTagRelationDao.selectPostTagRelation(postTagRelationExample);
 		postTagRelationDao.deletePostTagRelation(postTagRelationExample);
 		
 		// Post 삭제
-		postDao.deletePost(idx, memberIdx);
+		postDao.deletePost(post.getIdx(), memberIdx);
 		
 		for (PostTagRelation postTagRelation : postTagRelations) {
 			postTagRelationExample.clear();
@@ -182,11 +187,5 @@ public class PostServiceImpl implements PostService{
 		tag = "%" + tag + "%";
 		return postViewDao.selectPosts(tag);
 	}
-
-	@Override
-	public List<PostView> getPosts() {
-		return getPosts();
-	}
-	
 	
 }

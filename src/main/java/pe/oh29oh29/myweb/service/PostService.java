@@ -11,11 +11,9 @@ public interface PostService {
 	
 	public void modifyPost(Post post, String tags);
 	
-	public void removePost(String idx, String memberIdx);
+	public void removePost(String uriId, String memberIdx);
 	
 	public PostView getPost(String uriId);
-	
-	public List<PostView> getPosts();
 	
 	public List<PostView> getPosts(String tag);
 	

@@ -4,83 +4,23 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.jdbc.UncategorizedSQLException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import pe.oh29oh29.myweb.common.Utils;
-import pe.oh29oh29.myweb.dao.CommentDao;
-import pe.oh29oh29.myweb.dao.MemberDao;
-import pe.oh29oh29.myweb.dao.PostDao;
-import pe.oh29oh29.myweb.dao.PostTagRelationDao;
-import pe.oh29oh29.myweb.dao.TagDao;
 import pe.oh29oh29.myweb.model.Member;
 import pe.oh29oh29.myweb.model.Post;
 import pe.oh29oh29.myweb.model.PostView;
-import pe.oh29oh29.myweb.model.Tag;
 
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
-public class PostServiceTest {
-
-	@Autowired PostDao postDao;
-	@Autowired PostService postService;
-	@Autowired MemberDao memberDao;
-	@Autowired MemberService memberService;
-	@Autowired CommentDao commentDao;
-	@Autowired CommentService commentService;
-	@Autowired TagDao tagDao;
-	@Autowired PostTagRelationDao postTagRelationDao;
-	
-	private Member member;
-	
-	/**
-	 * @date	: 2018. 4. 10.
-	 * @TODO	: 회원 생성
-	 */
-	private Member signUpMember() {
-		Member member = new Member();
-		member.setId("Member아이디");
-		member.setName("Member이름");
-		member.setEmail("Member이메일");
-		memberService.signUpMember(member);
-		
-		// 검증
-		List<Member> members = memberService.readAllMembers();
-		assertEquals(1, members.size());
-		Member member2 = members.get(0);
-		assertEquals(member.getId(), member2.getId());
-		assertEquals(member.getName(), member2.getName());
-		assertEquals(member.getEmail(), member2.getEmail());
-		
-		return member2;
-	}
-	
-	@Before
-	public void setUp() throws Exception {
-		postTagRelationDao.deleteAllPostTagRelations();
-		tagDao.deleteAllTags();
-		commentDao.deleteAllComments();
-		postDao.deleteAllPosts();
-		memberDao.deleteAllMembers();
-
-		member = signUpMember();
-	}
+public class PostServiceTest extends MemberServiceTest {
 
 	/**
 	 * @date	: 2018. 4. 11.
-	 * @TODO	: 포스트 작성 테스트 (정상적인 경우) 
+	 * @TODO	: 포스트 작성 
 	 */
 	@Test
 	public void writePost() {
+		signUpMember();
+		Member member = memberDao.selectMember(null).get(0);
+		
 		// 포스트 작성
 		Post post = new Post();
 		post.setMemberIdx(member.getIdx());
@@ -89,13 +29,22 @@ public class PostServiceTest {
 		post.setDescription("PostTest설명");
 		post.setUriId("post-test-uri-id");
 		
-		String tag = "post-write-tag-name";
+		String tag = "post-write post-write-2";
 		
 		postService.writePost(post, tag);
 		
 		// 검증
-		List<PostView> posts = postService.getPosts();
-		assertEquals(1, posts.size());
+		List<PostView> postsView = postService.getPosts(null);
+		assertEquals(1, postsView.size());
+		PostView postView = postsView.get(0);
+		assertEquals(post.getMemberIdx(), member.getIdx());
+		assertEquals(post.getTitle(), postView.getTitle());
+		assertEquals(post.getContents(), postView.getContents());
+		assertEquals(post.getDescription(), postView.getDescription());
+		assertEquals(post.getUriId(), postView.getUriId());
+		
+		tag = tag.replaceAll("\\s", ",");
+		assertEquals(tag, postView.getTags());
 	}
 	
 	/**
@@ -107,23 +56,32 @@ public class PostServiceTest {
 		// 포스트 작성
 		writePost();
 		
-		// 작성한 포스트 가져오기
-		List<PostView> posts = postService.getPosts();
-		assertEquals(1, posts.size());
-		
 		// 포스트 수정
-		PostView post = posts.get(0);
-		
+		PostView post = postService.getPosts(null).get(0);
+		Member member = memberService.readAllMembers().get(0);
 		Post updatePost = new Post();
 		updatePost.setIdx(post.getIdx());
+		updatePost.setMemberIdx(member.getIdx());
 		updatePost.setTitle("PostTest타이틀수정");
 		updatePost.setContents("PostTest내용수정");
 		updatePost.setDescription("PostTest설명수정");
 		updatePost.setUriId("post-test-update");
 		
-		String tag = "post-update-tag-name";
+		String tag = "post-update post-write";
 		
 		postService.modifyPost(updatePost, tag);
+		
+		List<PostView> postsView = postService.getPosts(null);
+		assertEquals(1, postsView.size());
+		PostView postView = postsView.get(0);
+		
+		assertEquals(updatePost.getTitle(), postView.getTitle());
+		assertEquals(updatePost.getContents(), postView.getContents());
+		assertEquals(updatePost.getDescription(), postView.getDescription());
+		assertEquals(updatePost.getUriId(), postView.getUriId());
+		
+		tag = tag.replaceAll("\\s", ",");
+		assertEquals(tag, postView.getTags());
 	}
 	
 	/**
@@ -135,13 +93,14 @@ public class PostServiceTest {
 		// 포스트 작성
 		writePost();
 		
-		List<PostView> posts = postService.getPosts();
+		List<PostView> posts = postService.getPosts(null);
+		Member member = memberService.readAllMembers().get(0);
 		
 		// 포스트 삭제
-//		postService.removePost(posts.get(0).getIdx());
+		postService.removePost(posts.get(0).getUriId(), member.getIdx());
 		
 		// 검증
-		List<PostView> posts2 = postService.getPosts();
+		List<PostView> posts2 = postService.getPosts(null);
 		assertEquals(0, posts2.size());
 	}
 }

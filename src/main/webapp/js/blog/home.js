@@ -27,12 +27,13 @@ var home = home || (function(){
 			url : "/async/posts/" + uriId,
 			type : "GET",
 			data : "uriId=" + encodeURIComponent(uriId),
-			success : function(post) {
+			success : function(result) {
+				var post = result.post;
+				var isWriter = result.isWriter;
 				if (!homeView.isHiddenTopSection())
 					homeView.hideTopSection();
 				homeView.emptyMainArticle();
-				homeView.appendPostDetail(post);
-				console.log(post);
+				homeView.appendPostDetail(post, isWriter);
 			},
 			error : function(e) {
 				console.log(e);
@@ -72,12 +73,29 @@ var home = home || (function(){
 		});
 	};
 	
+	var _removePost = function(uriId) {
+		console.log(uriId);
+		$.ajax({
+			url : "/async/posts/" + uriId,
+			type : "DELETE",
+			data : "uriId=" + encodeURIComponent(uriId),
+			success : function() {
+				console.log("success");
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	};
+	
 	return {
 		getPosts : _getPosts,
 		getPost : _getPost,
 
 		goPostWrite : _goPostWrite,
-		submitPostWrite : _submitPostWrite
+		submitPostWrite : _submitPostWrite,
+		
+		removePost : _removePost
 	};
 
 })();
