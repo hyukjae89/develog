@@ -41,12 +41,16 @@ var homeView = homeView || (function(){
     };
 
     var _appendPostWrite = function() {
-        var html    = '<form id="pwWriteForm" accept-charset="UTF-8">'
-                        + '<input type="text" id="pwTitle" class="pw_title" name="title">'
-                        + '<input type="text" id="pwDescription" class="pw_description" name="description">'
-                        + '<textarea id="ir1" rows="10" cols="100" name="contents"></textarea>'
-                    + '</form>'
-                    + '<button id="pwCompleteBtn">작성완료</button>';
+        var html    = '<div class="pw_wrap">'
+	    				+ '<form id="pwWriteForm" accept-charset="UTF-8">'
+	                    	+ '<input type="text" id="pwTitle" class="pw_input" name="title" placeholder="제목">'
+	                    	+ '<input type="text" id="pwDescription" class="pw_input" name="description" placeholder="설명">'
+	                        + '<textarea id="ir1" rows="10" cols="100" name="contents" class="pw_contents"></textarea>'
+	                        + '<input type="text" id="pwTag" class="pw_input" name="tags" placeholder="태그">'
+	                        + '<input type="text" id="pwUriId" class="pw_input pw_uri_id" name="uriId" placeholder="URI ID" maxlength="16">'
+	                    + '</form>'
+	                    + '<button id="pwCompleteBtn">작성완료</button>'
+                    + '</div>';
 				
         homeElements.$mainArticleWrap.append(html);
     };

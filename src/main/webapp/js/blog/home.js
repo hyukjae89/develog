@@ -49,7 +49,6 @@ var home = home || (function(){
 		$.getScript('/import/smartEditor/js/service/HuskyEZCreator.js', function(){
 			nhn.husky.EZCreator.createInIFrame({
 				oAppRef: homeData.smartEditor,
-				// oAppRef: oEditors,
 				elPlaceHolder: "ir1",
 				sSkinURI: "/import/smartEditor/SmartEditor2Skin.html",
 				fCreator: "createSEditor2"

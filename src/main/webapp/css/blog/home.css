@@ -70,3 +70,26 @@
 .pr_contents {
 	
 }
+
+/* WRITE */
+.pw_wrap {
+	
+}
+
+.pw_input {
+    display: block;
+    width: 100%;
+    line-height: 30px;
+    border: none;
+    border-bottom: 1px solid #b5b5b5;
+    margin: 15px 0px;
+}
+
+.pw_uri_id {
+	width: 240px;
+}
+
+.pw_contents {
+	width: 858px;
+	height: 400px;
+}
