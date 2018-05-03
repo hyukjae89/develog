@@ -105,6 +105,7 @@ var home = home || (function(){
 
 		$('#pwTitle').val(post.title);
 		$('#pwDescription').val(post.description);
+		$('#ir1').val(post.contents);
 		$('#pwTag').val(post.tags);
 		$('#pwUriId').val(post.uriId);
 	};
