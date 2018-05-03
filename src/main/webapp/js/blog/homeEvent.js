@@ -39,12 +39,11 @@ var homeEvent = homeEvent || (function(){
     
     // 포스트 수정 버튼 클릭
     homeElements.$mainArticleWrap.on('click', '#prModifyBtn', function(){
-    	console.log("포스트 수정 버튼 클릭");
+        home.goPostModify(homeData.getPost());
     });
     
     // 포스트 삭제 버튼 클릭
     homeElements.$mainArticleWrap.on('click', '#prRemoveBtn', function(){
-    	console.log($(this).parent().data('uriId'));
     	home.removePost($(this).parent().data('uriId'));
     });
     

@@ -139,6 +139,9 @@ public class PostController {
 	public void removePost(HttpServletRequest httpRequest, String uriId) throws Exception {
 		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
 		
+		if (member == null)
+			throw new Exception();
+		
 		postService.removePost(uriId, member.getIdx());
 	}
 }

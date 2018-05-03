@@ -1,20 +1,15 @@
 var homeData = homeData || (function(){
     'use strict';
 
-    var _posts = [];
+    var _post = {};
 
-    var _getPost = function(ord) {
-        return this._posts[ord];
+    var _getPost = function() {
+        return this._post;
     };
 
-    var _getPosts = function() {
-        return this._posts;
+    var _setPost = function(post) {
+        this._post = post;
     };
-
-    var _setPost = function(ord, post) {
-        this._posts[ord] = post;
-    };
-
 
     var _smartEditor = [];
 

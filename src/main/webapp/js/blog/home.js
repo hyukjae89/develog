@@ -34,6 +34,7 @@ var home = home || (function(){
 					homeView.hideTopSection();
 				homeView.emptyMainArticle();
 				homeView.appendPostDetail(post, isWriter);
+				homeData.setPost(post);
 			},
 			error : function(e) {
 				console.log(e);
@@ -41,11 +42,11 @@ var home = home || (function(){
 		});
 	};
 
-	var _goPostWrite = function() {
+	var _goPostWrite = function(post) {
 		if (!homeView.isHiddenTopSection())
 			homeView.hideTopSection();
 		homeView.emptyMainArticle();
-		homeView.appendPostWrite();
+		homeView.appendPostWrite(post);
 
 		$.getScript('/import/smartEditor/js/service/HuskyEZCreator.js', function(){
 			nhn.husky.EZCreator.createInIFrame({
@@ -74,7 +75,6 @@ var home = home || (function(){
 	};
 	
 	var _removePost = function(uriId) {
-		console.log(uriId);
 		$.ajax({
 			url : "/async/posts/" + uriId,
 			type : "DELETE",
@@ -87,6 +87,27 @@ var home = home || (function(){
 			}
 		});
 	};
+
+	var _goPostModify = function(post) {
+		if (!homeView.isHiddenTopSection())
+			homeView.hideTopSection();
+		homeView.emptyMainArticle();
+		homeView.appendPostWrite();
+
+		$.getScript('/import/smartEditor/js/service/HuskyEZCreator.js', function(){
+			nhn.husky.EZCreator.createInIFrame({
+				oAppRef: homeData.smartEditor,
+				elPlaceHolder: "ir1",
+				sSkinURI: "/import/smartEditor/SmartEditor2Skin.html",
+				fCreator: "createSEditor2"
+			});
+		});
+
+		$('#pwTitle').val(post.title);
+		$('#pwDescription').val(post.description);
+		$('#pwTag').val(post.tags);
+		$('#pwUriId').val(post.uriId);
+	};
 	
 	return {
 		getPosts : _getPosts,
@@ -95,7 +116,9 @@ var home = home || (function(){
 		goPostWrite : _goPostWrite,
 		submitPostWrite : _submitPostWrite,
 		
-		removePost : _removePost
+		removePost : _removePost,
+
+		goPostModify : _goPostModify
 	};
 
 })();

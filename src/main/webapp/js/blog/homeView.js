@@ -63,7 +63,7 @@ var homeView = homeView || (function(){
 				
         homeElements.$mainArticleWrap.append(html);
     };
-    
+
     return {
         hideTopSection : _hideTopSection,
         showTopSection : _showTopSection,
