@@ -45,6 +45,7 @@ var home = home || (function(){
 	var _goPostWrite = function(post) {
 		if (!homeView.isHiddenTopSection())
 			homeView.hideTopSection();
+
 		homeView.emptyMainArticle();
 		homeView.appendPostWrite(post);
 
@@ -65,8 +66,8 @@ var home = home || (function(){
 			url : "/async/posts",
 			type : "POST",
 			data : formData,
-			success : function(post) {
-				console.log(post);
+			success : function(uriId) {
+				_getPost(uriId);
 			},
 			error : function(e) {
 				console.log(e);
@@ -89,10 +90,13 @@ var home = home || (function(){
 	};
 
 	var _goPostModify = function(post) {
+		post.tags = post.tags.replace(/\,/g, ' ');
+
 		if (!homeView.isHiddenTopSection())
 			homeView.hideTopSection();
+
 		homeView.emptyMainArticle();
-		homeView.appendPostWrite();
+		homeView.appendPostModify(post);
 
 		$.getScript('/import/smartEditor/js/service/HuskyEZCreator.js', function(){
 			nhn.husky.EZCreator.createInIFrame({
@@ -102,12 +106,22 @@ var home = home || (function(){
 				fCreator: "createSEditor2"
 			});
 		});
+	};
 
-		$('#pwTitle').val(post.title);
-		$('#pwDescription').val(post.description);
-		$('#ir1').val(post.contents);
-		$('#pwTag').val(post.tags);
-		$('#pwUriId').val(post.uriId);
+	var _submitPostModify= function() {
+		var formData = $('#pwModifyForm').serialize() + "&idx=" + homeData.getPost().idx;
+		
+		$.ajax({
+			url : "/async/posts",
+			type : "PUT",
+			data : formData,
+			success : function(uriId) {
+				_getPost(uriId);
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
 	};
 	
 	return {
@@ -119,7 +133,8 @@ var home = home || (function(){
 		
 		removePost : _removePost,
 
-		goPostModify : _goPostModify
+		goPostModify : _goPostModify,
+		submitPostModify : _submitPostModify
 	};
 
 })();

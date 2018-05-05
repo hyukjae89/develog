@@ -35,7 +35,9 @@ var homeView = homeView || (function(){
     var _appendPostDetail = function(post, isWriter) {
         var html 	= '<h1 id="prTitle" class="pr_title">' + post.title + '</h1>'
                     + '<p id="prDescription" class="pr_description">' + post.description + '</p>'
-                    + '<div id="prContents" class="pr_contents">' + post.contents + '</div>';
+                    + '<div id="prContents" class="pr_contents">' + post.contents + '</div>'
+                    + '<div id="prTags" class="pr_tags">' + post.tags + '</div>'
+                    + '<div id="prUriId" class="pr_uri_id">' + post.uriId + '</div>';
         
         if (isWriter) {
         	html	+= '<div class="pr_btn_wrap" data-uri-id="' + post.uriId + '">'
@@ -64,6 +66,23 @@ var homeView = homeView || (function(){
         homeElements.$mainArticleWrap.append(html);
     };
 
+    var _appendPostModify = function(post) {
+        var html    = '<div class="pw_wrap">'
+	    				+ '<form id="pwModifyForm" accept-charset="UTF-8">'
+	                    	+ '<input type="text" id="pwTitle" class="pw_input" name="title" placeholder="제목" value="' + post.title + '">'
+	                    	+ '<input type="text" id="pwDescription" class="pw_input" name="description" placeholder="설명" value="' + post.description + '">'
+	                        + '<textarea id="ir1" rows="10" cols="100" name="contents" class="pw_contents">' + post.contents + '</textarea>'
+	                        + '<input type="text" id="pwTag" class="pw_input" name="tags" placeholder="태그" value="' + post.tags + '">'
+	                        + '<input type="text" id="pwUriId" class="pw_input pw_uri_id" name="uriId" placeholder="URI ID" maxlength="16" value="' + post.uriId + '">'
+                        + '</form>'
+                        + '<div class="pw_btn_wrap">'	                    
+                            + '<button id="pwModifyBtn">수정완료</button>'
+                        + '</div>'
+                    + '</div>';
+				
+        homeElements.$mainArticleWrap.append(html);
+    };
+
     return {
         hideTopSection : _hideTopSection,
         showTopSection : _showTopSection,
@@ -73,7 +92,8 @@ var homeView = homeView || (function(){
         appendPostList : _appendPostList,
         appendPostDetail : _appendPostDetail,
 
-        appendPostWrite :_appendPostWrite
+        appendPostWrite :_appendPostWrite,
+        appendPostModify : _appendPostModify
     };
 
 })();

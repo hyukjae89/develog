@@ -36,6 +36,13 @@ var homeEvent = homeEvent || (function(){
         
         home.submitPostWrite();
     });
+
+    homeElements.$mainArticleWrap.on('click', '#pwModifyBtn', function(){
+        homeData.smartEditor.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+                
+        home.submitPostModify();
+    });
+    
     
     // 포스트 수정 버튼 클릭
     homeElements.$mainArticleWrap.on('click', '#prModifyBtn', function(){

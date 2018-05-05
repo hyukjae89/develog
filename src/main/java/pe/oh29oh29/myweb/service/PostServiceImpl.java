@@ -102,7 +102,6 @@ public class PostServiceImpl implements PostService{
 					postTagRelationDao.updatePostTagRelation(relation, postTagRelationExample);
 				}
 			} else {
-				// PostTagRelation 추가
 				tagExample.createCriteria().andNameEqualTo(nextTag);
 				Tag tag = new Tag();
 				if (tagDao.countTag(tagExample) == 0) {
@@ -115,6 +114,7 @@ public class PostServiceImpl implements PostService{
 				}
 				tagExample.clear();
 				
+				// PostTagRelation 추가
 				PostTagRelation relation = new PostTagRelation();
 				relation.setPostIdx(post.getIdx());
 				relation.setTagIdx(tag.getIdx());

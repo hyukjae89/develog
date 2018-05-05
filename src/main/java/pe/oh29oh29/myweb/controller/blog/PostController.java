@@ -94,16 +94,14 @@ public class PostController {
 	 */
 	@RequestMapping(value = "async/posts", method = RequestMethod.POST)
 	@ResponseBody
-	public PostView wrtiePost(HttpServletRequest httpRequest, Post post, String tags) throws Exception {
+	public String wrtiePost(HttpServletRequest httpRequest, Post post, String tags) throws Exception {
 		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
 		
 		post.setMemberIdx(member.getIdx());
 		
 		postService.writePost(post, tags);
 		
-		PostView writedPost = postService.getPost(post.getUriId());
-		
-		return writedPost;
+		return post.getUriId();
 	}
 	
 	/**
@@ -143,5 +141,21 @@ public class PostController {
 			throw new Exception();
 		
 		postService.removePost(uriId, member.getIdx());
+	}
+	
+	/**
+	 * @date	: 2018. 5. 5.
+	 * @TODO	: 포스트 수정 완료 (비동기)
+	 */
+	@RequestMapping(value = "async/posts", method = RequestMethod.PUT)
+	@ResponseBody
+	public String modifyPost(HttpServletRequest httpRequest, Post post, String tags) throws Exception {
+		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
+		
+		post.setMemberIdx(member.getIdx());
+
+		postService.modifyPost(post, tags);
+		
+		return post.getUriId();
 	}
 }
