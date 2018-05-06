@@ -53,5 +53,17 @@ var homeEvent = homeEvent || (function(){
     homeElements.$mainArticleWrap.on('click', '#prRemoveBtn', function(){
     	home.removePost($(this).parent().data('uriId'));
     });
+
+    // 태그 클릭
+    homeElements.$mainArticleWrap.on('click', '.plPostTag', function(){
+        var tag = $(this).data('tag');
+        home.getPosts(tag);
+    });
+
+    // 태그 클릭
+    homeElements.$mainArticleWrap.on('click', '.prTag', function(){
+        var tag = $(this).data('tag');
+        home.getPosts(tag);
+    });
     
 })();

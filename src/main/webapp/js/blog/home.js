@@ -11,8 +11,7 @@ var home = home || (function(){
 			type : "GET",
 			data : "tag=" + encodeURIComponent(tag),
 			success : function(posts) {
-				if (homeView.isHiddenTopSection())
-					homeView.showTopSection();
+				homeView.showTopSection(tag);
 				homeView.emptyMainArticle();
 				homeView.appendPostList(posts);
 			},
@@ -30,8 +29,7 @@ var home = home || (function(){
 			success : function(result) {
 				var post = result.post;
 				var isWriter = result.isWriter;
-				if (!homeView.isHiddenTopSection())
-					homeView.hideTopSection();
+				homeView.hideTopSection();
 				homeView.emptyMainArticle();
 				homeView.appendPostDetail(post, isWriter);
 				homeData.setPost(post);
@@ -43,9 +41,7 @@ var home = home || (function(){
 	};
 
 	var _goPostWrite = function(post) {
-		if (!homeView.isHiddenTopSection())
-			homeView.hideTopSection();
-
+		homeView.hideTopSection();
 		homeView.emptyMainArticle();
 		homeView.appendPostWrite(post);
 
@@ -92,9 +88,7 @@ var home = home || (function(){
 	var _goPostModify = function(post) {
 		post.tags = post.tags.replace(/\,/g, ' ');
 
-		if (!homeView.isHiddenTopSection())
-			homeView.hideTopSection();
-
+		homeView.hideTopSection();
 		homeView.emptyMainArticle();
 		homeView.appendPostModify(post);
 

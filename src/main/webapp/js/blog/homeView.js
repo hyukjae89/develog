@@ -5,8 +5,9 @@ var homeView = homeView || (function(){
         homeElements.$topSectionWrap.hide();
     };
 
-    var _showTopSection = function() {
+    var _showTopSection = function(tag) {
         homeElements.$topSectionWrap.show();
+        homeElements.$search.val(tag);
     };
 
     var _isHiddenTopSection = function() {
@@ -21,11 +22,18 @@ var homeView = homeView || (function(){
         var html = "";
 
         posts.forEach(function(post) {
+            var tags = post.tags.split(",");
+            
             html 	+= '<div class="pl_post_list_item">'
                         + '<div class="plPostListItemInner pl_post_list_item_inner" data-uri-id="' + post.uriId + '">'
                             + '<h2 class="plPostTitle pl_post_title">' + post.title + '</h2>'
                             + '<p class="plPostDescription pl_post_description">' + post.description + '</p>'
                         + '</div>'
+                        + '<div class="pl_post_tags">';
+            tags.forEach(function(tag){
+                html += '<span class="plPostTag pl_post_tag" data-tag="' + tag + '">#' + tag + '</span>';
+            });
+            html    += '</div>'
                     + '</div>';
         });
                         
@@ -33,11 +41,16 @@ var homeView = homeView || (function(){
     };
 
     var _appendPostDetail = function(post, isWriter) {
+        var tags = post.tags.split(",");
+
         var html 	= '<h1 id="prTitle" class="pr_title">' + post.title + '</h1>'
                     + '<p id="prDescription" class="pr_description">' + post.description + '</p>'
                     + '<div id="prContents" class="pr_contents">' + post.contents + '</div>'
-                    + '<div id="prTags" class="pr_tags">' + post.tags + '</div>'
-                    + '<div id="prUriId" class="pr_uri_id">' + post.uriId + '</div>';
+                    + '<div id="prTags" class="pr_tags">'
+         tags.forEach(function(tag){
+            html += '<span class="prTag pr_tag" data-tag="' + tag + '">#' + tag + '</span>';
+        });
+        html += '</div>';
         
         if (isWriter) {
         	html	+= '<div class="pr_btn_wrap" data-uri-id="' + post.uriId + '">'

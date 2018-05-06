@@ -63,6 +63,21 @@
     cursor: pointer;
 }
 
+.pl_post_tags {
+    margin: 15px 0px 0px 0px;
+}
+
+.pl_post_tag {
+    margin: 0px 0px 0px 5px;
+    background-color: #eaeaea;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.pl_post_tag:FIRST-CHILD {
+    margin: 0;
+}
 
 /* READ */
 .pr_title {
@@ -74,7 +89,23 @@
 }
 
 .pr_contents {
-	
+    margin: 50px 0px
+}
+
+.pr_tags {
+    
+}
+
+.pr_tag {
+    margin: 0px 0px 0px 5px;
+    background-color: #eaeaea;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.pr_tag:FIRST-CHILD {
+    margin: 0;
 }
 
 /* WRITE */
