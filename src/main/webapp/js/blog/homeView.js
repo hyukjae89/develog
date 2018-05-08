@@ -31,7 +31,7 @@ var homeView = homeView || (function(){
                         + '</div>'
                         + '<div class="pl_post_tags">';
             tags.forEach(function(tag){
-                html += '<span class="plPostTag pl_post_tag" data-tag="' + tag + '">#' + tag + '</span>';
+                html += '<span class="plPostTag pl_post_tag" data-tag="' + tag + '">' + tag + '</span>';
             });
             html    += '</div>'
                     + '</div>';
@@ -47,8 +47,8 @@ var homeView = homeView || (function(){
                     + '<p id="prDescription" class="pr_description">' + post.description + '</p>'
                     + '<div id="prContents" class="pr_contents">' + post.contents + '</div>'
                     + '<div id="prTags" class="pr_tags">'
-         tags.forEach(function(tag){
-            html += '<span class="prTag pr_tag" data-tag="' + tag + '">#' + tag + '</span>';
+        tags.forEach(function(tag){
+            html += '<span class="prTag pr_tag" data-tag="' + tag + '">' + tag + '</span>';
         });
         html += '</div>';
         
@@ -96,6 +96,25 @@ var homeView = homeView || (function(){
         homeElements.$mainArticleWrap.append(html);
     };
 
+    var _appendPaging = function() {
+        var html    = '<article id="pagingArticleWrap" class="paging_article_wrap">'
+                        + '<div id="pagingWrap" class="paging_wrap">'
+                            + '<div class="prev_btn_wrap"><span class="paging_btn"><</span></div>'
+                            + '<div id="pageBtnWrap" class="page_btn_wrap"><span class="paging_btn">1</span><span class="paging_btn">2</span><span class="paging_btn">3</span></div>'
+                            + '<div class="next_btn_wrap"><span class="paging_btn">></span></div>'
+                        + '</div>'
+                    + '</article>';
+
+        homeElements.$mainSectionWrap.append(html);
+    };
+
+    var _renewPaging = function() {
+        var $pageBtnWrap = $('#pageBtnWrap');
+        var html    = '';
+
+        $pageBtnWrap.append(html);
+    };
+
     return {
         hideTopSection : _hideTopSection,
         showTopSection : _showTopSection,
@@ -106,7 +125,10 @@ var homeView = homeView || (function(){
         appendPostDetail : _appendPostDetail,
 
         appendPostWrite :_appendPostWrite,
-        appendPostModify : _appendPostModify
+        appendPostModify : _appendPostModify,
+
+        appendPaging : _appendPaging,
+        renewPaging : _renewPaging
     };
 
 })();

@@ -10,10 +10,13 @@ var home = home || (function(){
 			url : "/async/posts/tags/" + tag,
 			type : "GET",
 			data : "tag=" + encodeURIComponent(tag),
-			success : function(posts) {
+			success : function(result) {
+				var posts = result.posts;
 				homeView.showTopSection(tag);
 				homeView.emptyMainArticle();
 				homeView.appendPostList(posts);
+				homeView.appendPaging();
+				$("body").scrollTop(0);
 			},
 			error : function(e) {
 				console.log(e);
@@ -33,6 +36,7 @@ var home = home || (function(){
 				homeView.emptyMainArticle();
 				homeView.appendPostDetail(post, isWriter);
 				homeData.setPost(post);
+				$("body").scrollTop(0);
 			},
 			error : function(e) {
 				console.log(e);

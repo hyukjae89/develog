@@ -12,10 +12,10 @@ var homeEvent = homeEvent || (function(){
 		
 		if (event.keyCode == 13) {
 			
-			if ($this.val() == '로그인하자') {
+			if ($this.val() == '529L') {
 				location.href = "/sign-in";
             }
-            else if ($this.val() == '포스트작성하자') {
+            else if ($this.val() == '529PW') {
                 home.goPostWrite();
             }
 			else {

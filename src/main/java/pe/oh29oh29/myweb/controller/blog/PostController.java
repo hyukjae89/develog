@@ -37,9 +37,11 @@ public class PostController {
 	 */
 	@RequestMapping(value = "async/posts/tags/*", method = RequestMethod.GET)
 	@ResponseBody
-	public List<PostView> getPosts(@RequestParam(value = "tag", required = false) String tag) {
+	public Map<String, Object> getPosts(@RequestParam(value = "tag", required = false) String tag) {
 		List<PostView> posts = postService.getPosts(tag);
-		return posts;
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("posts", posts);
+		return result;
 	}
 	
 	/**
