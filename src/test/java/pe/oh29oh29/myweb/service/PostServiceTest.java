@@ -34,7 +34,7 @@ public class PostServiceTest extends MemberServiceTest {
 		postService.writePost(post, tag);
 		
 		// 검증
-		List<PostView> postsView = postService.getPosts(null);
+		List<PostView> postsView = postService.getPosts(null, 1);
 		assertEquals(1, postsView.size());
 		PostView postView = postsView.get(0);
 		assertEquals(post.getMemberIdx(), member.getIdx());
@@ -57,7 +57,7 @@ public class PostServiceTest extends MemberServiceTest {
 		writePost();
 		
 		// 포스트 수정
-		PostView post = postService.getPosts(null).get(0);
+		PostView post = postService.getPosts(null, 1).get(0);
 		Member member = memberService.readAllMembers().get(0);
 		Post updatePost = new Post();
 		updatePost.setIdx(post.getIdx());
@@ -71,7 +71,7 @@ public class PostServiceTest extends MemberServiceTest {
 		
 		postService.modifyPost(updatePost, tag);
 		
-		List<PostView> postsView = postService.getPosts(null);
+		List<PostView> postsView = postService.getPosts(null, 1);
 		assertEquals(1, postsView.size());
 		PostView postView = postsView.get(0);
 		
@@ -93,14 +93,14 @@ public class PostServiceTest extends MemberServiceTest {
 		// 포스트 작성
 		writePost();
 		
-		List<PostView> posts = postService.getPosts(null);
+		List<PostView> posts = postService.getPosts(null, 1);
 		Member member = memberService.readAllMembers().get(0);
 		
 		// 포스트 삭제
 		postService.removePost(posts.get(0).getUriId(), member.getIdx());
 		
 		// 검증
-		List<PostView> posts2 = postService.getPosts(null);
+		List<PostView> posts2 = postService.getPosts(null, 1);
 		assertEquals(0, posts2.size());
 	}
 }

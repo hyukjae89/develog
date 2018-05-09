@@ -22,7 +22,7 @@ public class CommentServiceTest extends PostServiceTest {
 		writePost();
 		
 		Member member = memberService.readAllMembers().get(0);
-		PostView post = postService.getPosts(null).get(0);
+		PostView post = postService.getPosts(null, 1).get(0);
 		
 		// 코멘트 작성
 		Comment comment = new Comment();
@@ -51,7 +51,7 @@ public class CommentServiceTest extends PostServiceTest {
 	public void modifyComment() {
 		writeComment();
 		
-		PostView post = postService.getPosts(null).get(0);
+		PostView post = postService.getPosts(null, 1).get(0);
 		Comment comment = commentService.readComments(post.getIdx()).get(0);
 		
 		// 코멘트 수정
@@ -69,7 +69,7 @@ public class CommentServiceTest extends PostServiceTest {
 	public void removeComment() {
 		writeComment();
 
-		PostView post = postService.getPosts(null).get(0);
+		PostView post = postService.getPosts(null, 1).get(0);
 		Comment comment = commentService.readComments(post.getIdx()).get(0);
 		
 		commentService.removeComment(comment.getIdx());

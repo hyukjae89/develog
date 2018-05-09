@@ -1,7 +1,7 @@
 var home = home || (function(){
 	'use strict';
 	
-	var _getPosts = function(tag) {
+	var _getPosts = function(tag, nowPage) {
 		
 		if (tag === undefined)
 			tag = "";
@@ -9,7 +9,7 @@ var home = home || (function(){
 		$.ajax({
 			url : "/async/posts/tags/" + tag,
 			type : "GET",
-			data : "tag=" + encodeURIComponent(tag),
+			data : "tag=" + encodeURIComponent(tag) + "&nowPage=" + nowPage,
 			success : function(result) {
 				var posts = result.posts;
 				homeView.showTopSection(tag);
@@ -35,6 +35,7 @@ var home = home || (function(){
 				homeView.hideTopSection();
 				homeView.emptyMainArticle();
 				homeView.appendPostDetail(post, isWriter);
+				homeView.removePaging();
 				homeData.setPost(post);
 				$("body").scrollTop(0);
 			},

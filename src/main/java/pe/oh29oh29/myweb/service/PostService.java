@@ -15,6 +15,6 @@ public interface PostService {
 	
 	public PostView getPost(String uriId);
 	
-	public List<PostView> getPosts(String tag);
+	public List<PostView> getPosts(String tag, int nowPage);
 	
 }

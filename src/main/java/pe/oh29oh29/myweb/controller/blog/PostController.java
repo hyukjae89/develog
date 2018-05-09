@@ -37,8 +37,9 @@ public class PostController {
 	 */
 	@RequestMapping(value = "async/posts/tags/*", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> getPosts(@RequestParam(value = "tag", required = false) String tag) {
-		List<PostView> posts = postService.getPosts(tag);
+	public Map<String, Object> getPosts(@RequestParam(value = "tag", required = false) String tag, @RequestParam(value = "nowPage") int nowPage) {
+		System.out.println(nowPage);
+		List<PostView> posts = postService.getPosts(tag, nowPage);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("posts", posts);
 		return result;
@@ -63,7 +64,7 @@ public class PostController {
 	 */
 	@RequestMapping(value = "async/posts/*", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> readPost(HttpServletRequest httpRequest, String uriId) {
+	public Map<String, Object> readPost(HttpServletRequest httpRequest, @RequestParam(value = "uriId") String uriId) {
 		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
 		PostView post = postService.getPost(uriId);
 		

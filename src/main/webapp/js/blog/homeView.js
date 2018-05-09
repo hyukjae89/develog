@@ -17,7 +17,7 @@ var homeView = homeView || (function(){
     var _emptyMainArticle = function() {
         homeElements.$mainArticleWrap.empty();
     };
-
+    
     var _appendPostList = function(posts) {
         var html = "";
 
@@ -99,14 +99,18 @@ var homeView = homeView || (function(){
     var _appendPaging = function() {
         var html    = '<article id="pagingArticleWrap" class="paging_article_wrap">'
                         + '<div id="pagingWrap" class="paging_wrap">'
-                            + '<div class="prev_btn_wrap"><span class="paging_btn"><</span></div>'
-                            + '<div id="pageBtnWrap" class="page_btn_wrap"><span class="paging_btn">1</span><span class="paging_btn">2</span><span class="paging_btn">3</span></div>'
-                            + '<div class="next_btn_wrap"><span class="paging_btn">></span></div>'
+                            + '<div class="prev_btn_wrap"><span class="paging_btn paging_btn_unselected">◀</span></div>'
+                            + '<div id="pageBtnWrap" class="page_btn_wrap"><span class="paging_btn paging_btn_selected">1</span></div>'
+                            + '<div class="next_btn_wrap"><span class="paging_btn paging_btn_unselected">▶</span></div>'
                         + '</div>'
                     + '</article>';
 
         homeElements.$mainSectionWrap.append(html);
     };
+    
+    var _removePaging = function() {
+    	$('#pagingArticleWrap').remove();
+    }
 
     var _renewPaging = function() {
         var $pageBtnWrap = $('#pageBtnWrap');
@@ -128,6 +132,7 @@ var homeView = homeView || (function(){
         appendPostModify : _appendPostModify,
 
         appendPaging : _appendPaging,
+        removePaging : _removePaging,
         renewPaging : _renewPaging
     };
 

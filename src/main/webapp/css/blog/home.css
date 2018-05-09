@@ -117,15 +117,24 @@
 .paging_btn {
     margin: 0px 5px;
     box-sizing: border-box;
-    border: 1px solid black;
-    border-radius: 10px;
-    cursor: pointer;
     width: 32px;
     display: inline-block;
+	border: 1px solid #ffffff;
+	box-sizing: border-box;
 }
 
-.page_num {
+.paging_btn_unselected {
+	 cursor: pointer;
+}
 
+.paging_btn_unselected:hover {
+	border: 1px solid #eaeaea;
+	border-radius: 10px;
+}
+
+.paging_btn_selected {
+	border-bottom: 1px solid #bdbdbd;
+	cursor: default;
 }
 
 /* READ */

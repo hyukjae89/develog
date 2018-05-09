@@ -181,7 +181,7 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public List<PostView> getPosts(String tag) {
+	public List<PostView> getPosts(String tag, int nowPage) {
 		if (tag == null)
 			tag = "";
 		tag = "%" + tag + "%";

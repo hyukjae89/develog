@@ -37,7 +37,7 @@
 	<c:otherwise>
 		<script>
 			var tag = '${tag}';
-			home.getPosts(tag);
+			home.getPosts(tag, 1);
 		</script>
 	</c:otherwise>
 </c:choose>
