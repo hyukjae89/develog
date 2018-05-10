@@ -38,10 +38,14 @@ public class PostController {
 	@RequestMapping(value = "async/posts/tags/*", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> getPosts(@RequestParam(value = "tag", required = false) String tag, @RequestParam(value = "nowPage") int nowPage) {
-		System.out.println(nowPage);
+		
 		List<PostView> posts = postService.getPosts(tag, nowPage);
+		Map<String, Object> paginationInfo = postService.getPostListPaginationInfo(tag);
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("posts", posts);
+		result.putAll(paginationInfo);
+		
 		return result;
 	}
 	

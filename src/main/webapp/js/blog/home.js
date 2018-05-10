@@ -6,16 +6,25 @@ var home = home || (function(){
 		if (tag === undefined)
 			tag = "";
 		
+		if (nowPage === undefined) {
+			nowPage = 1;
+		}
+		
 		$.ajax({
 			url : "/async/posts/tags/" + tag,
 			type : "GET",
 			data : "tag=" + encodeURIComponent(tag) + "&nowPage=" + nowPage,
 			success : function(result) {
 				var posts = result.posts;
+				var totalPage = result.totalPage;
+				var totalCount = result.totalCount;
+
 				homeView.showTopSection(tag);
 				homeView.emptyMainArticle();
 				homeView.appendPostList(posts);
-				homeView.appendPaging();
+				if (!homeView.existPaging())
+					homeView.appendPaging();
+				homeView.renewPaging(nowPage, totalPage);
 				$("body").scrollTop(0);
 			},
 			error : function(e) {

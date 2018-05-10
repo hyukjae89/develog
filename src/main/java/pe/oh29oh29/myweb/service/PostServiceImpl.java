@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pe.oh29oh29.myweb.common.Utils;
+import pe.oh29oh29.myweb.common.config.Pagination;
 import pe.oh29oh29.myweb.dao.CommentDao;
 import pe.oh29oh29.myweb.dao.PostDao;
 import pe.oh29oh29.myweb.dao.PostTagRelationDao;
@@ -35,6 +36,8 @@ public class PostServiceImpl implements PostService{
 	@Autowired PostTagRelationDao postTagRelationDao;
 	@Autowired PostTagRelationViewDao postTagRelationViewDao;
 	@Autowired CommentDao commentDao;
+	
+	@Autowired Pagination pagination;
 
 	@Override
 	public void writePost(Post post, String tags) {
@@ -185,7 +188,34 @@ public class PostServiceImpl implements PostService{
 		if (tag == null)
 			tag = "";
 		tag = "%" + tag + "%";
-		return postViewDao.selectPosts(tag);
+		
+		int start = (nowPage - 1) * pagination.getCountPerPage();
+		int count = pagination.getCountPerPage();
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("tag", tag);
+		parameters.put("start", start);
+		parameters.put("count", count);
+		
+		return postViewDao.selectPosts(parameters);
+	}
+
+	@Override
+	public Map<String, Object> getPostListPaginationInfo(String tag) {
+		if (tag == null)
+			tag = "";
+		tag = "%" + tag + "%";
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int countPerPage = pagination.getCountPerPage();
+		int totalCount = (int) postViewDao.countPosts(tag);
+		int totalPage = (totalCount % countPerPage == 0) ? totalCount / countPerPage : (totalCount / countPerPage) + 1;
+		
+		result.put("totalCount", totalCount);
+		result.put("totalPage", totalPage);
+		
+		return result;
 	}
 	
 }

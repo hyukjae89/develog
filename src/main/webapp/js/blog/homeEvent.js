@@ -66,4 +66,10 @@ var homeEvent = homeEvent || (function(){
         home.getPosts(tag);
     });
     
+    $('body').on('click', '.pagingBtn', function(){
+    	var tag = homeElements.$search.val();
+    	var page = $(this).data('page');
+    	home.getPosts(tag, page);
+    });
+    
 })();

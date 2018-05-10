@@ -95,12 +95,16 @@ var homeView = homeView || (function(){
 				
         homeElements.$mainArticleWrap.append(html);
     };
+    
+    var _existPaging = function() {
+    	return homeElements.$mainSectionWrap.children().is('#pagingArticleWrap');
+    };
 
     var _appendPaging = function() {
         var html    = '<article id="pagingArticleWrap" class="paging_article_wrap">'
                         + '<div id="pagingWrap" class="paging_wrap">'
                             + '<div class="prev_btn_wrap"><span class="paging_btn paging_btn_unselected">◀</span></div>'
-                            + '<div id="pageBtnWrap" class="page_btn_wrap"><span class="paging_btn paging_btn_selected">1</span></div>'
+                            + '<div id="pageBtnWrap" class="page_btn_wrap"></div>'
                             + '<div class="next_btn_wrap"><span class="paging_btn paging_btn_unselected">▶</span></div>'
                         + '</div>'
                     + '</article>';
@@ -112,9 +116,19 @@ var homeView = homeView || (function(){
     	$('#pagingArticleWrap').remove();
     }
 
-    var _renewPaging = function() {
+    var _renewPaging = function(nowPage, totalPage) {
         var $pageBtnWrap = $('#pageBtnWrap');
         var html    = '';
+        
+        $pageBtnWrap.empty();
+        for (var i = 0; i < totalPage; i++) {
+        	var page = i + 1;
+        	if (page == nowPage) {
+        		html += '<span class="pagingBtn paging_btn paging_btn_selected" data-page="' + page + '">' + page + '</span>';
+        	} else {
+        		html += '<span class="pagingBtn paging_btn paging_btn_unselected" data-page="' + page + '">' + page + '</span>';
+        	}
+        }
 
         $pageBtnWrap.append(html);
     };
@@ -131,6 +145,7 @@ var homeView = homeView || (function(){
         appendPostWrite :_appendPostWrite,
         appendPostModify : _appendPostModify,
 
+        existPaging : _existPaging,
         appendPaging : _appendPaging,
         removePaging : _removePaging,
         renewPaging : _renewPaging

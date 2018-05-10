@@ -1,6 +1,7 @@
 package pe.oh29oh29.myweb.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,8 +28,13 @@ public class PostViewDaoImpl implements PostViewDao {
 	}
 
 	@Override
-	public List<PostView> selectPosts(String tag) {
-		return postViewCustomMapper.selectByTag(tag);
+	public List<PostView> selectPosts(Map<String, Object> parameters) {
+		return postViewCustomMapper.selectByTag(parameters);
+	}
+
+	@Override
+	public long countPosts(String tag) {
+		return postViewCustomMapper.countByTag(tag);
 	}
 
 }
