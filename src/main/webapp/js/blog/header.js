@@ -1,17 +1,8 @@
 var header = header || (function(){
+	'use strict';
+
 	$('.headerLogoWrap').on('click', function() {
-		location.href = "/";
+		home.getPosts();
 	});
-	
-	$('#header').on('click', '#headerSignInBtn', function(){
-		location.href = "/sign-in";
-	});
-	
-	$('#header').on('click', '#headerSignOutBtn', function(){
-		location.href = "/sign-out";
-	});
-	
-	$('#header').on('click', '#headerAdminBtn', function(){
-		location.href = "/admin";
-	});
+
 })();

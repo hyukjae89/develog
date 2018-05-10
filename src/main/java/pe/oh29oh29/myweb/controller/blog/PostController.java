@@ -53,12 +53,18 @@ public class PostController {
 	 * @date	: 2018. 5. 1.
 	 * @TODO	: 포스트 리스트 가져오기
 	 */
-	@RequestMapping(value = "posts/tags/*", method = RequestMethod.GET)
+	@RequestMapping(value = {"posts/tags/*", "posts"}, method = RequestMethod.GET)
 	public String getPosts(HttpServletRequest httpRequest, Model model) {
 		String servletPath = httpRequest.getServletPath();
-		String tag = servletPath.substring(servletPath.lastIndexOf("/") + 1);
-		model.addAttribute("tag", tag);
+		String tag = null;
+		
+		if (servletPath.indexOf("tags") > -1) {
+			tag = servletPath.substring(servletPath.lastIndexOf("/") + 1);
+			model.addAttribute("tag", tag);
+		}
+		
 		model.addAttribute("view", "list");
+		
 		return "blog/home";
 	}
 	

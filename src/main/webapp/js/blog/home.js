@@ -2,7 +2,6 @@ var home = home || (function(){
 	'use strict';
 	
 	var _getPosts = function(tag, nowPage) {
-		
 		if (tag === undefined) {
 			tag = "";
 		}
@@ -21,19 +20,20 @@ var home = home || (function(){
 				var totalCount = result.totalCount;
 				var countPerBlock = result.countPerBlock;
 				
-				homeView.showTopSection(tag);
-				homeView.emptyMainArticle();
-				if (totalCount > 0) {
-					homeView.appendPostList(posts);
-					if (!homeView.existPaging()) {
-						homeView.appendPaging();
-					}
-					homeView.renewPaging(nowPage, totalPage, countPerBlock);
-				} else {
-					homeView.appendNoPost();
-					homeView.removePaging();
-				}
+				homeView.drawPostListView(posts, totalCount, tag, nowPage, totalPage, countPerBlock);
 				$("body").scrollTop(0);
+
+				var historyData = {
+					view: "postListView", 
+					posts: posts, 
+					totalCount: totalCount, 
+					tag: tag, 
+					nowPage: nowPage, 
+					totalPage: totalPage, 
+					countPerBlock: countPerBlock
+				};
+				var url = (tag == "") ? "/posts" : "/posts/tags/" + tag;
+				history.pushState(historyData, null, url);
 			},
 			error : function(e) {
 				console.log(e);
@@ -49,12 +49,17 @@ var home = home || (function(){
 			success : function(result) {
 				var post = result.post;
 				var isWriter = result.isWriter;
-				homeView.hideTopSection();
-				homeView.emptyMainArticle();
-				homeView.appendPostDetail(post, isWriter);
-				homeView.removePaging();
+				homeView.drawPostDetailView(post, isWriter);
 				homeData.setPost(post);
 				$("body").scrollTop(0);
+
+				var historyData = {
+					view: "postDetailView",
+					post: post,
+					isWriter: isWriter
+				};
+				var url = "/posts/" + uriId;
+				history.pushState(historyData, null, url);
 			},
 			error : function(e) {
 				console.log(e);
@@ -62,12 +67,8 @@ var home = home || (function(){
 		});
 	};
 
-	var _goPostWrite = function(post) {
-		homeView.hideTopSection();
-		homeView.emptyMainArticle();
-		homeView.appendPostWrite(post);
-		homeView.removePaging();
-
+	var _goPostWrite = function() {
+		homeView.drawPostWriteView();
 		$.getScript('/import/smartEditor/js/service/HuskyEZCreator.js', function(){
 			nhn.husky.EZCreator.createInIFrame({
 				oAppRef: homeData.smartEditor,
@@ -110,11 +111,7 @@ var home = home || (function(){
 
 	var _goPostModify = function(post) {
 		post.tags = post.tags.replace(/\,/g, ' ');
-
-		homeView.hideTopSection();
-		homeView.emptyMainArticle();
-		homeView.appendPostModify(post);
-		
+		homeView.drawPostModifyView(post);		
 		$.getScript('/import/smartEditor/js/service/HuskyEZCreator.js', function(){
 			nhn.husky.EZCreator.createInIFrame({
 				oAppRef: homeData.smartEditor,

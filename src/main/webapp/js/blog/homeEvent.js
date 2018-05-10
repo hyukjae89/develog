@@ -1,6 +1,29 @@
 var homeEvent = homeEvent || (function(){
     'use strict';
 
+    $(window).on('popstate', function(event) {
+        var data = event.originalEvent.state;
+        console.log(data);
+
+        if (data == null)
+            history.back();
+            
+        var view = data.view;
+        if (view == 'postListView') {
+            var posts = data.posts;
+            var tag = data.tag;
+            var totalCount = data.totalCount;
+            var nowPage = data.nowPage;
+            var totalPage = data.totalPage;
+            var countPerBlock = data.countPerBlock;
+            homeView.drawPostListView(posts, totalCount, tag, nowPage, totalPage, countPerBlock);
+        } else if (view == 'postDetailView') {
+            var post = data.post;
+            var isWriter = data.isWriter;
+            homeView.drawPostDetailView(post, isWriter);
+        }
+    });
+
     // 샵 아이콘 클릭
     homeElements.$sharp.on('click', function() {
 		homeElements.$search.focus();
@@ -14,11 +37,9 @@ var homeEvent = homeEvent || (function(){
 			
 			if ($this.val() == '529L') {
 				location.href = "/sign-in";
-            }
-            else if ($this.val() == '529P') {
+            } else if ($this.val() == '529P') {
                 home.goPostWrite();
-            }
-			else {
+            } else {
 				home.getPosts($this.val());
 			}
 		}

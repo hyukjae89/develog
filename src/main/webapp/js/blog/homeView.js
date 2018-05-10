@@ -152,24 +152,26 @@ var homeView = homeView || (function(){
 
     var _renewPaging = function(nowPage, totalPage, countPerBlock) {
         var $pageBtnWrap = $('#pageBtnWrap');
-        var html    = '';
+        var html = '';
+        var $prevPagingBtn = $('#prevPagingBtn');
+        var $nextPagingBtn = $('#nextPagingBtn');
 
         if (nowPage == 1) {
-            $('#prevPagingBtn').removeClass('paging_btn_unselected');
-            $('#prevPagingBtn').addClass('paging_btn_disabled');
+            $prevPagingBtn.removeClass('paging_btn_unselected');
+            $prevPagingBtn.addClass('paging_btn_disabled');
         } else {
-            $('#prevPagingBtn').removeClass('paging_btn_disabled');
-            $('#prevPagingBtn').addClass('paging_btn_unselected');
-            $('#prevPagingBtn').data('prev-page', nowPage - 1);
+            $prevPagingBtn.removeClass('paging_btn_disabled');
+            $prevPagingBtn.addClass('paging_btn_unselected');
+            $prevPagingBtn.data('prev-page', nowPage - 1);
         }
 
         if (nowPage == totalPage) {
-            $('#nextPagingBtn').removeClass('paging_btn_unselected');
-            $('#nextPagingBtn').addClass('paging_btn_disabled');
+            $nextPagingBtn.removeClass('paging_btn_unselected');
+            $nextPagingBtn.addClass('paging_btn_disabled');
         } else {
-            $('#nextPagingBtn').removeClass('paging_btn_disabled');
-            $('#nextPagingBtn').addClass('paging_btn_unselected');
-            $('#nextPagingBtn').data('next-page', nowPage + 1);
+            $nextPagingBtn.removeClass('paging_btn_disabled');
+            $nextPagingBtn.addClass('paging_btn_unselected');
+            $nextPagingBtn.data('next-page', nowPage + 1);
         }
 
         $pageBtnWrap.empty();
@@ -201,23 +203,73 @@ var homeView = homeView || (function(){
         $pageBtnWrap.append(html);
     };
 
+    var _appendMemberSignIn = function() {
+        var html    = '<div class="pw_wrap">'
+	    				+ '<form id="pwWriteForm" accept-charset="UTF-8">'
+	                    	+ '<input type="text" id="pwTitle" class="pw_input" name="title" placeholder="제목">'
+	                    	+ '<input type="text" id="pwDescription" class="pw_input" name="description" placeholder="설명">'
+	                        + '<textarea id="ir1" rows="10" cols="100" name="contents" class="pw_contents"></textarea>'
+	                        + '<input type="text" id="pwTag" class="pw_input" name="tags" placeholder="태그">'
+	                        + '<input type="text" id="pwUriId" class="pw_input pw_uri_id" name="uriId" placeholder="URI ID" maxlength="16">'
+                        + '</form>'
+                        + '<div class="pw_btn_wrap">'	                    
+                            + '<button id="pwCompleteBtn">작성완료</button>'
+                        + '</div>'
+                    + '</div>';
+				
+        homeElements.$mainArticleWrap.append(html);
+    };
+
+    var _drawPostListView = function(posts, totalCount, tag, nowPage, totalPage, countPerBlock) {
+        _showTopSection(tag);
+        _emptyMainArticle();
+        
+        if (totalCount > 0) {
+            _appendPostList(posts);
+            if (!_existPaging()) {
+                _appendPaging();
+            }
+            _renewPaging(nowPage, totalPage, countPerBlock);
+        } else {
+            _appendNoPost();
+            _removePaging();
+        }
+    };
+
+    var _drawPostDetailView = function(post, isWriter) {
+        _hideTopSection();
+        _emptyMainArticle();
+        _appendPostDetail(post, isWriter);
+        _removePaging();
+    };
+
+    var _drawPostWriteView = function() {
+        _hideTopSection();
+		_emptyMainArticle();
+		_appendPostWrite();
+		_removePaging();
+    };
+
+    var _drawPostModifyView = function(post) {
+        _hideTopSection();
+		_emptyMainArticle();
+		_appendPostModify(post);
+    };
+
+    var _drawMemberSignInView = function() {
+        _hideTopSection();
+        _emptyMainArticle();
+        _appendMemberSignIn();
+        _removePaging();
+    };
+
     return {
-        hideTopSection : _hideTopSection,
-        showTopSection : _showTopSection,
-        isHiddenTopSection : _isHiddenTopSection,
+        drawPostListView : _drawPostListView,
+        drawPostDetailView : _drawPostDetailView,
+        drawPostWriteView : _drawPostWriteView,
+        drawPostModifyView : _drawPostModifyView,
 
-        emptyMainArticle : _emptyMainArticle,
-        appendPostList : _appendPostList,
-        appendNoPost : _appendNoPost,
-        appendPostDetail : _appendPostDetail,
-
-        appendPostWrite :_appendPostWrite,
-        appendPostModify : _appendPostModify,
-
-        existPaging : _existPaging,
-        appendPaging : _appendPaging,
-        removePaging : _removePaging,
-        renewPaging : _renewPaging
+        drawMemberSignInView : _drawMemberSignInView
     };
 
 })();
