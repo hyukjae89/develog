@@ -15,7 +15,7 @@ var homeEvent = homeEvent || (function(){
 			if ($this.val() == '529L') {
 				location.href = "/sign-in";
             }
-            else if ($this.val() == '529PW') {
+            else if ($this.val() == '529P') {
                 home.goPostWrite();
             }
 			else {
@@ -51,6 +51,9 @@ var homeEvent = homeEvent || (function(){
     
     // 포스트 삭제 버튼 클릭
     homeElements.$mainArticleWrap.on('click', '#prRemoveBtn', function(){
+        if (!confirm("해당 포스트를 삭제하겠습니까?"))
+            return;
+
     	home.removePost($(this).parent().data('uriId'));
     });
 
@@ -66,9 +69,33 @@ var homeEvent = homeEvent || (function(){
         home.getPosts(tag);
     });
     
+    // 포스트 페이징 넘버 클릭 
     $('body').on('click', '.pagingBtn', function(){
+        if ($(this).hasClass('paging_btn_selected'))
+            return;
+            
     	var tag = homeElements.$search.val();
     	var page = $(this).data('page');
+    	home.getPosts(tag, page);
+    });
+
+    // 포스트 이전 페이징 클릭 
+    $('body').on('click', '#prevPagingBtn', function(){
+        if ($(this).hasClass('paging_btn_disabled'))
+            return;
+            
+    	var tag = homeElements.$search.val();
+    	var page = $(this).data('prevPage');
+    	home.getPosts(tag, page);
+    });
+
+    // 포스트 다음 페이징 클릭
+    $('body').on('click', '#nextPagingBtn', function(){
+        if ($(this).hasClass('paging_btn_disabled'))
+            return;
+            
+    	var tag = homeElements.$search.val();
+        var page = $(this).data('nextPage');
     	home.getPosts(tag, page);
     });
     

@@ -40,7 +40,13 @@ public class PostServiceImpl implements PostService{
 	@Autowired Pagination pagination;
 
 	@Override
-	public void writePost(Post post, String tags) {
+	public void writePost(Post post, String tags) throws Exception {
+		
+		PostExample postExample = new PostExample();
+		postExample.createCriteria().andUriIdEqualTo(post.getUriId());
+		if (postDao.countPost(postExample) > 0)
+			throw new Exception();
+		
 		post.setIdx(Utils.generateIdx());
 		post.setRegDate(Utils.generateNowGMTDate());
 		postDao.insertPost(post);
@@ -209,11 +215,13 @@ public class PostServiceImpl implements PostService{
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int countPerPage = pagination.getCountPerPage();
+		int countPerBlock = pagination.getCountPerBlock();
 		int totalCount = (int) postViewDao.countPosts(tag);
 		int totalPage = (totalCount % countPerPage == 0) ? totalCount / countPerPage : (totalCount / countPerPage) + 1;
 		
 		result.put("totalCount", totalCount);
 		result.put("totalPage", totalPage);
+		result.put("countPerBlock", countPerBlock);
 		
 		return result;
 	}

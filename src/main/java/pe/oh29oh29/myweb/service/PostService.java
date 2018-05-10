@@ -8,7 +8,7 @@ import pe.oh29oh29.myweb.model.PostView;
 
 public interface PostService {
 
-	public void writePost(Post post, String tags);
+	public void writePost(Post post, String tags) throws Exception;
 	
 	public void modifyPost(Post post, String tags);
 	

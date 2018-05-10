@@ -17,7 +17,7 @@ public class PostServiceTest extends MemberServiceTest {
 	 * @TODO	: 포스트 작성 
 	 */
 	@Test
-	public void writePost() {
+	public void writePost() throws Exception {
 		signUpMember();
 		Member member = memberDao.selectMember(null).get(0);
 		
@@ -47,12 +47,34 @@ public class PostServiceTest extends MemberServiceTest {
 		assertEquals(tag, postView.getTags());
 	}
 	
+	@Test
+	public void writePosts() throws Exception {
+		signUpMember();
+		Member member = memberDao.selectMember(null).get(0);
+		
+		// 포스트 작성
+		for (int i = 0; i < 105; i++) {
+			Post post = new Post();
+			post.setMemberIdx(member.getIdx());
+			post.setTitle("PostTest타이틀" + i);
+			post.setContents("PostTest내용" + i);
+			post.setDescription("PostTest설명" + i);
+			post.setUriId("post-test-" + i);
+			
+			String tag = "post-write post-write-" + i;
+			
+			postService.writePost(post, tag);
+			
+			Thread.sleep(100);
+		}
+	}
+	
 	/**
 	 * @date	: 2018. 4. 11.
 	 * @TODO	: 포스트 수정
 	 */
 	@Test
-	public void modifyPost() {
+	public void modifyPost() throws Exception {
 		// 포스트 작성
 		writePost();
 		
@@ -89,7 +111,7 @@ public class PostServiceTest extends MemberServiceTest {
 	 * @TODO	: 포스트 삭제
 	 */
 	@Test
-	public void removePost() {
+	public void removePost() throws Exception {
 		// 포스트 작성
 		writePost();
 		

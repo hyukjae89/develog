@@ -3,8 +3,9 @@ var home = home || (function(){
 	
 	var _getPosts = function(tag, nowPage) {
 		
-		if (tag === undefined)
+		if (tag === undefined) {
 			tag = "";
+		}
 		
 		if (nowPage === undefined) {
 			nowPage = 1;
@@ -18,13 +19,20 @@ var home = home || (function(){
 				var posts = result.posts;
 				var totalPage = result.totalPage;
 				var totalCount = result.totalCount;
-
+				var countPerBlock = result.countPerBlock;
+				
 				homeView.showTopSection(tag);
 				homeView.emptyMainArticle();
-				homeView.appendPostList(posts);
-				if (!homeView.existPaging())
-					homeView.appendPaging();
-				homeView.renewPaging(nowPage, totalPage);
+				if (totalCount > 0) {
+					homeView.appendPostList(posts);
+					if (!homeView.existPaging()) {
+						homeView.appendPaging();
+					}
+					homeView.renewPaging(nowPage, totalPage, countPerBlock);
+				} else {
+					homeView.appendNoPost();
+					homeView.removePaging();
+				}
 				$("body").scrollTop(0);
 			},
 			error : function(e) {
@@ -58,6 +66,7 @@ var home = home || (function(){
 		homeView.hideTopSection();
 		homeView.emptyMainArticle();
 		homeView.appendPostWrite(post);
+		homeView.removePaging();
 
 		$.getScript('/import/smartEditor/js/service/HuskyEZCreator.js', function(){
 			nhn.husky.EZCreator.createInIFrame({
@@ -105,7 +114,7 @@ var home = home || (function(){
 		homeView.hideTopSection();
 		homeView.emptyMainArticle();
 		homeView.appendPostModify(post);
-
+		
 		$.getScript('/import/smartEditor/js/service/HuskyEZCreator.js', function(){
 			nhn.husky.EZCreator.createInIFrame({
 				oAppRef: homeData.smartEditor,

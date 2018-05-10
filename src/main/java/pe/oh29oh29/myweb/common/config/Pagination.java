@@ -8,9 +8,14 @@ public class Pagination {
 
 	@Value("#{config['pagination.countPerPage']}")
 	private int countPerPage;
+	@Value("#{config['pagination.countPerBlock']}")
+	private int countPerBlock;
 
 	public int getCountPerPage() {
 		return countPerPage;
+	}
+	public int getCountPerBlock() {
+		return countPerBlock;
 	}
 	
 }

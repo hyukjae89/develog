@@ -43,4 +43,9 @@ public class PostDaoImpl implements PostDao{
 	public int deleteAllPosts() {
 		return postMapper.deleteByExample(null);
 	}
+
+	@Override
+	public long countPost(PostExample example) {
+		return postMapper.countByExample(example);
+	}
 }

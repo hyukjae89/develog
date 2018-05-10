@@ -23,11 +23,26 @@ var homeView = homeView || (function(){
 
         posts.forEach(function(post) {
             var tags = post.tags.split(",");
+            var regDate = post.regDate.substring(0, 4) + "-" + post.regDate.substring(4, 6) + "-" + post.regDate.substring(6, 8) + " " 
+                        + post.regDate.substring(8, 10) + ":" + post.regDate.substring(10, 12);
+            regDate = new Date(regDate);
+            regDate.setMinutes(regDate.getMinutes() + (-1 * regDate.getTimezoneOffset()));
+            var year = regDate.getFullYear();
+            var month = (regDate.getMonth() + 1) < 10 ? "0" + (regDate.getMonth() + 1) : (regDate.getMonth() + 1);
+            var date = regDate.getDate() < 10 ? "0" + regDate.getDate() : regDate.getDate();
+            var hours = regDate.getHours() < 10 ? "0" + regDate.getHours() : regDate.getHours();
+            var minutes = regDate.getMinutes() < 10 ? "0" + regDate.getMinutes() : regDate.getMinutes();
+            regDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes;
             
             html 	+= '<div class="pl_post_list_item">'
                         + '<div class="plPostListItemInner pl_post_list_item_inner" data-uri-id="' + post.uriId + '">'
-                            + '<h2 class="plPostTitle pl_post_title">' + post.title + '</h2>'
-                            + '<p class="plPostDescription pl_post_description">' + post.description + '</p>'
+                            + '<div class="pl_post_title_desc_wrap">'
+                                + '<h2 class="plPostTitle pl_post_title">' + post.title + '</h2>'
+                                + '<p class="plPostDescription pl_post_description">' + post.description + '</p>'
+                            + '</div>'
+                            + '<div class="pl_post_reg_date_wrap">'
+                                + '<span class="pl_post_reg_date">' + regDate + '</span>'
+                            + '</div>'
                         + '</div>'
                         + '<div class="pl_post_tags">';
             tags.forEach(function(tag){
@@ -40,17 +55,36 @@ var homeView = homeView || (function(){
 		homeElements.$mainArticleWrap.append(html);
     };
 
+    var _appendNoPost = function() {
+        var html    = '<div class="pl_no_post_wrap">'
+                        + '<span>작성된 포스트가 없습니다.</span>'
+                    + '</div>';
+				
+        homeElements.$mainArticleWrap.append(html);
+    };
+
     var _appendPostDetail = function(post, isWriter) {
         var tags = post.tags.split(",");
+        var regDate = post.regDate.substring(0, 4) + "-" + post.regDate.substring(4, 6) + "-" + post.regDate.substring(6, 8) + " " 
+                    + post.regDate.substring(8, 10) + ":" + post.regDate.substring(10, 12);
+        regDate = new Date(regDate);
+        regDate.setMinutes(regDate.getMinutes() + (-1 * regDate.getTimezoneOffset()));
+        var year = regDate.getFullYear();
+        var month = (regDate.getMonth() + 1) < 10 ? "0" + (regDate.getMonth() + 1) : (regDate.getMonth() + 1);
+        var date = regDate.getDate() < 10 ? "0" + regDate.getDate() : regDate.getDate();
+        var hours = regDate.getHours() < 10 ? "0" + regDate.getHours() : regDate.getHours();
+        var minutes = regDate.getMinutes() < 10 ? "0" + regDate.getMinutes() : regDate.getMinutes();
+        regDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes;
 
         var html 	= '<h1 id="prTitle" class="pr_title">' + post.title + '</h1>'
                     + '<p id="prDescription" class="pr_description">' + post.description + '</p>'
                     + '<div id="prContents" class="pr_contents">' + post.contents + '</div>'
-                    + '<div id="prTags" class="pr_tags">'
+                    + '<div id="prTags" class="pr_tags">';
         tags.forEach(function(tag){
             html += '<span class="prTag pr_tag" data-tag="' + tag + '">' + tag + '</span>';
         });
-        html += '</div>';
+        html    += '</div>'
+                + '<p class="pr_reg_date">' + regDate + '</p>';
         
         if (isWriter) {
         	html	+= '<div class="pr_btn_wrap" data-uri-id="' + post.uriId + '">'
@@ -103,9 +137,9 @@ var homeView = homeView || (function(){
     var _appendPaging = function() {
         var html    = '<article id="pagingArticleWrap" class="paging_article_wrap">'
                         + '<div id="pagingWrap" class="paging_wrap">'
-                            + '<div class="prev_btn_wrap"><span class="paging_btn paging_btn_unselected">◀</span></div>'
+                            + '<div class="prev_btn_wrap"><span id="prevPagingBtn" class="paging_btn">◀</span></div>'
                             + '<div id="pageBtnWrap" class="page_btn_wrap"></div>'
-                            + '<div class="next_btn_wrap"><span class="paging_btn paging_btn_unselected">▶</span></div>'
+                            + '<div class="next_btn_wrap"><span id="nextPagingBtn" class="paging_btn">▶</span></div>'
                         + '</div>'
                     + '</article>';
 
@@ -116,13 +150,47 @@ var homeView = homeView || (function(){
     	$('#pagingArticleWrap').remove();
     }
 
-    var _renewPaging = function(nowPage, totalPage) {
+    var _renewPaging = function(nowPage, totalPage, countPerBlock) {
         var $pageBtnWrap = $('#pageBtnWrap');
         var html    = '';
-        
+
+        if (nowPage == 1) {
+            $('#prevPagingBtn').removeClass('paging_btn_unselected');
+            $('#prevPagingBtn').addClass('paging_btn_disabled');
+        } else {
+            $('#prevPagingBtn').removeClass('paging_btn_disabled');
+            $('#prevPagingBtn').addClass('paging_btn_unselected');
+            $('#prevPagingBtn').data('prev-page', nowPage - 1);
+        }
+
+        if (nowPage == totalPage) {
+            $('#nextPagingBtn').removeClass('paging_btn_unselected');
+            $('#nextPagingBtn').addClass('paging_btn_disabled');
+        } else {
+            $('#nextPagingBtn').removeClass('paging_btn_disabled');
+            $('#nextPagingBtn').addClass('paging_btn_unselected');
+            $('#nextPagingBtn').data('next-page', nowPage + 1);
+        }
+
         $pageBtnWrap.empty();
-        for (var i = 0; i < totalPage; i++) {
-        	var page = i + 1;
+
+        var startPage = 1;
+        var endPage = totalPage;
+        var pivot = parseInt(countPerBlock / 2) + (countPerBlock % 2 == 0 ? 0 : 1);
+
+        if (totalPage > countPerBlock) {
+            if (nowPage <= pivot) {
+                endPage = countPerBlock;
+            } else if (pivot < nowPage && nowPage < totalPage - pivot + 1) {
+                startPage = nowPage - pivot + 1;
+                endPage = nowPage + pivot - 1;
+            } else {
+                startPage = totalPage - countPerBlock + 1;
+            }
+        }
+
+        for (var i = startPage; i <= endPage; i++) {
+        	var page = i;
         	if (page == nowPage) {
         		html += '<span class="pagingBtn paging_btn paging_btn_selected" data-page="' + page + '">' + page + '</span>';
         	} else {
@@ -140,6 +208,7 @@ var homeView = homeView || (function(){
 
         emptyMainArticle : _emptyMainArticle,
         appendPostList : _appendPostList,
+        appendNoPost : _appendNoPost,
         appendPostDetail : _appendPostDetail,
 
         appendPostWrite :_appendPostWrite,

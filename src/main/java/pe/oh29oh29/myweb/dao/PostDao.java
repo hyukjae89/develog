@@ -9,8 +9,6 @@ public interface PostDao {
 
 	public int insertPost(Post post);
 	
-	public List<Post> selectPost(PostExample example);
-	
 	public int updatePost(Post post);
 	
 	public int deletePost(PostExample example);
@@ -18,5 +16,9 @@ public interface PostDao {
 	public int deletePost(String idx, String memberIdx);
 
 	public int deleteAllPosts();
+	
+	public List<Post> selectPost(PostExample example);
+	
+	public long countPost(PostExample example);
 	
 }

@@ -19,7 +19,11 @@ public class CommentServiceTest extends PostServiceTest {
 	 */
 	@Test
 	public void writeComment() {
-		writePost();
+		try {
+			writePost();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		Member member = memberService.readAllMembers().get(0);
 		PostView post = postService.getPosts(null, 1).get(0);

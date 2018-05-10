@@ -30,7 +30,6 @@
 
 .main_section_wrap {
 	width: 860px;
-	height: 100%;
 	margin: 0 auto;
 }
 
@@ -52,18 +51,33 @@
 }
 
 .pl_post_list_item_inner {
+    position: relative;
     line-height: 35px;
     cursor: pointer;
 }
 
 .pl_post_list_item_inner:hover .pl_post_title {
-    /* color: green; */
+    color: black;
     text-shadow: 1px 1px 0px #bdbdbd;
 }
 
 .pl_post_list_item_inner:hover .pl_post_description {
-    /* color: green; */
+    color: black;
     text-shadow: 1px 1px 0px #bdbdbd;
+}
+
+.pl_post_title_desc_wrap {
+    display: inline-block;
+    max-width: 740px;
+}
+
+.pl_post_reg_date_wrap {
+    float: right;
+    line-height: 70px;
+}
+
+.pl_post_reg_date {
+    font-size: 13px;
 }
 
 .pl_post_tags {
@@ -86,6 +100,13 @@
 
 .pl_post_tag:FIRST-CHILD {
     margin: 0;
+}
+
+.pl_no_post_wrap {
+    width: 100%;
+    line-height: 100px;
+    text-align: center;
+    font-size: 20px;
 }
 
 /* PAGING */
@@ -137,6 +158,11 @@
 	cursor: default;
 }
 
+.paging_btn_disabled {
+    cursor: default;
+    color: #eaeaea;
+}
+
 /* READ */
 .pr_title {
     font-size: 35px;
@@ -174,6 +200,19 @@
 .pr_tag:hover {
     background-color: #bdbdbd;
     color: #ffffff;
+}
+
+.pr_reg_date {
+    text-align: right;
+    padding: 10px 0px;
+}
+
+.pr_btn_wrap{
+    text-align: center;
+}
+
+.pr_btn_wrap button {
+    margin: 0px 10px;
 }
 
 /* WRITE */
