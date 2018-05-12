@@ -3,7 +3,6 @@ var homeEvent = homeEvent || (function(){
 
     $(window).on('popstate', function(event) {
         var data = event.originalEvent.state;
-        console.log(data);
 
         if (data == null)
             history.back();
@@ -42,6 +41,8 @@ var homeEvent = homeEvent || (function(){
             } else {
 				home.getPosts($this.val());
 			}
+		} else {
+			home.searchTags($this.val());
 		}
     });
     
@@ -118,6 +119,19 @@ var homeEvent = homeEvent || (function(){
     	var tag = homeElements.$search.val();
         var page = $(this).data('nextPage');
     	home.getPosts(tag, page);
+    });
+    
+    homeElements.$topSectionWrap.on('click', '.searchTagItem', function(){
+    	home.getPosts($(this).text());
+    });
+    
+    $('body').on('click', function(event){
+    	var target = event.target;
+
+    	if (target.className.indexOf('excludeTagView') > -1)
+    		return;
+    	
+    	homeView.emptyTagList();
     });
     
 })();

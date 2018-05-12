@@ -3,11 +3,13 @@ var homeView = homeView || (function(){
 
     var _hideTopSection = function() {
         homeElements.$topSectionWrap.hide();
+        homeElements.$searchTagList.hide();
     };
 
     var _showTopSection = function(tag) {
         homeElements.$topSectionWrap.show();
         homeElements.$search.val(tag);
+        homeElements.$searchTagList.hide();
     };
 
     var _isHiddenTopSection = function() {
@@ -219,6 +221,26 @@ var homeView = homeView || (function(){
 				
         homeElements.$mainArticleWrap.append(html);
     };
+    
+    var _appendTagList = function(tags) {
+    	var html = '<ul>';
+    	
+    	tags.forEach(function(tag){
+    		html	+= '<li class="searchTagItem search_tag_item">'
+    					+ '<span>' + tag.name + '</span>'
+    				+ '</li>'; 
+        });
+    	
+    	html += '</ul>';
+    	
+    	homeElements.$searchTagList.append(html);
+    	homeElements.$searchTagList.show();
+    };
+    
+    var _emptyTagList = function() {
+    	homeElements.$searchTagList.empty();
+    	homeElements.$searchTagList.hide();
+    };
 
     var _drawPostListView = function(posts, totalCount, tag, nowPage, totalPage, countPerBlock) {
         _showTopSection(tag);
@@ -262,6 +284,13 @@ var homeView = homeView || (function(){
         _appendMemberSignIn();
         _removePaging();
     };
+    
+    var _drawTagListView = function(tags) {
+    	_emptyTagList();
+    	if (tags == '')
+    		return;
+    	_appendTagList(tags);
+    };
 
     return {
         drawPostListView : _drawPostListView,
@@ -269,7 +298,10 @@ var homeView = homeView || (function(){
         drawPostWriteView : _drawPostWriteView,
         drawPostModifyView : _drawPostModifyView,
 
-        drawMemberSignInView : _drawMemberSignInView
+        drawMemberSignInView : _drawMemberSignInView,
+        
+        drawTagListView : _drawTagListView,
+        emptyTagList : _emptyTagList
     };
 
 })();

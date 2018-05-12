@@ -6,9 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,15 +20,18 @@ import pe.oh29oh29.myweb.common.Constants;
 import pe.oh29oh29.myweb.model.Member;
 import pe.oh29oh29.myweb.model.Post;
 import pe.oh29oh29.myweb.model.PostView;
+import pe.oh29oh29.myweb.model.Tag;
 import pe.oh29oh29.myweb.service.AttachedFileService;
 import pe.oh29oh29.myweb.service.AttachedFileService.FileType;
 import pe.oh29oh29.myweb.service.PostService;
+import pe.oh29oh29.myweb.service.TagService;
 
 @Controller
 public class PostController {
 
 	@Autowired PostService postService;
 	@Autowired AttachedFileService attachedFileService;
+	@Autowired TagService tagService;
 	
 	
 	/**
@@ -55,7 +56,7 @@ public class PostController {
 	 * @date	: 2018. 5. 1.
 	 * @TODO	: 포스트 리스트 가져오기
 	 */
-	@RequestMapping(value = {"posts/tags/*", "posts"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"posts", "posts/tags/*"}, method = RequestMethod.GET)
 	public String getPosts(HttpServletRequest httpRequest, Model model) {
 		String servletPath = httpRequest.getServletPath();
 		String tag = null;
@@ -175,5 +176,18 @@ public class PostController {
 		postService.modifyPost(post, tags);
 		
 		return post.getUriId();
+	}
+	
+	/**
+	 * @date	: 2018. 5. 13.
+	 * @TODO	: 태그 조회하기 (비동기)
+	 */
+	@RequestMapping(value = "async/tags/*", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Tag> getTags(@RequestParam(value = "tag") String tag) {
+		
+		List<Tag> tags = tagService.getTags(tag);
+		
+		return tags;
 	}
 }

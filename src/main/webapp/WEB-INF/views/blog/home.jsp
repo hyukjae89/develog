@@ -13,7 +13,10 @@
 	<section id="topSectionWrap" class="top_section_wrap">
 		<article class="tag_search_wrap">
 			<span id="sharp" class="sharp">#</span>
-			<input id="search" class="search" type="text">
+			<div class="search_input_wrap">
+				<input id="search" class="search excludeTagView" type="text">
+				<div id="searchTagList" class="search_tag_list excludeTagView"></div>
+			</div>
 			<div id="searchHidden" class="search_hidden"></div>
 		</article>
 	</section>

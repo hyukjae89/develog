@@ -2,10 +2,10 @@ var home = home || (function(){
 	'use strict';
 	
 	var _getPosts = function(tag, nowPage) {
+
 		if (tag === undefined) {
 			tag = "";
 		}
-		
 		if (nowPage === undefined) {
 			nowPage = 1;
 		}
@@ -122,7 +122,7 @@ var home = home || (function(){
 		});
 	};
 
-	var _submitPostModify= function() {
+	var _submitPostModify = function() {
 		var formData = $('#pwModifyForm').serialize() + "&idx=" + homeData.getPost().idx;
 		
 		$.ajax({
@@ -131,6 +131,20 @@ var home = home || (function(){
 			data : formData,
 			success : function(uriId) {
 				_getPost(uriId);
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	};
+	
+	var _searchTags = function(tag) {
+		$.ajax({
+			url : "/async/tags/" + tag,
+			type : "GET",
+			data : "tag=" + encodeURIComponent(tag),
+			success : function(tags) {
+				homeView.drawTagListView(tags);
 			},
 			error : function(e) {
 				console.log(e);
@@ -148,7 +162,9 @@ var home = home || (function(){
 		removePost : _removePost,
 
 		goPostModify : _goPostModify,
-		submitPostModify : _submitPostModify
+		submitPostModify : _submitPostModify,
+		
+		searchTags : _searchTags
 	};
 
 })();
