@@ -3,12 +3,12 @@
 * {
 	margin: 0;
 	padding: 0;
-	color: #4f4f4f;
 }
 
 html {
 	width: 100%;
 	height: 100%;
+	color: #4f4f4f;
 }
 
 body {
