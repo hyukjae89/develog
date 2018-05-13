@@ -242,6 +242,10 @@ var homeView = homeView || (function(){
     	homeElements.$searchTagList.hide();
     };
 
+     var _isHiddenTagList = function() {
+        return homeElements.$searchTagList.css('display') == 'none' ? true : false;
+    };
+
     var _drawPostListView = function(posts, totalCount, tag, nowPage, totalPage, countPerBlock) {
         _showTopSection(tag);
         _emptyMainArticle();
@@ -301,7 +305,8 @@ var homeView = homeView || (function(){
         drawMemberSignInView : _drawMemberSignInView,
         
         drawTagListView : _drawTagListView,
-        emptyTagList : _emptyTagList
+        emptyTagList : _emptyTagList,
+        isHiddenTagList : _isHiddenTagList
     };
 
 })();

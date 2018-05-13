@@ -39,6 +39,8 @@
     border-left: 1px solid #b5b5b5;
     border-right: 1px solid #b5b5b5;
     z-index: 1;
+    max-height: 350px;
+    overflow: scroll;
 }
 
 .search_tag_item {

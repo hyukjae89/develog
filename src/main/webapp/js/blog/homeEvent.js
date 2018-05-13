@@ -30,20 +30,29 @@ var homeEvent = homeEvent || (function(){
     
     // 태그 검색 키업
     homeElements.$search.on('keyup', function(event) {
-		var $this = $(this);
-		
-		if (event.keyCode == 13) {
-			
-			if ($this.val() == '529L') {
+        var tag = $(this).val();
+        
+        if (event.keyCode == 13) {
+			if (tag == '529L') {
 				location.href = "/sign-in";
-            } else if ($this.val() == '529P') {
+            } else if (tag == '529P') {
                 home.goPostWrite();
             } else {
-				home.getPosts($this.val());
+				home.getPosts(tag);
 			}
-		} else {
-			home.searchTags($this.val());
+        } else if (event.keyCode == 27) {
+            // ESC
+            homeView.emptyTagList();
+        } else {
+			home.searchTags(tag);
 		}
+    });
+
+    homeElements.$search.on('focus', function(event){
+        var tag = $(this).val();
+        
+        if (homeView.isHiddenTagList())
+            home.searchTags(tag);
     });
     
     // 포스트 리스트에서 하나의 포스트 클릭
