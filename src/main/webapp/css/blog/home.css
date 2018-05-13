@@ -28,6 +28,7 @@
     padding: 10px !important;
     line-height: 15px;
     border: 1px solid #b5b5b5;
+    vertical-align: middle;
 }
 
 .search_tag_list {
