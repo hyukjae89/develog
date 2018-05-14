@@ -1,6 +1,7 @@
 package pe.oh29oh29.myweb.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class PostServiceTest extends MemberServiceTest {
 		
 		// 검증
 		List<PostView> postsView = postService.getPosts(null, 1);
-		assertEquals(1, postsView.size());
+		assertTrue(0 < postsView.size());
 		PostView postView = postsView.get(0);
 		assertEquals(post.getMemberIdx(), member.getIdx());
 		assertEquals(post.getTitle(), postView.getTitle());
@@ -47,8 +48,8 @@ public class PostServiceTest extends MemberServiceTest {
 		assertEquals(tag, postView.getTags());
 	}
 	
-	@Test
-	public void writePosts() throws Exception {
+//	@Test
+	/*public void writePosts() throws Exception {
 		signUpMember();
 		Member member = memberDao.selectMember(null).get(0);
 		
@@ -67,7 +68,7 @@ public class PostServiceTest extends MemberServiceTest {
 			
 			Thread.sleep(100);
 		}
-	}
+	}*/
 	
 	/**
 	 * @date	: 2018. 4. 11.

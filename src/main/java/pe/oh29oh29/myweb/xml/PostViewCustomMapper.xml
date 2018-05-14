@@ -7,9 +7,9 @@
 			,
 			<include refid="pe.oh29oh29.myweb.mapper.PostViewMapper.Blob_Column_List" />
 		FROM
-			POSTS_VIEW
+			posts_view
 		WHERE
-			TAGS LIKE #{tag}
+			tags LIKE #{tag}
 		ORDER BY 
 			REG_DATE DESC
 		LIMIT
@@ -20,8 +20,8 @@
 		SELECT
 			count(*)
 		FROM
-			POSTS_VIEW
+			posts_view
 		WHERE
-			TAGS LIKE #{tag}
+			tags LIKE #{tag}
 	</select>
 </mapper>

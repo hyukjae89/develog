@@ -22,7 +22,7 @@ import pe.oh29oh29.myweb.model.Tag;
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
-public class TagTest {
+public class TagTest extends PostServiceTest{
 
 	@Autowired TagDao tagDao;
 	@Autowired PostDao postDao;
@@ -38,6 +38,12 @@ public class TagTest {
 
 	@Test
 	public void test() {
+		try {
+			writePost();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		Tag tag = new Tag();
 		tag.setIdx(Utils.generateIdx());
 		tag.setName("TAG테스트");

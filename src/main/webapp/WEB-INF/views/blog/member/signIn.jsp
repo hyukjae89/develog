@@ -35,6 +35,7 @@
 	function googleSignInAPIInit() {
 		gapi.load('auth2', function() {
 			auth2 = gapi.auth2.init({
+// 				client_id : '577924299060-n9e37rfhjipqbotraqnr8guoodmhejio.apps.googleusercontent.com'
 				client_id : '577924299060-o34csmounb2nbmuqgdvibb4dknbgt97v.apps.googleusercontent.com'
 			});
 		});
@@ -42,7 +43,8 @@
 	
 	function googleSignInSuccess(googleUser) {
 		$.ajax({
-			url : 'http://dev.oh29oh29.pe.kr/verifyIdTokenWithGoogle',
+// 			url : 'http://oh29oh29.pe.kr/verifyIdTokenWithGoogle',
+  			url : 'http://dev.oh29oh29.pe.kr/verifyIdTokenWithGoogle',
 //   			url : 'http://dev.oh29oh29.pe.kr:5050/verifyIdTokenWithGoogle',
 			type : 'POST',
 			data : googleUser.getAuthResponse().id_token,

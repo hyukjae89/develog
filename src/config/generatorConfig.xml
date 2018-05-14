@@ -15,10 +15,10 @@
 <!-- 		<table schema="develog" tableName="COMMENTS" domainObjectName="Comment"/> -->
 		<!-- <table schema="develog" tableName="TAGS" domainObjectName="Tag"/> -->
 		<!-- <table schema="develog" tableName="POST_TAG_RELATIONS" domainObjectName="PostTagRelation"/> -->
-<!-- 		<table schema="develog" tableName="FILE_STORE" domainObjectName="FileStore"/> -->
+		<table schema="develog" tableName="FILE_STORES" domainObjectName="FileStore"/>
 <!-- 		<table schema="develog" tableName="ATTACHED_FILES" domainObjectName="AttachedFile"/> -->
 		
-		<table schema="develog" tableName="POSTS_VIEW" domainObjectName="PostView" enableInsert="false" enableUpdateByPrimaryKey="false" enableUpdateByExample="false" enableDeleteByPrimaryKey="false" enableDeleteByExample="false"/>
+		<!-- <table schema="develog" tableName="posts_view" domainObjectName="PostView" enableInsert="false" enableUpdateByPrimaryKey="false" enableUpdateByExample="false" enableDeleteByPrimaryKey="false" enableDeleteByExample="false"/> -->
 <!-- 		<table schema="develog" tableName="POST_TAG_RELATIONS_VIEW" domainObjectName="PostTagRelationView" enableInsert="false" enableUpdateByPrimaryKey="false" enableUpdateByExample="false" enableDeleteByPrimaryKey="false" enableDeleteByExample="false"/> -->
 	</context>
 </generatorConfiguration>

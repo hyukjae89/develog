@@ -80,7 +80,7 @@ public class PostController {
 	public Map<String, Object> readPost(HttpServletRequest httpRequest, @RequestParam(value = "uriId") String uriId) {
 		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
 		PostView post = postService.getPost(uriId);
-		
+
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("post", post);
 		if (member == null) {
