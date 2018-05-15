@@ -25,9 +25,7 @@ var homeView = homeView || (function(){
 
         posts.forEach(function(post) {
             var tags = post.tags.split(",");
-            var regDate = post.regDate.substring(0, 4) + "-" + post.regDate.substring(4, 6) + "-" + post.regDate.substring(6, 8) + " " 
-                        + post.regDate.substring(8, 10) + ":" + post.regDate.substring(10, 12);
-            regDate = new Date(regDate);
+            var regDate = new Date(post.regDate.substring(0, 4), post.regDate.substring(4, 6), post.regDate.substring(6, 8), post.regDate.substring(8, 10), post.regDate.substring(10, 12));
             regDate.setMinutes(regDate.getMinutes() + (-1 * regDate.getTimezoneOffset()));
             var year = regDate.getFullYear();
             var month = (regDate.getMonth() + 1) < 10 ? "0" + (regDate.getMonth() + 1) : (regDate.getMonth() + 1);
@@ -67,9 +65,7 @@ var homeView = homeView || (function(){
 
     var _appendPostDetail = function(post, isWriter) {
         var tags = post.tags.split(",");
-        var regDate = post.regDate.substring(0, 4) + "-" + post.regDate.substring(4, 6) + "-" + post.regDate.substring(6, 8) + " " 
-                    + post.regDate.substring(8, 10) + ":" + post.regDate.substring(10, 12);
-        regDate = new Date(regDate);
+        var regDate = new Date(post.regDate.substring(0, 4), post.regDate.substring(4, 6), post.regDate.substring(6, 8), post.regDate.substring(8, 10), post.regDate.substring(10, 12));
         regDate.setMinutes(regDate.getMinutes() + (-1 * regDate.getTimezoneOffset()));
         var year = regDate.getFullYear();
         var month = (regDate.getMonth() + 1) < 10 ? "0" + (regDate.getMonth() + 1) : (regDate.getMonth() + 1);
@@ -150,7 +146,7 @@ var homeView = homeView || (function(){
     
     var _removePaging = function() {
     	$('#pagingArticleWrap').remove();
-    }
+    };
 
     var _renewPaging = function(nowPage, totalPage, countPerBlock) {
         var $pageBtnWrap = $('#pageBtnWrap');

@@ -12,7 +12,7 @@ public interface PostService {
 	
 	public void modifyPost(Post post, String tags);
 	
-	public void removePost(String uriId, String memberIdx);
+	public void removePost(String uriId, String memberIdx) throws Exception;
 	
 	public PostView getPost(String uriId);
 	

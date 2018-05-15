@@ -119,6 +119,7 @@ public class PostController {
 		post.setMemberIdx(member.getIdx());
 		
 		postService.writePost(post, tags);
+		attachedFileService.verifyAttachedFiles(post.getIdx(), post.getContents());
 		
 		return post.getUriId();
 	}
@@ -170,10 +171,14 @@ public class PostController {
 	@ResponseBody
 	public String modifyPost(HttpServletRequest httpRequest, Post post, String tags) throws Exception {
 		Member member = (Member) httpRequest.getSession().getAttribute(Constants.SESSION_MEMBER);
+
+		if (member == null)
+			throw new Exception();
 		
 		post.setMemberIdx(member.getIdx());
-
+		
 		postService.modifyPost(post, tags);
+		attachedFileService.verifyAttachedFiles(post.getIdx(), post.getContents());
 		
 		return post.getUriId();
 	}

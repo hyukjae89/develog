@@ -6,6 +6,11 @@
 			<span class="header_logo">oh29oh29</span>
 			<span class="header_logo">기술 블로그</span>
 		</div>
+		<c:if test="${not empty sessionScope.member}">
+		<div class="header_member_wrap">
+			<span class="header_member_on"></span>	
+		</div>
+		</c:if>
 		<%-- <div class="header_member_wrap">
 			<c:choose>
 				<c:when test="${empty sessionScope.member}">

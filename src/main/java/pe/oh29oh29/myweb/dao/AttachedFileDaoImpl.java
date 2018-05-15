@@ -15,13 +15,13 @@ public class AttachedFileDaoImpl implements AttachedFileDao {
 	@Autowired AttachedFileMapper AttachedFileMapper;
 	
 	@Override
-	public int insertAttachedFile(AttachedFile AttachedFile) {
-		return AttachedFileMapper.insertSelective(AttachedFile);
+	public int insertAttachedFile(AttachedFile attachedFile) {
+		return AttachedFileMapper.insertSelective(attachedFile);
 	}
 
 	@Override
-	public int updateAttachedFile(AttachedFile AttachedFile) {
-		return AttachedFileMapper.updateByPrimaryKeySelective(AttachedFile);
+	public int updateAttachedFile(AttachedFile attachedFile) {
+		return AttachedFileMapper.updateByPrimaryKeySelective(attachedFile);
 	}
 
 	@Override

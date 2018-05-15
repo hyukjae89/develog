@@ -101,7 +101,7 @@ var home = home || (function(){
 			type : "DELETE",
 			data : "uriId=" + encodeURIComponent(uriId),
 			success : function() {
-				console.log("success");
+				_getPosts();
 			},
 			error : function(e) {
 				console.log(e);

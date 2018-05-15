@@ -19,4 +19,7 @@ public interface AttachedFileService {
 	}
 
 	public String transfer(MultipartFile file, FileType type) throws Exception;
+	
+	public void verifyAttachedFiles(String postIdx, String postContent);
+	
 }

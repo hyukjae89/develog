@@ -1,5 +1,6 @@
 package pe.oh29oh29.myweb.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,12 +10,15 @@ import org.springframework.stereotype.Service;
 
 import pe.oh29oh29.myweb.common.Utils;
 import pe.oh29oh29.myweb.common.config.Pagination;
+import pe.oh29oh29.myweb.dao.AttachedFileDao;
 import pe.oh29oh29.myweb.dao.CommentDao;
 import pe.oh29oh29.myweb.dao.PostDao;
 import pe.oh29oh29.myweb.dao.PostTagRelationDao;
 import pe.oh29oh29.myweb.dao.PostTagRelationViewDao;
 import pe.oh29oh29.myweb.dao.PostViewDao;
 import pe.oh29oh29.myweb.dao.TagDao;
+import pe.oh29oh29.myweb.model.AttachedFile;
+import pe.oh29oh29.myweb.model.AttachedFileExample;
 import pe.oh29oh29.myweb.model.CommentExample;
 import pe.oh29oh29.myweb.model.Post;
 import pe.oh29oh29.myweb.model.PostExample;
@@ -36,6 +40,7 @@ public class PostServiceImpl implements PostService{
 	@Autowired PostTagRelationDao postTagRelationDao;
 	@Autowired PostTagRelationViewDao postTagRelationViewDao;
 	@Autowired CommentDao commentDao;
+	@Autowired AttachedFileDao attachedFileDao;
 	
 	@Autowired Pagination pagination;
 
@@ -150,11 +155,14 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public void removePost(String uriId, String memberIdx) {
+	public void removePost(String uriId, String memberIdx) throws Exception {
 		// 삭제할 Post 조회 by URI_ID
 		PostExample postExample = new PostExample();
 		postExample.createCriteria().andUriIdEqualTo(uriId);
 		Post post = postDao.selectPost(postExample).get(0);
+		
+		if (!post.getMemberIdx().equals(memberIdx))
+			throw new Exception();
 		
 		// Comment 삭제
 		CommentExample commentExample = new CommentExample();
@@ -167,6 +175,16 @@ public class PostServiceImpl implements PostService{
 		List<PostTagRelation> postTagRelations = postTagRelationDao.selectPostTagRelation(postTagRelationExample);
 		postTagRelationDao.deletePostTagRelation(postTagRelationExample);
 		
+		// Attached File 삭제
+		AttachedFileExample attachedFileExample = new AttachedFileExample();
+		attachedFileExample.createCriteria().andPostIdxEqualTo(post.getIdx());
+		List<AttachedFile> attachedFiles = attachedFileDao.selectAttachedFile(attachedFileExample);
+		for (AttachedFile attachedFile : attachedFiles) {
+			File file = new File(attachedFile.getRealPath() + File.separator + attachedFile.getFakeName());
+			file.delete();
+		}
+		attachedFileDao.deleteAttachedFile(attachedFileExample);
+				
 		// Post 삭제
 		postDao.deletePost(post.getIdx(), memberIdx);
 		

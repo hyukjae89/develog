@@ -7,9 +7,9 @@ import pe.oh29oh29.myweb.model.AttachedFileExample;
 
 public interface AttachedFileDao {
 
-	public int insertAttachedFile(AttachedFile AttachedFile);
+	public int insertAttachedFile(AttachedFile attachedFile);
 	
-	public int updateAttachedFile(AttachedFile AttachedFile);
+	public int updateAttachedFile(AttachedFile attachedFile);
 	
 	public int deleteAttachedFile(AttachedFileExample example);
 	
