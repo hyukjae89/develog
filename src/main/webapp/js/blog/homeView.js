@@ -28,7 +28,7 @@ var homeView = homeView || (function(){
             var regDate = new Date(post.regDate.substring(0, 4), post.regDate.substring(4, 6), post.regDate.substring(6, 8), post.regDate.substring(8, 10), post.regDate.substring(10, 12));
             regDate.setMinutes(regDate.getMinutes() + (-1 * regDate.getTimezoneOffset()));
             var year = regDate.getFullYear();
-            var month = (regDate.getMonth() + 1) < 10 ? "0" + (regDate.getMonth() + 1) : (regDate.getMonth() + 1);
+            var month = (regDate.getMonth() + 1) < 10 ? "0" + regDate.getMonth() : regDate.getMonth();
             var date = regDate.getDate() < 10 ? "0" + regDate.getDate() : regDate.getDate();
             var hours = regDate.getHours() < 10 ? "0" + regDate.getHours() : regDate.getHours();
             var minutes = regDate.getMinutes() < 10 ? "0" + regDate.getMinutes() : regDate.getMinutes();
@@ -68,7 +68,7 @@ var homeView = homeView || (function(){
         var regDate = new Date(post.regDate.substring(0, 4), post.regDate.substring(4, 6), post.regDate.substring(6, 8), post.regDate.substring(8, 10), post.regDate.substring(10, 12));
         regDate.setMinutes(regDate.getMinutes() + (-1 * regDate.getTimezoneOffset()));
         var year = regDate.getFullYear();
-        var month = (regDate.getMonth() + 1) < 10 ? "0" + (regDate.getMonth() + 1) : (regDate.getMonth() + 1);
+        var month = (regDate.getMonth() + 1) < 10 ? "0" + regDate.getMonth() : regDate.getMonth();
         var date = regDate.getDate() < 10 ? "0" + regDate.getDate() : regDate.getDate();
         var hours = regDate.getHours() < 10 ? "0" + regDate.getHours() : regDate.getHours();
         var minutes = regDate.getMinutes() < 10 ? "0" + regDate.getMinutes() : regDate.getMinutes();
