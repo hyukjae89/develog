@@ -200,10 +200,12 @@
 .pr_title {
     font-size: 35px;
     margin: 30px 0px 0px 0px;
+	word-wrap: break-word;
 }
 
 .pr_description {
     padding: 20px 0px 20px 0px;
+	word-wrap: break-word;
 }
 
 .pr_contents {
