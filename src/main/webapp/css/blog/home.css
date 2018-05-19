@@ -63,6 +63,7 @@
 
 .main_section_wrap {
 	width: 860px;
+    min-height: calc(100% - 155px);
 	margin: 0 auto;
 }
 

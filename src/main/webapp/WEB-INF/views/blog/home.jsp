@@ -7,6 +7,7 @@
 	<link href="/css/base.css" rel="stylesheet">
 	<link href="/css/blog/header.css" rel="stylesheet">
 	<link href="/css/blog/home.css" rel="stylesheet">
+	<link href="/css/blog/footer.css" rel="stylesheet">
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -23,6 +24,7 @@
 	<section id="mainSectionWrap" class="main_section_wrap">
 		<article id="mainArticleWrap" class="main_article_wrap"></article>
 	</section>
+	<jsp:include page="footer.jsp"></jsp:include>
 <script src="/import/jquery/jquery-3.2.1.min.js"></script>
 <script src="/js/blog/header.js"></script>
 <script src="/js/blog/homeData.js"></script>
