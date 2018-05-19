@@ -63,8 +63,8 @@
 
 .main_section_wrap {
 	width: 860px;
-    min-height: calc(100% - 155px);
-	margin: 0 auto;
+    min-height: calc(100% - 432px);
+	margin: 0 auto 80px auto;
 }
 
 .main_article_wrap {
@@ -147,7 +147,7 @@
 .paging_article_wrap {
     width: 100%;
     height: 30px;
-    margin: 50px 0px;
+    margin: 50px 0px 0px 0px;
     padding: 10px 0px;
 }
 
