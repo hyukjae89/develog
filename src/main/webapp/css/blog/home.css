@@ -243,8 +243,9 @@
 }
 
 .pr_tag:hover {
-    background-color: #bdbdbd;
+	background-color: #4f4f4f;
     color: #ffffff;
+    border: 1px solid #4f4f4f;
 }
 
 .pr_reg_date {
