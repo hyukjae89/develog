@@ -126,7 +126,8 @@
 }
 
 .pl_post_tag {
-    margin: 0px 0px 0px 5px;
+	display: inline-block;
+	margin: 0px 5px 5px 0px;
     border-radius: 10px;
     padding: 5px 10px;
     border: 1px solid #bdbdbd;
@@ -138,10 +139,6 @@
 	background-color: #4f4f4f;
     color: #ffffff;
     border: 1px solid #4f4f4f;
-}
-
-.pl_post_tag:FIRST-CHILD {
-    margin: 0;
 }
 
 .pl_no_post_wrap {
@@ -230,16 +227,13 @@
 }
 
 .pr_tag {
-    margin: 0px 0px 0px 5px;
+	display: inline-block;
+	margin: 0px 5px 5px 0px;
     border-radius: 10px;
     padding: 5px 10px;
     border: 1px solid #bdbdbd;
     cursor: pointer;
     font-size: 12px;
-}
-
-.pr_tag:FIRST-CHILD {
-    margin: 0;
 }
 
 .pr_tag:hover {
