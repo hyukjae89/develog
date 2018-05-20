@@ -63,9 +63,16 @@
 
 .main_section_wrap {
 	width: 860px;
-    min-height: calc(100% - 432px);
 	margin: 0 auto 80px auto;
 }
+
+.min-height-with-top {
+	min-height: calc(100% - 432px);
+}
+
+.min-height-without-top {
+	min-height: calc(100% - 230px);
+} 
 
 .main_article_wrap {
     display: inline-block;
@@ -128,8 +135,9 @@
 }
 
 .pl_post_tag:hover {
-    background-color: #bdbdbd;
+	background-color: #4f4f4f;
     color: #ffffff;
+    border: 1px solid #4f4f4f;
 }
 
 .pl_post_tag:FIRST-CHILD {

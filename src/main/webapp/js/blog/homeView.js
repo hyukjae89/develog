@@ -4,12 +4,14 @@ var homeView = homeView || (function(){
     var _hideTopSection = function() {
         homeElements.$topSectionWrap.hide();
         homeElements.$searchTagList.hide();
+        homeElements.$mainSectionWrap.addClass('min-height-without-top');
     };
 
     var _showTopSection = function(tag) {
         homeElements.$topSectionWrap.show();
         homeElements.$search.val(tag);
         homeElements.$searchTagList.hide();
+        homeElements.$mainSectionWrap.addClass('min-height-with-top');
     };
 
     var _isHiddenTopSection = function() {
