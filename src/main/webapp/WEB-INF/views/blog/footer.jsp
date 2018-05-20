@@ -7,7 +7,7 @@
 			<span>hyukjae89@gmail.com</span>
 		</div>
 		<div class="link_wrap">
-			<a href="https://github.com/hyukjae89" target="_blank"><img src="/images/blog/footer/GitHub-Mark-32px.png" class="github_mark_img"></a>		
+			<a href="https://github.com/hyukjae89" target="_blank"><img src="/images/blog/footer/GitHub-Mark-32px.png" class="github_mark_img" title="GitHub"></a>		
 		</div>
 	</div>
 </footer>
