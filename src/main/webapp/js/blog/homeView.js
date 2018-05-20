@@ -4,6 +4,7 @@ var homeView = homeView || (function(){
     var _hideTopSection = function() {
         homeElements.$topSectionWrap.hide();
         homeElements.$searchTagList.hide();
+        homeElements.$mainSectionWrap.removeClass('min-height-with-top');
         homeElements.$mainSectionWrap.addClass('min-height-without-top');
     };
 
@@ -11,6 +12,7 @@ var homeView = homeView || (function(){
         homeElements.$topSectionWrap.show();
         homeElements.$search.val(tag);
         homeElements.$searchTagList.hide();
+        homeElements.$mainSectionWrap.removeClass('min-height-without-top');
         homeElements.$mainSectionWrap.addClass('min-height-with-top');
     };
 
