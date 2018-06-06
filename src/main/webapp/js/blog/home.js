@@ -60,6 +60,7 @@ var home = home || (function(){
 				};
 				var url = "/posts/" + uriId;
 				history.pushState(historyData, null, url);
+				SyntaxHighlighter.all();
 			},
 			error : function(e) {
 				console.log(e);

@@ -8,6 +8,8 @@
 	<link href="/css/blog/header.css" rel="stylesheet">
 	<link href="/css/blog/home.css" rel="stylesheet">
 	<link href="/css/blog/footer.css" rel="stylesheet">
+ 	<link href="/import/syntaxHighlighter/css/shCore.css" rel="stylesheet">
+	<link href="/import/syntaxHighlighter/css/shThemeEclipse.css" rel="stylesheet">
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -26,25 +28,25 @@
 	</section>
 	<jsp:include page="footer.jsp"></jsp:include>
 <script src="/import/jquery/jquery-3.2.1.min.js"></script>
+<script src="/import/syntaxHighlighter/js/shCore.js"></script>
+<script src="/import/syntaxHighlighter/js/shBrushJava.js"></script>
 <script src="/js/blog/header.js"></script>
 <script src="/js/blog/homeData.js"></script>
 <script src="/js/blog/homeElements.js"></script>
 <script src="/js/blog/homeView.js"></script>
 <script src="/js/blog/home.js"></script>
 <script src="/js/blog/homeEvent.js"></script>
+<script>
 <c:choose>
 	<c:when test="${view == 'read'}">
-		<script>
 			var uriId = '${uriId}';
 			home.getPost(uriId);
-		</script>
 	</c:when>
 	<c:otherwise>
-		<script>
 			var tag = '${tag}';
 			home.getPosts(tag);
-		</script>
 	</c:otherwise>
 </c:choose>
+</script>
 </body>
 </html>
