@@ -259,6 +259,9 @@
 				<configuration>
 					<warName>ROOT</warName>
 					<outputDirectory>E:\WAR\develog\${timestamp}</outputDirectory>
+					<packagingExcludes>
+            			WEB-INF/classes/*.properties
+          			</packagingExcludes>
 				</configuration>
 			</plugin>
         </plugins>
