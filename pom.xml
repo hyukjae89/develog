@@ -260,7 +260,7 @@
 					<warName>ROOT</warName>
 					<outputDirectory>E:\WAR\develog\${timestamp}</outputDirectory>
 					<packagingExcludes>
-            			WEB-INF/classes/*.properties
+            			**/*.properties
           			</packagingExcludes>
 				</configuration>
 			</plugin>
@@ -271,6 +271,9 @@
 			</resource>
 			<resource>
 				<directory>src/main/resources-${environment}</directory>
+				<excludes>
+         			<exclude>*.properties</exclude>
+      			</excludes>
 			</resource>
 		</resources>
     </build>
