@@ -258,7 +258,8 @@
 				<version>2.0.1</version>
 				<configuration>
 					<warName>ROOT</warName>
-					<outputDirectory>E:\WAR\develog\${timestamp}</outputDirectory>
+					<outputDirectory>E:\WAR\develog</outputDirectory>
+					<!-- <outputDirectory>E:\WAR\develog\${timestamp}, E:\WAR\develog</outputDirectory> -->
 					<packagingExcludes>
             			**/*.properties
           			</packagingExcludes>
