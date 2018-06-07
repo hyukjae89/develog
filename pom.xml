@@ -259,11 +259,7 @@
 				<configuration>
 					<warName>ROOT</warName>
 					<outputDirectory>E:\Jenkins\workspace\oh29oh29</outputDirectory>
-					<!-- <outputDirectory>E:\WAR\develog</outputDirectory> -->
-					<!-- <outputDirectory>E:\WAR\develog\${timestamp}, E:\WAR\develog</outputDirectory> -->
-					<packagingExcludes>
-            			**/*.properties
-          			</packagingExcludes>
+					<!-- <outputDirectory>E:\WAR\develog\${timestamp}</outputDirectory> -->
 				</configuration>
 			</plugin>
         </plugins>
@@ -273,9 +269,6 @@
 			</resource>
 			<resource>
 				<directory>src/main/resources-${environment}</directory>
-				<excludes>
-         			<exclude>*.properties</exclude>
-      			</excludes>
 			</resource>
 		</resources>
     </build>
