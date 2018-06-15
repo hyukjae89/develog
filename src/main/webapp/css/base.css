@@ -1,5 +1,17 @@
 @charset "UTF-8";
 
+@font-face
+{
+	font-family	: 'NanumGothic';
+	src			: url("../fonts/NANUMGOTHIC.TTF");
+}
+
+@font-face
+{
+	font-family	: 'NanumGothicIE';
+	src			: url("../fonts/NanumGothic-Regular.eot");
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -9,6 +21,7 @@ html {
 	width: 100%;
 	height: 100%;
 	color: #4f4f4f;
+	font-family: NanumGothic, NanumGothicIE;
 }
 
 body {
