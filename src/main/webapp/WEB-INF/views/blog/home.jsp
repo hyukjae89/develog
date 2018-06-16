@@ -18,6 +18,7 @@
 			<span id="sharp" class="sharp">#</span>
 			<div class="search_input_wrap">
 				<input id="search" class="search excludeTagView" type="text">
+				<button id="totalTagBtn" class="total_tag_btn">태그 살펴보기</button>
 				<div id="searchTagList" class="search_tag_list excludeTagView"></div>
 			</div>
 			<div id="searchHidden" class="search_hidden"></div>

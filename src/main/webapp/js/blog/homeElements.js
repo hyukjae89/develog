@@ -6,6 +6,7 @@ var homeElements = homeElements || (function(){
         $topSectionWrap : $('#topSectionWrap'),
         $sharp : $('#sharp'),
         $search : $('#search'),
+        $totalTagBtn : $('#totalTagBtn'),
         $searchTagList : $('#searchTagList'),
         $searchHidden : $('#searchHidden'),
 

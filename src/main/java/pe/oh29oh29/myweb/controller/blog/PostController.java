@@ -3,6 +3,7 @@ package pe.oh29oh29.myweb.controller.blog;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -192,6 +193,19 @@ public class PostController {
 	public List<Tag> getTags(@RequestParam(value = "tag") String tag) {
 		
 		List<Tag> tags = tagService.getTags(tag);
+		
+		return tags;
+	}
+	
+	/**
+	 * @date	: 2018. 6. 16.
+	 * @TODO	: 전체 태그 조회하기 (비동기)
+	 */
+	@RequestMapping(value = "async/allTags", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<Character, List<String>> getTotalTags() {
+		
+		Map<Character, List<String>> tags = tagService.getTags();
 		
 		return tags;
 	}

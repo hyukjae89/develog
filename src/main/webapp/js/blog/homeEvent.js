@@ -55,6 +55,10 @@ var homeEvent = homeEvent || (function(){
             home.searchTags(tag);
     });
     
+    homeElements.$totalTagBtn.on('click', function(){
+    	home.getTags();
+    });
+    
     // 포스트 리스트에서 하나의 포스트 클릭
     homeElements.$mainArticleWrap.on('click', '.plPostListItemInner', function(){
 		home.getPost($(this).data('uriId'));

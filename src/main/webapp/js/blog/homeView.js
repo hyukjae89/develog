@@ -237,6 +237,29 @@ var homeView = homeView || (function(){
     	homeElements.$searchTagList.show();
     };
     
+    var _appendTotalTags = function(tags) {
+    	var html = '<div class="total_tags_wrap">';
+
+    	Object.keys(tags).forEach(function(key) {
+    		console.log(key, tags[key]);
+			html += '<div>'
+					+ '<div>' + key + '</div>'
+    		
+    		tags[key].forEach(function(tag){
+    			html += '<div>'
+    					+ '<span class="ttPostTag tt_post_tag" data-tag="' + tag + '">' + tag + '</span>';
+    				 + '</div>';
+    		});
+    		
+    		html += '</div>';
+    	});
+    	
+    	html += '</div>';
+    	
+    	homeElements.$searchTagList.append(html);
+    	homeElements.$searchTagList.show();
+    };
+    
     var _emptyTagList = function() {
     	homeElements.$searchTagList.empty();
     	homeElements.$searchTagList.hide();
@@ -295,6 +318,10 @@ var homeView = homeView || (function(){
     		return;
     	_appendTagList(tags);
     };
+    
+    var _drawTotalTagsView = function(tags) {
+    	_appendTotalTags(tags);
+    };
 
     return {
         drawPostListView : _drawPostListView,
@@ -305,6 +332,7 @@ var homeView = homeView || (function(){
         drawMemberSignInView : _drawMemberSignInView,
         
         drawTagListView : _drawTagListView,
+        drawTotalTagsView : _drawTotalTagsView,
         emptyTagList : _emptyTagList,
         isHiddenTagList : _isHiddenTagList
     };

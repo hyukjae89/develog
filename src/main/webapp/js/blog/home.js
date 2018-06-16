@@ -153,6 +153,19 @@ var home = home || (function(){
 		});
 	};
 	
+	var _getTags = function() {
+		$.ajax({
+			url : "/async/allTags",
+			type : "GET",
+			success : function(tags) {
+				homeView.drawTotalTagsView(tags);
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	};
+	
 	return {
 		getPosts : _getPosts,
 		getPost : _getPost,
@@ -165,7 +178,8 @@ var home = home || (function(){
 		goPostModify : _goPostModify,
 		submitPostModify : _submitPostModify,
 		
-		searchTags : _searchTags
+		searchTags : _searchTags,
+		getTags : _getTags
 	};
 
 })();
