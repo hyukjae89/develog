@@ -256,8 +256,8 @@ var homeView = homeView || (function(){
     	
     	html += '</div>';
     	
-    	homeElements.$searchTagList.append(html);
-    	homeElements.$searchTagList.show();
+    	$('body').append(html);
+    	$('body').css('overflow', 'hidden');
     };
     
     var _emptyTagList = function() {

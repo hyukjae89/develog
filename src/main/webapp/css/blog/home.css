@@ -48,8 +48,13 @@
 }
 
 .total_tags_wrap {
-	text-align: left;
+    position: fixed;
+    top: 0;
+    left: 0;
     line-height: 20px;
+    background-color: white;
+    width: 100%;
+    height: 100%;
 }
 
 .tt_post_tag {
