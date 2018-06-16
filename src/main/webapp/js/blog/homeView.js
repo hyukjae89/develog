@@ -238,7 +238,13 @@ var homeView = homeView || (function(){
     };
     
     var _appendTotalTags = function(tags) {
-    	var html = '<div class="total_tags_wrap">';
+    	var html = '<div id="totalTagsWrap" class="total_tags_wrap">';
+    	
+    	html += '<div class="total_tags_header_wrap">'
+    			+ '<h1>태그 모음</h1>'
+    			+ '<button id="totalTagsWrapCloseBtn" class="total_tags_wrap_close_btn"></button>'
+    		 + '</div>';
+    	html += '<div class="total_tags_content_wrap">';
 
     	Object.keys(tags).forEach(function(key) {
     		console.log(key, tags[key]);
@@ -254,10 +260,16 @@ var homeView = homeView || (function(){
     			 + '</div>';
     	});
     	
-    	html += '</div>';
+    	html 	+= '</div>'
+    		 + '</div>';
     	
     	$('body').append(html);
     	$('body').css('overflow', 'hidden');
+    };
+    
+    var _removeTotaltags = function() {
+    	$('#totalTagsWrap').remove();
+    	$('body').css('overflow', 'auto');
     };
     
     var _emptyTagList = function() {
@@ -332,9 +344,12 @@ var homeView = homeView || (function(){
         drawMemberSignInView : _drawMemberSignInView,
         
         drawTagListView : _drawTagListView,
-        drawTotalTagsView : _drawTotalTagsView,
         emptyTagList : _emptyTagList,
-        isHiddenTagList : _isHiddenTagList
+        isHiddenTagList : _isHiddenTagList,
+        
+        drawTotalTagsView : _drawTotalTagsView,
+        removeTotaltags : _removeTotaltags
+        
     };
 
 })();

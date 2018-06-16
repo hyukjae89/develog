@@ -138,6 +138,11 @@ var homeEvent = homeEvent || (function(){
     	home.getPosts($(this).text());
     });
     
+    // 태그 살펴보기 팝업 닫기 버튼 클릭
+    $('body').on('click', '#totalTagsWrapCloseBtn', function(){
+    	homeView.removeTotaltags();
+    });
+    
     $('body').on('click', function(event){
     	var target = event.target;
 
