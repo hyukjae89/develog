@@ -53,7 +53,7 @@ public class TagServiceImpl implements TagService {
 					tagList = new ArrayList<String>();
 				tagList.add(tag.getName());
 				sortedTags.put(firstChar, tagList);
-			} else if(firstChar >= 0xAC00) {
+			} else {
 	            int uniVal = firstChar - 0xAC00;
 	            int cho = ((uniVal - (uniVal % 28))/28)/21;
 	 
