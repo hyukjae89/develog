@@ -264,12 +264,12 @@ var homeView = homeView || (function(){
     		 + '</div>';
     	
     	$('body').append(html);
-    	$('body').css('overflow', 'hidden');
+    	$('body').css('overflow-y', 'hidden');
     };
     
     var _removeTotaltags = function() {
     	$('#totalTagsWrap').remove();
-    	$('body').css('overflow', 'auto');
+    	$('body').css('overflow-y', 'scroll');
     };
     
     var _emptyTagList = function() {
