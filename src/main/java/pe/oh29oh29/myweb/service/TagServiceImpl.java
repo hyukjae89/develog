@@ -37,11 +37,11 @@ public class TagServiceImpl implements TagService {
 		List<Tag> tags = tagDao.selectTag(example);
 		Map<Character, List<String>> sortedTags = new HashMap<Character, List<String>>();
 		
-		String[] chs = { 
-	        "ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", 
-	        "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", 
-	        "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", 
-	        "ㅋ", "ㅌ", "ㅍ", "ㅎ" 
+		char[] chs = { 
+	        'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 
+	        'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 
+	        'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 
+	        'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ' 
 		};
 		
 		
@@ -61,7 +61,7 @@ public class TagServiceImpl implements TagService {
 	            if (tagList == null)
 					tagList = new ArrayList<String>();
 				tagList.add(tag.getName());
-				sortedTags.put(chs[cho].charAt(0), tagList);
+				sortedTags.put(chs[cho], tagList);
 	        }
 		}
 		
