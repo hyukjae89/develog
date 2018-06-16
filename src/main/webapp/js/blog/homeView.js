@@ -248,8 +248,8 @@ var homeView = homeView || (function(){
 
     	Object.keys(tags).forEach(function(key) {
     		console.log(key, tags[key]);
-			html += '<div>'
-					+ '<div>' + key + '</div>'
+			html += '<div class="total_tags_item">'
+					+ '<div class="total_tags_key">' + key + '</div>'
 					+ '<div>';
     		
     		tags[key].forEach(function(tag){

@@ -143,6 +143,13 @@ var homeEvent = homeEvent || (function(){
     	homeView.removeTotaltags();
     });
     
+    // 태그 살펴보기 팝업에서 태그 클릭
+    $('body').on('click', '.ttPostTag', function(){
+        var tag = $(this).data('tag');
+        home.getPosts(tag);
+        homeView.removeTotaltags();
+    });
+    
     $('body').on('click', function(event){
     	var target = event.target;
 

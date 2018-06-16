@@ -80,6 +80,17 @@
 	margin: 50px auto 120px auto;
 }
 
+.total_tags_item {
+    border-bottom: 1px solid #dfdfdf;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.total_tags_key {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
 .tt_post_tag {
 	display: inline-block;
 	margin: 0px 5px 5px 0px;
