@@ -244,14 +244,14 @@ var homeView = homeView || (function(){
     		console.log(key, tags[key]);
 			html += '<div>'
 					+ '<div>' + key + '</div>'
+					+ '<div>';
     		
     		tags[key].forEach(function(tag){
-    			html += '<div>'
-    					+ '<span class="ttPostTag tt_post_tag" data-tag="' + tag + '">' + tag + '</span>';
-    				 + '</div>';
+    			html += '<span class="ttPostTag tt_post_tag" data-tag="' + tag + '">' + tag + '</span>';
     		});
     		
-    		html += '</div>';
+    		html 	+= '</div>'
+    			 + '</div>';
     	});
     	
     	html += '</div>';
