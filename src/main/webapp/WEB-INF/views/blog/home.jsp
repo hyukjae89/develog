@@ -31,6 +31,13 @@
 <script src="/import/jquery/jquery-3.2.1.min.js"></script>
 <script src="/import/syntaxHighlighter/js/shCore.js"></script>
 <script src="/import/syntaxHighlighter/js/shBrushJava.js"></script>
+<script src="/import/syntaxHighlighter/js/shBrushXml.js"></script>
+<script src="/import/syntaxHighlighter/js/shBrushSql.js"></script>
+<script src="/import/syntaxHighlighter/js/shBrushScript.js"></script>
+<script src="/import/syntaxHighlighter/js/shBrushCss.js"></script>
+<script src="/import/syntaxHighlighter/js/shBrushSass.js"></script>
+<script src="/import/syntaxHighlighter/js/shBrushPython.js"></script>
+<script src="/import/syntaxHighlighter/js/shBrushScala.js"></script>
 <script src="/js/blog/header.js"></script>
 <script src="/js/blog/homeData.js"></script>
 <script src="/js/blog/homeElements.js"></script>
