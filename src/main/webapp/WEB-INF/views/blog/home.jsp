@@ -33,7 +33,7 @@
 <script src="/import/syntaxHighlighter/js/shBrushJava.js"></script>
 <script src="/import/syntaxHighlighter/js/shBrushXml.js"></script>
 <script src="/import/syntaxHighlighter/js/shBrushSql.js"></script>
-<script src="/import/syntaxHighlighter/js/shBrushScript.js"></script>
+<script src="/import/syntaxHighlighter/js/shBrushJScript.js"></script>
 <script src="/import/syntaxHighlighter/js/shBrushCss.js"></script>
 <script src="/import/syntaxHighlighter/js/shBrushSass.js"></script>
 <script src="/import/syntaxHighlighter/js/shBrushPython.js"></script>
