@@ -247,7 +247,6 @@ var homeView = homeView || (function(){
     	html += '<div class="total_tags_content_wrap">';
 
     	Object.keys(tags).forEach(function(key) {
-    		console.log(key, tags[key]);
 			html += '<div class="total_tags_item">'
 					+ '<div class="total_tags_key">' + key + '</div>'
 					+ '<div>';
