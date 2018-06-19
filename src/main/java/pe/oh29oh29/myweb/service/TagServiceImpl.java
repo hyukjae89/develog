@@ -45,10 +45,6 @@ public class TagServiceImpl implements TagService {
 		};
 		
 		for (Tag tag : tags) {
-			System.out.println(tag.getName());
-		}
-		
-		for (Tag tag : tags) {
 			char firstChar = tag.getName().toUpperCase().charAt(0);
 			if ('A' <= firstChar && firstChar <= 'Z') {
 				List<String> tagList = sortedTags.get(firstChar);
