@@ -104,6 +104,22 @@ public class PostServiceImpl implements PostService{
 			nextTagMap.put(nextTags[ord], ord);
 		}
 		
+		for (PostTagRelationView prevTag : prevTags) {
+			if (!nextTagMap.containsKey(prevTag.getTagName())) {
+				// PostTagRelation 삭제
+				PostTagRelationExample postTagRelationExample = new PostTagRelationExample();
+				postTagRelationExample.createCriteria().andPostIdxEqualTo(prevTag.getPostIdx()).andTagIdxEqualTo(prevTag.getTagIdx());
+				postTagRelationDao.deletePostTagRelation(postTagRelationExample);
+				
+				postTagRelationExample.clear();
+				postTagRelationExample.createCriteria().andTagIdxEqualTo(prevTag.getTagIdx());
+				if (postTagRelationDao.countPostTagRelation(postTagRelationExample) == 0) {
+					// Tag 삭제
+					tagDao.deleteTag(prevTag.getTagIdx());
+				}
+			}
+		}
+		
 		for (int ord = 0; ord < nextTags.length; ord++) {
 			String nextTag = nextTags[ord];
 			if (prevTagMap.containsKey(nextTag)) {
@@ -134,22 +150,6 @@ public class PostServiceImpl implements PostService{
 				relation.setTagIdx(tag.getIdx());
 				relation.setOrd(ord);
 				postTagRelationDao.insertPostTagRelation(relation);
-			}
-		}
-		
-		for (PostTagRelationView prevTag : prevTags) {
-			if (!nextTagMap.containsKey(prevTag.getTagName())) {
-				// PostTagRelation 삭제
-				PostTagRelationExample postTagRelationExample = new PostTagRelationExample();
-				postTagRelationExample.createCriteria().andPostIdxEqualTo(prevTag.getPostIdx()).andTagIdxEqualTo(prevTag.getTagIdx());
-				postTagRelationDao.deletePostTagRelation(postTagRelationExample);
-				
-				postTagRelationExample.clear();
-				postTagRelationExample.createCriteria().andTagIdxEqualTo(prevTag.getTagIdx());
-				if (postTagRelationDao.countPostTagRelation(postTagRelationExample) == 0) {
-					// Tag 삭제
-					tagDao.deleteTag(prevTag.getTagIdx());
-				}
 			}
 		}
 	}
