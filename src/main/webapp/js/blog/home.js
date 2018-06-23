@@ -120,6 +120,7 @@ var home = home || (function(){
 				sSkinURI: "/import/smartEditor/SmartEditor2Skin.html",
 				fCreator: "createSEditor2"
 			});
+			$('#ir1').text(post.contents);
 		});
 	};
 
@@ -133,8 +134,8 @@ var home = home || (function(){
 			success : function(uriId) {
 				_getPost(uriId);
 			},
-			error : function(e) {
-				console.log(e);
+			error : function(request,status,error){
+		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
 	};
