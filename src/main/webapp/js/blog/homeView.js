@@ -120,7 +120,7 @@ var homeView = homeView || (function(){
 	    				+ '<form id="pwModifyForm" accept-charset="UTF-8">'
 	                    	+ '<input type="text" id="pwTitle" class="pw_input" name="title" placeholder="제목" value="' + post.title + '">'
 	                    	+ '<input type="text" id="pwDescription" class="pw_input" name="description" placeholder="설명" value="' + post.description + '">'
-	                        + '<textarea id="ir1" rows="10" cols="100" name="contents" class="pw_contents">' + post.contents + '</textarea>'
+	                        + '<textarea id="ir1" rows="10" cols="100" name="contents" class="pw_contents"></textarea>'
 	                        + '<input type="text" id="pwTag" class="pw_input" name="tags" placeholder="태그" value="' + post.tags + '">'
 	                        + '<input type="text" id="pwUriId" class="pw_input pw_uri_id" name="uriId" placeholder="URI ID" maxlength="32" value="' + post.uriId + '">'
                         + '</form>'
