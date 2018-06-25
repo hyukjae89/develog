@@ -19,6 +19,8 @@ public class HomeController {
 	public String home(Model model) {
 		model.addAttribute("jsDir", dir.getJs());
 		model.addAttribute("cssDir", dir.getCss());
+		System.out.println(dir.getJs());
+		System.out.println(dir.getCss());
 		return "blog/home";
 	}
 }
