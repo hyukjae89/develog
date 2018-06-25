@@ -261,8 +261,6 @@
 					<warName>ROOT</warName>
 					<outputDirectory>E:\Jenkins\workspace\oh29oh29</outputDirectory>
 					<!-- <outputDirectory>E:\WAR\develog\${timestamp}</outputDirectory> -->
-					<!-- 난독화 되어 있지 않은 JS, CSS 는 포함시키지 않는다 -->
-					<warSourceExcludes>js/**, css/**</warSourceExcludes>
 				</configuration>
 			</plugin>
 			<!-- MINIFY 설정 -->
@@ -281,7 +279,7 @@
 	
 							<!-- CSS 압축 -->
 							<cssSourceDir>css</cssSourceDir>
-							<cssTargetDir>cssmin</cssTargetDir>
+							<cssTargetDir>css</cssTargetDir>
 							<cssSourceIncludes>
 								<cssSourceInclude>**/*.css</cssSourceInclude>
 							</cssSourceIncludes>
@@ -289,7 +287,7 @@
 							<!-- JS 난독화 -->
 							<jsEngine>CLOSURE</jsEngine>
 							<jsSourceDir>js</jsSourceDir>
-							<jsTargetDir>jsmin</jsTargetDir>
+							<jsTargetDir>js</jsTargetDir>
 							<jsSourceIncludes>
 								<jsSourceInclude>**/*.js</jsSourceInclude>
 							</jsSourceIncludes>		
