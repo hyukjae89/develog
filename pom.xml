@@ -261,8 +261,46 @@
 					<warName>ROOT</warName>
 					<outputDirectory>E:\Jenkins\workspace\oh29oh29</outputDirectory>
 					<!-- <outputDirectory>E:\WAR\develog\${timestamp}</outputDirectory> -->
+					<!-- 난독화 되어 있지 않은 JS, CSS 는 포함시키지 않는다 -->
+					<warSourceExcludes>js/**, css/**</warSourceExcludes>
 				</configuration>
 			</plugin>
+			<!-- MINIFY 설정 -->
+	    	<plugin>
+	    		<groupId>com.samaxes.maven</groupId>
+	    		<artifactId>minify-maven-plugin</artifactId>
+	    		<version>1.7.6</version>
+	    		<executions>
+	    			<execution>
+	    				<id>minify</id>
+	    				<configuration>
+							<charset>utf-8</charset>
+							<skipMerge>true</skipMerge>
+							<skipMinify>${skipMinify}</skipMinify>
+							<nosuffix>true</nosuffix>
+	
+							<!-- CSS 압축 -->
+							<cssSourceDir>css</cssSourceDir>
+							<cssTargetDir>css-min</cssTargetDir>
+							<cssSourceIncludes>
+								<cssSourceInclude>**/*.css</cssSourceInclude>
+							</cssSourceIncludes>
+								
+							<!-- JS 난독화 -->
+							<jsEngine>CLOSURE</jsEngine>
+							<jsSourceDir>js</jsSourceDir>
+							<jsTargetDir>js-min</jsTargetDir>
+							<jsSourceIncludes>
+								<jsSourceInclude>**/*.js</jsSourceInclude>
+							</jsSourceIncludes>		
+							
+	    				</configuration>
+	    				<goals>
+	    					<goal>minify</goal>
+	    				</goals>
+	    			</execution>
+	    		</executions>
+	    	</plugin>
         </plugins>
         <resources>
         	<resource>
@@ -285,6 +323,7 @@
 			<properties>
 				<environment>local</environment>
 				<isSkipTest>true</isSkipTest>
+				<skipMinify>true</skipMinify>
 			</properties>
 		</profile>
 		<profile>
@@ -292,6 +331,7 @@
 			<properties>
 				<environment>real</environment>
 				<isSkipTest>true</isSkipTest>
+				<skipMinify>false</skipMinify>
 			</properties>
 		</profile>
 	</profiles>
