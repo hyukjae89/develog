@@ -281,7 +281,7 @@
 	
 							<!-- CSS 압축 -->
 							<cssSourceDir>css</cssSourceDir>
-							<cssTargetDir>css-min</cssTargetDir>
+							<cssTargetDir>cssmin</cssTargetDir>
 							<cssSourceIncludes>
 								<cssSourceInclude>**/*.css</cssSourceInclude>
 							</cssSourceIncludes>
@@ -289,7 +289,7 @@
 							<!-- JS 난독화 -->
 							<jsEngine>CLOSURE</jsEngine>
 							<jsSourceDir>js</jsSourceDir>
-							<jsTargetDir>js-min</jsTargetDir>
+							<jsTargetDir>jsmin</jsTargetDir>
 							<jsSourceIncludes>
 								<jsSourceInclude>**/*.js</jsSourceInclude>
 							</jsSourceIncludes>		
