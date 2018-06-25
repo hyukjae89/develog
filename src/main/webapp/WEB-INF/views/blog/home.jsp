@@ -4,10 +4,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>oh29oh29 기술블로그</title>
-	<link href="/css/base.css" rel="stylesheet">
-	<link href="/css/blog/header.css" rel="stylesheet">
-	<link href="/css/blog/home.css" rel="stylesheet">
-	<link href="/css/blog/footer.css" rel="stylesheet">
+	<link href="/${cssDir}/base.css" rel="stylesheet">
+	<link href="/${cssDir}/blog/header.css" rel="stylesheet">
+	<link href="/${cssDir}/blog/home.css" rel="stylesheet">
+	<link href="/${cssDir}/blog/footer.css" rel="stylesheet">
  	<link href="/import/syntaxHighlighter/css/shCore.css" rel="stylesheet">
 	<link href="/import/syntaxHighlighter/css/shThemeEclipse.css" rel="stylesheet">
 </head>
@@ -38,12 +38,12 @@
 <script src="/import/syntaxHighlighter/js/shBrushSass.js"></script>
 <script src="/import/syntaxHighlighter/js/shBrushPython.js"></script>
 <script src="/import/syntaxHighlighter/js/shBrushScala.js"></script>
-<script src="/js/blog/header.js"></script>
-<script src="/js/blog/homeData.js"></script>
-<script src="/js/blog/homeElements.js"></script>
-<script src="/js/blog/homeView.js"></script>
-<script src="/js/blog/home.js"></script>
-<script src="/js/blog/homeEvent.js"></script>
+<script src="/${jsDir}/blog/header.js"></script>
+<script src="/${jsDir}/blog/homeData.js"></script>
+<script src="/${jsDir}/blog/homeElements.js"></script>
+<script src="/${jsDir}/blog/homeView.js"></script>
+<script src="/${jsDir}/blog/home.js"></script>
+<script src="/${jsDir}/blog/homeEvent.js"></script>
 <script>
 <c:choose>
 	<c:when test="${view == 'read'}">
