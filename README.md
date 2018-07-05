@@ -1,5 +1,5 @@
 # develog
-<a target="_blank" href="http://oh29oh29.pe.kr">http://oh29oh29.pe.kr</a>
+<a target="_blank()" href="http://oh29oh29.pe.kr">http://oh29oh29.pe.kr</a>
 <p>기술 학습, 트러블 슈팅, IT 트렌드 등 개발자로서 필요한 내용 작성을 목적으로 개발</p>
 <p>기획부터 설계, 코딩, 테스트, 배포, 운영까지 경험해볼 수 있었던 프로젝트</p>
 <br>
